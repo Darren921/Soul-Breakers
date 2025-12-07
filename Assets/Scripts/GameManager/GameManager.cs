@@ -239,13 +239,19 @@ public class GameManager : MonoBehaviour
     {
         players[0].GetComponent<Rigidbody>().isKinematic = true;
         players[1].GetComponent<Rigidbody>().isKinematic = true;
+        
+        
         yield return new WaitForSeconds(18);
         UIAnim.Play("slide in");
+        players[0].GetComponent<Animator>().Play("newtransition");
+        players[1].GetComponent<Animator>().Play("newtransition");
         yield return new WaitForSeconds(1);
         UIAnim.Play("Countdown");
+        
         yield return new WaitForSeconds(1.5f);
         players[0].GetComponent<Rigidbody>().isKinematic = false;
         players[1].GetComponent<Rigidbody>().isKinematic = false;
+        
         StartCoroutine(StartTimer());
     }
    
