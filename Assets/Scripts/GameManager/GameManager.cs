@@ -22,10 +22,11 @@ public class GameManager : MonoBehaviour
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
    [SerializeField] private GameObject GameOverScreen;
-   [SerializeField] private Sprite _p1WinSprite, _p2WinSprite; 
+   [SerializeField] private Sprite _p1WinSprite, _p2WinSprite, _drawSprite; 
    [SerializeField] private Image WinSplashScreen;
    [SerializeField] private Button restartButton;
-
+   private PlayerController _winner; 
+   
    #endregion
  
     #region Round Timer
@@ -127,9 +128,10 @@ public class GameManager : MonoBehaviour
 
     private void DisplayEndScreen()
     {
-        var winner = players.FirstOrDefault(player => !player.isDead);
+        _winner = players.FirstOrDefault(player => !player.isDead);
+        if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
+        WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite; 
         GameOverScreen.gameObject.SetActive(true);
-        WinSplashScreen.sprite = winner == players[0] ? _p1WinSprite : _p2WinSprite;
        if(UIController.instance) UIController.instance?.SelectObject(restartButton);
         Time.timeScale = 0;
     }

@@ -39725,7 +39725,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.71666664
-    functionName: SetAttacking
+    functionName: ResetAttackingTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

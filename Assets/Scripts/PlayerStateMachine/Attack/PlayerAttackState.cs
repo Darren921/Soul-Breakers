@@ -12,12 +12,13 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        Debug.Log("Entered attack state");
         if (player.Animator.GetBool(player.Idle))
         {
             player.Animator.SetBool(player.Idle, false);
         }
-//           Debug.Log(lastMove); 
-//           Debug.Log(lastAttack);
+          Debug.Log(lastMove); 
+          Debug.Log(player.InputReader.LastAttackInput);
     }
 
 

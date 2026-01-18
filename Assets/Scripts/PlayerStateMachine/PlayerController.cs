@@ -364,12 +364,19 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type ,int AnimatorHash  )
     {
         PlayerAttackAction?.Invoke(type);
-        if (OnAttackCoolDown || IsAttacking || !context.performed) return;
-        IsAttacking = true;
-        Animator?.SetTrigger(Attacking);
         Animator?.SetTrigger(AnimatorHash);
+        if (OnAttackCoolDown || IsAttacking || !context.performed) return;
+        SetAttackVars();
+        
+
     }
-  
+
+    private void SetAttackVars()
+    {
+        Debug.Log("Set Attacking");
+        Animator?.SetBool(Attacking,true);
+        IsAttacking = true;    }
+
     public void SetFrictionBox(bool value)
     {
         FrictionBox.enabled = value;
@@ -453,11 +460,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         //This may need to change to separate ones for each attack
         // This is used at the end of each animation 
         IsAttacking = false;
+        print("Reset attacking trigger");
         Animator?.ResetTrigger(StartUp);
         Animator?.ResetTrigger(Attacking);
-        Animator?.ResetTrigger(Light);
-        Animator?.ResetTrigger(Medium);
-        Animator?.ResetTrigger(Heavy);
+        Animator?.SetBool(Light,false);
+        Animator?.SetBool(Medium,false);
+        Animator?.SetBool(Heavy,false);
         Animator?.SetBool(left, false);
         Animator?.SetBool(right, false);
         Animator?.SetBool(Active,false);

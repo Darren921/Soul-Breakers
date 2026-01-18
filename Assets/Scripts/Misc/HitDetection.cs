@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class HitDetection : MonoBehaviour, IDamageable
 {
+    private static readonly int Grab = Animator.StringToHash("Grab");
+    private static readonly int Grabbed = Animator.StringToHash("Grabbed");
     private PlayerController _player;
     [SerializeField] internal PlayerController otherPlayer;
     
@@ -39,8 +41,22 @@ public class HitDetection : MonoBehaviour, IDamageable
 
     private void TakeDamageSwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
-        _player._playerStateManager.SwitchState(newState);
-        _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+        if (otherPlayer.InputReader.LastAttackInput.Type != InputReader.AttackType.Grab)
+        {
+            _player._playerStateManager.SwitchState(newState);
+            _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+        }
+        else
+        {
+            // This is temp
+            otherPlayer.Animator.SetBool(Grab, true);
+            _player.Animator.GetBool(Grabbed);
+
+            // _player._playerStateManager.SwitchState(newState);
+            // _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+        }
+     
+   
     }
 
     private bool CheckBlocking()

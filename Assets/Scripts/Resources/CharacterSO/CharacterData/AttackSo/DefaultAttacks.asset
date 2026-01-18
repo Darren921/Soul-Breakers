@@ -106,3 +106,21 @@ MonoBehaviour:
     Knockback: 5
     HitStun: 0.1
     BlockStun: 0
+  - Attack:
+      Move: 3
+      Type: 3
+    Tag: 1
+    State: 0
+    Damage: 5
+    Knockback: 5
+    HitStun: 0.1
+    BlockStun: 0
+  - Attack:
+      Move: 4
+      Type: 3
+    Tag: 1
+    State: 0
+    Damage: 5
+    Knockback: 5
+    HitStun: 0.1
+    BlockStun: 0

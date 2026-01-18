@@ -197,7 +197,7 @@ public class InputReader : MonoBehaviour
         
         foreach (var flag in activeFlags)
         {
-            Debug.Log(flag.ToString());
+//            Debug.Log(flag.ToString());
             if (Attackpriority.TryGetValue(flag, out var priority) &&  priority > priorityAttack)
             {
                 priorityAttack = priority;
@@ -209,7 +209,7 @@ public class InputReader : MonoBehaviour
             Debug.LogError("Attack priority unknown");
         }
 
-        Debug.Log(output.ToString());
+//        Debug.Log(output.ToString());
         return output;
         
     } 
@@ -266,7 +266,9 @@ public class InputReader : MonoBehaviour
 
     private Attack ReturnAttack(AttackType attackType, MovementInputResult movementInput)
     {
-        return new Attack(attackType, movementInput);
+        var attack = new Attack(attackType, movementInput);
+        Debug.Log("Attack");
+        return attack;
 
     }
 
