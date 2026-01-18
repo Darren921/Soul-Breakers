@@ -364,7 +364,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type ,int AnimatorHash  )
     {
         PlayerAttackAction?.Invoke(type);
-        Animator?.SetTrigger(AnimatorHash);
+        if(!OnAttackCoolDown)Animator?.SetTrigger(AnimatorHash);
         if (OnAttackCoolDown || IsAttacking || !context.performed) return;
         SetAttackVars();
         
@@ -375,7 +375,8 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     {
         Debug.Log("Set Attacking");
         Animator?.SetBool(Attacking,true);
-        IsAttacking = true;    }
+        IsAttacking = true;    
+    }
 
     public void SetFrictionBox(bool value)
     {
