@@ -16,7 +16,7 @@ public class PlayerWalkingState : PlayerMovingState
     {
         var velocity = new Vector3(player.PlayerMove.x * MoveSpeed, player.rb.linearVelocity.y);
         player.rb.linearVelocity = velocity;
-        if (!player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")) return;
+        if (!player.Animations.Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")) return;
         switch (player.rb.linearVelocity.x)
         {
             case < 0 when player.Reversed:
@@ -35,7 +35,7 @@ public class PlayerWalkingState : PlayerMovingState
                 break;
         }
 
-        player.Animator.SetFloat(player.WalkDir, temp);
+        player.Animations.Animator.SetFloat(player.Animations.WalkDir, temp);
 
 
     }

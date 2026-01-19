@@ -26,7 +26,7 @@ public class PlayerJumpingState : PlayerBaseState
         player.JumpCharges = player.CharacterData.jumpCharges;
         //apply jump immediately when entering state to prevent update glitches   
         collider = player.GetComponent<Collider>();
-        player.Animator.SetBool(player.Jump, true);
+        player.Animations.Animator.SetBool(player.Animations.Jump, true);
         TryJump(player);       
         player.JumpCharges--;
         player.OnJump += HandleJumpInput; 
@@ -49,10 +49,10 @@ public class PlayerJumpingState : PlayerBaseState
         switch (player.IsGrounded)
         {
             case true:
-                player.Animator.SetBool(player.Jump, false);
+                player.Animations.Animator.SetBool(player.Animations.Jump, false);
                 break;
             case false:
-                player.Animator.SetBool(player.Jump, true);
+                player.Animations.Animator.SetBool(player.Animations.Jump, true);
                 break;
         }
         
@@ -68,7 +68,7 @@ public class PlayerJumpingState : PlayerBaseState
             if (player.JumpCharges > 0 && doubleJumpReady && jumpTriggered)
             {
                 Debug.Log("Double Jumpped");
-                player.Animator.SetBool(player.Jump, true);
+                player.Animations.Animator.SetBool(player.Animations.Jump, true);
                 doubleJumpReady = false;
                 player.JumpCharges--;
                 TryJump(player);
@@ -136,7 +136,7 @@ public class PlayerJumpingState : PlayerBaseState
         //     player.gravityManager.ResetVelocity();
         // }
 
-        player.Animator.SetBool(player.Jump, false);
+        player.Animations.Animator.SetBool(player.Animations.Jump, false);
      if(player.IsGrounded)   player.GravityManager.ResetVelocity();
         xJumpVal = 0f;
         atJumpHeight = false;

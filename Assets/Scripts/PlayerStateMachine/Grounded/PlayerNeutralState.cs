@@ -27,7 +27,7 @@ public class PlayerNeutralState : PlayerBaseState
         //Idle state starts animations (TBA)
         yield return new WaitForSeconds(3f);
     //    Debug.Log("Idle");
-        player.Animator.SetBool(player.Idle,true);
+        player.Animations.Animator.SetBool(player.Animations.Idle,true);
     } 
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager,PlayerController player)
@@ -47,7 +47,7 @@ public class PlayerNeutralState : PlayerBaseState
         {
             player.StopCoroutine(_idleCoroutine);
             _idleCoroutine = null;
-            player.Animator.SetBool(player.Idle,false);
+            player.Animations.Animator.SetBool(player.Animations.Idle,false);
 
         }        
 

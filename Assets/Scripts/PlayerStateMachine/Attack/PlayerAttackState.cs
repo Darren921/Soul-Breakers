@@ -13,9 +13,9 @@ public class PlayerAttackState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log("Entered attack state");
-        if (player.Animator.GetBool(player.Idle))
+        if (player.Animations.Animator.GetBool(player.Animations.Idle))
         {
-            player.Animator.SetBool(player.Idle, false);
+            player.Animations.Animator.SetBool(player.Animations.Idle, false);
         }
           Debug.Log(lastMove); 
           Debug.Log(player.InputReader.LastAttackInput);
@@ -26,7 +26,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         player.IsGrounded = player.GravityManager.CheckGrounded(player);
 
-        player.Animator.SetBool(player.airborne, !player.IsGrounded);
+        player.Animations.Animator.SetBool(player.Animations.airborne, !player.IsGrounded);
 
 //        Debug.Log(player.Rb.linearVelocity); 
 
@@ -44,10 +44,10 @@ public class PlayerAttackState : PlayerBaseState
         if (player.IsAttacking && !player.AtDashHeight && player.InputReader.curState == AttackData.States.Jumping)
         {
             
-            player.Animator.speed = 0;
-            player.ResetAttackingTrigger();
-            player.Animator.Play("Neutral", 0, 0f); 
-            player.Animator.speed = 1;
+            player.Animations.Animator.speed = 0;
+            player.Animations.ResetAttackingTrigger();
+            player.Animations.Animator.Play("Neutral", 0, 0f); 
+            player.Animations.Animator.speed = 1;
 
         }
 
@@ -73,11 +73,11 @@ public class PlayerAttackState : PlayerBaseState
         {
             case InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.UpRight
                 or InputReader.MovementInputResult.DownRight:
-                player.Animator.SetBool(player.right, true);
+                player.Animations.Animator.SetBool(player.Animations.right, true);
                 break;
             case InputReader.MovementInputResult.Forward or InputReader.MovementInputResult.UpLeft
                 or InputReader.MovementInputResult.DownLeft:
-                player.Animator.SetBool(player.left, true);
+                player.Animations.Animator.SetBool(player.Animations.left, true);
                 break;
             case InputReader.MovementInputResult.None:
                 break;
@@ -109,6 +109,6 @@ public class PlayerAttackState : PlayerBaseState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.GravityManager.ResetVelocity();
-        player.ResetAttackingTrigger();
+        player.Animations.ResetAttackingTrigger();
     }
 }

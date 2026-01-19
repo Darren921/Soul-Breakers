@@ -6,41 +6,12 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 {
 
-
-    #region Animator Hashed variables
-
-    internal readonly int Idle = Animator.StringToHash("Idle");
-    private readonly int Walking = Animator.StringToHash("Walking");
-    private readonly int Running = Animator.StringToHash("Running");
-    internal readonly int Jump = Animator.StringToHash("Jumping");
-    private readonly int Crouch = Animator.StringToHash("Crouching");
-    internal readonly int Dashing = Animator.StringToHash("Dashing");
-    internal readonly int AirDashing = Animator.StringToHash("Dashing");
-
-    private int Attacking => Animator.StringToHash("Attacking");
-    private int Light => Animator.StringToHash("Light");
-    private int Heavy => Animator.StringToHash("Heavy");
-    private int Medium => Animator.StringToHash("Medium");
-    private int Special => Animator.StringToHash("Special");
-    
-    internal int left = Animator.StringToHash("Left");
-    internal int right = Animator.StringToHash("Right");
-    internal int airborne = Animator.StringToHash("Airborne");
-    internal int blocking = Animator.StringToHash("Blocking");//NEW, FOR BLOCKING
-    private int StartUp = Animator.StringToHash("StartUp");
-    private int Active = Animator.StringToHash("Active");
-    private int Recovery = Animator.StringToHash("Recovery");
-    internal readonly int WalkDir = Animator.StringToHash("WalkDir");
-
-    #endregion
-
     #region Class references
-
+    public  PlayerAnimations Animations { get; private set; }
     private Controls _controls;
     private Controls.PlayerActions _playerActions;
     internal InputReader InputReader;
    [SerializeField] internal CharacterSO CharacterData;
-    internal Animator Animator;
     internal GravityManager GravityManager;
     internal HitDetection PlayerHitDetection;
     internal PlayerKnockBack PlayerKnockBack;
@@ -48,7 +19,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     #endregion
     
-
     #region Crouching and Dashing variables
 
     [SerializeReference]  internal bool IsCrouching;
@@ -64,9 +34,8 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     
     #region Attack Check Variables
 
-    [field: SerializeField] public bool IsAttacking { get; private set; }
+    [field: SerializeField] public bool IsAttacking { get; internal set; }
     [field: SerializeField]  public bool OnAttackCoolDown { get; set; }
-    [field: SerializeField]  public bool IsActiveFrame{get; private set;}
     
     public bool IsBeingAttacked;//NEW, FOR BLOCKING, idk where else to put this
 
@@ -120,6 +89,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     private void Awake()
     {
+        Animations = GetComponent<PlayerAnimations>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
         IsGrounded = true;
@@ -135,7 +105,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         _playerStateManager = GetComponent<PlayerStateManager>();
         GravityManager = GetComponent<GravityManager>();
         InputReader = GetComponent<InputReader>();
-        Animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -250,23 +219,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     private void Update()
     {
         // sets animator booleans
-        Animator?.SetBool(airborne, !IsGrounded);
-        
-        switch (IsGrounded)
-        {
-            case true:
-               Animator?.SetBool(Crouch, IsCrouching);
-               Animator?.SetBool(Walking, IsWalking);
-               Animator?.SetBool(Running, IsRunning);
-                break;
-            case false:
-               Animator?.SetBool(Crouch, false);
-               Animator?.SetBool(Walking, false);
-               Animator?.SetBool(Running, false);
-               SetFrictionBox(false);
-                break;
-        }
-        if (Animator) IsActiveFrame = Animator.GetBool(Active);
+       if(!IsGrounded) SetFrictionBox(false);
         AtDashHeight = !IsGrounded && transform.localPosition.y > MinDashHeight;
 
     }
@@ -328,17 +281,17 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     
     public void OnLight(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Light, Light);
+        ReadAttackInput(context, InputReader.AttackType.Light, Animations.Light);
     }
     
     public void OnMedium(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context,InputReader.AttackType.Medium,Medium);
+        ReadAttackInput(context,InputReader.AttackType.Medium,Animations.Medium);
     }
 
     public void OnHeavy(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Heavy, Heavy);
+        ReadAttackInput(context, InputReader.AttackType.Heavy, Animations.Heavy);
     }
     
     public void OnSpecial(InputAction.CallbackContext context)
@@ -364,7 +317,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type ,int AnimatorHash  )
     {
         PlayerAttackAction?.Invoke(type);
-        if(!OnAttackCoolDown)Animator?.SetTrigger(AnimatorHash);
+        if(!OnAttackCoolDown) Animations.Animator?.SetTrigger(AnimatorHash);
         if (OnAttackCoolDown || IsAttacking || !context.performed) return;
         SetAttackVars();
         
@@ -374,7 +327,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     private void SetAttackVars()
     {
         Debug.Log("Set Attacking");
-        Animator?.SetBool(Attacking,true);
+        Animations.Animator?.SetBool(Animations.Attacking,true);
         IsAttacking = true;    
     }
 
@@ -454,50 +407,5 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     #endregion
  
 
-    #region Attack Animations System
-
-    public void ResetAttackingTrigger()
-    {
-        //This may need to change to separate ones for each attack
-        // This is used at the end of each animation 
-        IsAttacking = false;
-        print("Reset attacking trigger");
-        Animator?.ResetTrigger(StartUp);
-        Animator?.ResetTrigger(Attacking);
-        Animator?.SetBool(Light,false);
-        Animator?.SetBool(Medium,false);
-        Animator?.SetBool(Heavy,false);
-        Animator?.SetBool(left, false);
-        Animator?.SetBool(right, false);
-        Animator?.SetBool(Active,false);
-    }
-
-    public void SetUpStartupFrame()
-    {
-        Animator?.SetBool(StartUp,true);
-        
-    }
-
-    public void SetUpActiveFrame()
-    {
-        Animator?.SetBool(Active,true);
-        Animator?.SetBool(StartUp,false);
-
-    }
-
-    public void SetUpRecoveryFrame()
-    {
-        
-        Animator?.SetBool(Recovery,true);
-        Animator?.SetBool(Active,false);
-
-    }
-
-    public void ResetRecoveryFrame()
-    {
-        Animator?.SetBool(Recovery,false);
-    }
-
-    #endregion
-   
+  
 }

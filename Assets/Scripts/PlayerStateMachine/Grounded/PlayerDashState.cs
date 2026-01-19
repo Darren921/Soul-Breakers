@@ -15,7 +15,7 @@ public class PlayerDashState : PlayerMovingState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log("Entering Dash State");
-        player. Animator?.SetTrigger(player.Dashing);
+        player.Animations. Animator?.SetTrigger(player.Animations.Dashing);
         GetDashValues(player);
         SetUpDash(player);
         player.StartCoroutine(Dash(player));
@@ -87,7 +87,7 @@ public class PlayerDashState : PlayerMovingState
             _dashCoroutine = null;
         }
         player.IsDashing = false;
-        player.Animator.ResetTrigger(player.Dashing);
+        player.Animations.Animator.ResetTrigger(player.Animations.Dashing);
         Debug.Log("PlayerDashState ExitState");
     }
 }

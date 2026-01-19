@@ -3,7 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerAirDashState : PlayerDashState
 {
-    private  readonly int DashingDir1 = Animator.StringToHash("DashDir");
     [field: SerializeField] private int _airDashCharges;
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
@@ -32,16 +31,16 @@ public class PlayerAirDashState : PlayerDashState
 
         if (!player.Reversed)
         {
-            player.Animator.SetFloat(DashingDir1,DashDir == Vector3.left  ? 0 : 1 );  
+            player.Animations.Animator.SetFloat(player.Animations.DashDir,DashDir == Vector3.left  ? 0 : 1 );  
         }
         else
         {
-            player.Animator.SetFloat(DashingDir1,DashDir == Vector3.left  ? 1 : 0);
+            player.Animations.Animator.SetFloat(player.Animations.DashDir,DashDir == Vector3.left  ? 1 : 0);
         }
      
         
         
-        player. Animator?.SetTrigger(player.AirDashing);
+        player. Animations.Animator?.SetTrigger(player.Animations.AirDashing);
         GetDashValues(player);
         
         // Debug.Log(DashDir);
@@ -100,6 +99,6 @@ public class PlayerAirDashState : PlayerDashState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.IsDashing = false;
-        player.Animator.ResetTrigger(player.Dashing);
+        player.Animations.Animator.ResetTrigger(player.Animations.Dashing);
     }
 }

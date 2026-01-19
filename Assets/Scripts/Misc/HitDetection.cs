@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class HitDetection : MonoBehaviour, IDamageable
 {
-    private static readonly int Grab = Animator.StringToHash("Grab");
-    private static readonly int Grabbed = Animator.StringToHash("Grabbed");
+    
     private PlayerController _player;
     [SerializeField] internal PlayerController otherPlayer;
     
@@ -25,7 +24,7 @@ public class HitDetection : MonoBehaviour, IDamageable
     private void OnTriggerStay(Collider other)
     {
     
-        if (other.gameObject.CompareTag("HitBox") && otherPlayer.IsActiveFrame && other.gameObject.activeInHierarchy && !otherPlayer.HitStun)
+        if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !otherPlayer.HitStun)
         {
             if (_hit) return;
             _hit = true;
@@ -48,11 +47,12 @@ public class HitDetection : MonoBehaviour, IDamageable
         }
         else
         {
-            // This is temp
-            otherPlayer.Animator.SetBool(Grab, true);
-            _player.Animator.GetBool(Grabbed);
+            // This is temp and 
+            otherPlayer.Animations.Animator.SetBool(_player.Animations.Grab, true);
+            _player.Animations.Animator.SetBool(_player.Animations.Grabbed,true);
+             _player._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
+             otherPlayer._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
 
-            // _player._playerStateManager.SwitchState(newState);
             // _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
         }
      

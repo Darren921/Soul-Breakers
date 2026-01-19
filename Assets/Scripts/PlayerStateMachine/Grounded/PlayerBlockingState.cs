@@ -14,7 +14,7 @@ public class PlayerBlockingState : PlayerBaseState
     {
         Debug.Log("Blocked state triggered");
         
-        player.Animator.SetBool(player.blocking, true);
+        player.Animations.Animator.SetBool(player.Animations.blocking, true);
         
         player.rb.linearVelocity = Vector3.zero;
         
@@ -48,7 +48,7 @@ public class PlayerBlockingState : PlayerBaseState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (_blockCoroutine != null) player.StopCoroutine(_blockCoroutine);
-        player.Animator.SetBool(player.blocking, false);
+        player.Animations.Animator.SetBool(player.Animations.blocking, false);
         player.PlayerHitDetection._hit = false;
     }
 }

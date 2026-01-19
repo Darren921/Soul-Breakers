@@ -28,7 +28,8 @@ public class PlayerStateManager : MonoBehaviour
         Dash = 1 << 7,
         AirDash = 1 << 8,
         HitStun = 1 << 9,
-        Blocking = 1 << 10, //NEW, FOR BLOCKING
+        Blocking = 1 << 10,
+        Grab = 1 << 11,
     }
 
  
@@ -53,6 +54,7 @@ public class PlayerStateManager : MonoBehaviour
             States[PlayerStateTypes.Running],
             States[PlayerStateTypes.Neutral],
             States[PlayerStateTypes.Dash],
+            States[PlayerStateTypes.Grab],
         };
         CrouchingStates = new[]
         {
@@ -69,13 +71,14 @@ public class PlayerStateManager : MonoBehaviour
             { PlayerStateTypes.Crouching, new PlayerCrouchingState() },
             { PlayerStateTypes.Jumping, new PlayerJumpingState() },
             { PlayerStateTypes.Walking, new PlayerWalkingState() },
-            { PlayerStateTypes.Running, new PlayerRunningState() }, /////
+            { PlayerStateTypes.Running, new PlayerRunningState() }, 
             { PlayerStateTypes.Attack, new PlayerAttackState() },
             { PlayerStateTypes.CrouchMove, new PlayerCrouchMoveState() },
             { PlayerStateTypes.Dash, new PlayerDashState() },
             { PlayerStateTypes.AirDash, new PlayerAirDashState() },
             { PlayerStateTypes.HitStun, new PlayerHitStunState() },
-            { PlayerStateTypes.Blocking, new PlayerBlockingState() }, //NEW, FOR BLOCKING
+            { PlayerStateTypes.Blocking, new PlayerBlockingState() },
+            { PlayerStateTypes.Grab, new PlayerGrabState() }
         };
     }
 

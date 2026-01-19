@@ -31,8 +31,8 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (player.HitStun) player.Animator.SetBool(Hit, true);
-        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.IsActiveFrame) playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking);
+        if (player.HitStun) player.Animations.Animator.SetBool(Hit, true);
+        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame) playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking);
     }
 
 
@@ -44,7 +44,7 @@ public class PlayerHitStunState : PlayerBaseState
     {
 //        Debug.Log("Exit State");
         player.PlayerHitDetection._hit = false;
-        player.Animator.SetBool(Hit,false);
+        player.Animations.Animator.SetBool(Hit,false);
     }
     
     
@@ -62,17 +62,17 @@ public class PlayerHitStunState : PlayerBaseState
     }
     private static float SetHitStun(PlayerController player)
     {
-        var originalSpeed = player.Animator.speed;
+        var originalSpeed = player.Animations.Animator.speed;
         player.OnDisablePlayer();
         player.HitStun = true;
-        player.Animator.speed = 0;
+        player.Animations.Animator.speed = 0;
         return originalSpeed;
     }
 
     private static void DisableHitStun(PlayerController player, float originalSpeed)
     {
         player.OnEnablePlayer();
-        player.Animator.speed = originalSpeed;
+        player.Animations.Animator.speed = originalSpeed;
         player.HitStun = false;
     }
 

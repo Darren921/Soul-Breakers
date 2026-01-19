@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var player in players)
         {
-            if(player.Animator is not null)  player.Animator.enabled = false;
+            if(player.Animations.Animator is not null)  player.Animations.Animator.enabled = false;
             player.hitBox.SetActive(false);
             if (player.isDead)
             {
