@@ -60,7 +60,7 @@ public class UIController : MonoBehaviour
         }
 
         var nullCheck = CheckForNextTarget();
-        if (!nullCheck && LastselectedObject) ;
+        if (!nullCheck && LastselectedObject) 
         {
 //                print("Other target found");
 

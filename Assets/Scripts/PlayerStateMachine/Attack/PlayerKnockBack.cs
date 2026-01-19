@@ -5,7 +5,7 @@ public class PlayerKnockBack : MonoBehaviour
 {
     private bool _isBeingKnockedBack;
     private const float KnockBackTime = 0.1f;
-    private float _hitDirectionForce;
+    private Vector3 _hitDirectionForce;
 
     public IEnumerator KnockBackOtherPlayer(PlayerController player)
     {
@@ -14,12 +14,13 @@ public class PlayerKnockBack : MonoBehaviour
 
         var hitDir = ReturnHitDir(player.PlayerHitDetection.otherPlayer);
         _hitDirectionForce = ReturnHitForce(player.PlayerHitDetection.otherPlayer);
-        var hitForce = hitDir * _hitDirectionForce;
+        var hitForce = new Vector3(hitDir.x * _hitDirectionForce.x, _hitDirectionForce.y, 0);
         var elapsedTime = 0f;
         while (elapsedTime < KnockBackTime && player.PlayerHitDetection._hit)
         {
             elapsedTime += Time.fixedDeltaTime;
             player.rb.linearVelocity = hitForce;
+            Debug.Log(player.rb.linearVelocity );
             yield return new WaitForFixedUpdate();
         }
 
@@ -39,12 +40,13 @@ public class PlayerKnockBack : MonoBehaviour
 
         var hitDir = ReturnHitDir(player.PlayerHitDetection.otherPlayer);
         _hitDirectionForce = ReturnHitForce(player);
-        var hitForce = hitDir * _hitDirectionForce;
+        var hitForce = new Vector3(hitDir.x * _hitDirectionForce.x,  _hitDirectionForce.y, 0);
         var elapsedTime = 0f;
         while (elapsedTime < KnockBackTime)
         {
             elapsedTime += Time.fixedDeltaTime;
             player.rb.linearVelocity = hitForce;
+            Debug.Log(player.rb.linearVelocity );
             yield return new WaitForFixedUpdate();
         }
 
@@ -52,7 +54,7 @@ public class PlayerKnockBack : MonoBehaviour
     }
 
 
-    private float ReturnHitForce(PlayerController player)
+    private Vector3 ReturnHitForce(PlayerController player)
     {
         //Depending on the attack type return a knockback force value  (note mod this to add directional values later)
         var hitForceTemp = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput,player.InputReader.curState).Knockback;

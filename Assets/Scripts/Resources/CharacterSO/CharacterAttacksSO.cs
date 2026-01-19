@@ -70,17 +70,23 @@ using UnityEngine.Serialization;
             Standing,
             Jumping, 
             Crouching,
+            Invulnerable,
+        }
+        public enum AttackTags
+        {
+            UnBlockableAir,
+            UnBlockableGround,
         }
 
         public InputReader.Attack Attack;
         public Tags Tag;
         public States State;
         public float Damage;
-        public float Knockback;
+        public Vector3 Knockback;
         public float HitStun;
         public float BlockStun;
         
-        public AttackData( InputReader.Attack attack  , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, float knockback = 0, float hitStun = 0, float blockStun = 0 )
+        public AttackData( InputReader.Attack attack  , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0 )
         {
             Attack = attack;
             Tag = tag;
