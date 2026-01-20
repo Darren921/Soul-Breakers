@@ -120,7 +120,7 @@ public class PlayerJumpingState : PlayerBaseState
     {
         //performing jump and applying custom gravity 
         player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
-        if (!player.IsGrounded && player.gameObject.transform.localPosition.y > 0.1f )
+        if (!player.IsGrounded && player.gameObject.transform.localPosition.y > 0.12f )
         {
             player.GravityManager.ApplyGravity(player);
         }

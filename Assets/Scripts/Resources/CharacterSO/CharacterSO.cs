@@ -1,13 +1,15 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [CreateAssetMenu(fileName = "CharacterSO", menuName = "Scriptable Objects/CharacterSO")]
 public class CharacterSO : ScriptableObject
 {
     public CharacterAttacksSo characterAttacks;
-    public float gravScale;
+    public float normGravScale;
+    public float FallingGravScale;
 
     // All character data is here, add and remove as needed 
     
