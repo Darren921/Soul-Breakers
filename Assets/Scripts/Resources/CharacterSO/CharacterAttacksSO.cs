@@ -12,19 +12,19 @@ using UnityEngine.Serialization;
         public AttackData[] DefaultLightAttacks = {
             new (new InputReader.Attack(InputReader.AttackType.Light)),
             new (new InputReader.Attack(InputReader.AttackType.Light), AttackData.Tags.Low , AttackData.States.Crouching ),
-            new (new InputReader.Attack(InputReader.AttackType.Light), AttackData.Tags.High , AttackData.States.Jumping)
+            new (new InputReader.Attack(InputReader.AttackType.Light), AttackData.Tags.High , AttackData.States.Airborne)
         };
         public AttackData[] DefaultMedAttacks = 
         {
             new (new InputReader.Attack(InputReader.AttackType.Medium)),
             new (new InputReader.Attack(InputReader.AttackType.Medium), AttackData.Tags.Low , AttackData.States.Crouching ),
-            new (new InputReader.Attack(InputReader.AttackType.Medium), AttackData.Tags.High , AttackData.States.Jumping)
+            new (new InputReader.Attack(InputReader.AttackType.Medium), AttackData.Tags.High , AttackData.States.Airborne)
         };
         public AttackData[] DefaultHeavyAttacks = 
         {
             new (new InputReader.Attack(InputReader.AttackType.Heavy)),
             new (new InputReader.Attack(InputReader.AttackType.Heavy), AttackData.Tags.Low , AttackData.States.Crouching ),
-            new (new InputReader.Attack(InputReader.AttackType.Heavy), AttackData.Tags.High , AttackData.States.Jumping)
+            new (new InputReader.Attack(InputReader.AttackType.Heavy), AttackData.Tags.High , AttackData.States.Airborne)
         };
 
         
@@ -68,7 +68,7 @@ using UnityEngine.Serialization;
         public enum States
         {
             Standing,
-            Jumping, 
+            Airborne, 
             Crouching,
             Invulnerable,
         }

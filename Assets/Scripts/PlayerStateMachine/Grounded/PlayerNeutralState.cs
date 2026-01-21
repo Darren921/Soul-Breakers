@@ -36,7 +36,7 @@ public class PlayerNeutralState : PlayerBaseState
         {
             player.GravityManager.ApplyGravity(player);
             
-            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() * 0.25f,0);
+            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
         }
       
     }

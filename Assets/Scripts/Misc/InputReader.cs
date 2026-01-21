@@ -130,7 +130,7 @@ public class InputReader : MonoBehaviour
     private AttackData.States CheckState(PlayerBaseState lastState)
     {
        // Debug.Log(lastState);
-        var state = _player._playerStateManager.AirborneStates.Contains(lastState) ? AttackData.States.Jumping :
+        var state = _player._playerStateManager.AirborneStates.Contains(lastState) ? AttackData.States.Airborne :
             _player._playerStateManager.StandingStates.Contains(lastState) ? AttackData.States.Standing :
             _player._playerStateManager.CrouchingStates.Contains(lastState) ? AttackData.States.Crouching : curState;
       //  Debug.Log(state.ToString());

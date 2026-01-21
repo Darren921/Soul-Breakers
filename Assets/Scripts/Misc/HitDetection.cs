@@ -71,9 +71,9 @@ public class HitDetection : MonoBehaviour, IDamageable
                     if (otherPlayer.InputReader.curState != AttackData.States.Crouching) return true;
                     break;
                 case AttackData.States.Crouching:
-                    if(otherPlayer.InputReader.curState != AttackData.States.Jumping) return true;
+                    if(otherPlayer.InputReader.curState != AttackData.States.Airborne) return true;
                     break;
-                case AttackData.States.Jumping:
+                case AttackData.States.Airborne:
                     return true;
                 default:
                     return false;

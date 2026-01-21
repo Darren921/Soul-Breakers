@@ -30,6 +30,7 @@ public class PlayerStateManager : MonoBehaviour
         HitStun = 1 << 9,
         Blocking = 1 << 10,
         Grab = 1 << 11,
+        KnockDown = 1 << 12,
     }
 
  
@@ -78,7 +79,8 @@ public class PlayerStateManager : MonoBehaviour
             { PlayerStateTypes.AirDash, new PlayerAirDashState() },
             { PlayerStateTypes.HitStun, new PlayerHitStunState() },
             { PlayerStateTypes.Blocking, new PlayerBlockingState() },
-            { PlayerStateTypes.Grab, new PlayerGrabState() }
+            { PlayerStateTypes.Grab, new PlayerGrabState() },
+            { PlayerStateTypes.KnockDown, new PlayerKnockDownState() }
         };
     }
 

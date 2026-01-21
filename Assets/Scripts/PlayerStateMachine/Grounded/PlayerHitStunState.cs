@@ -11,7 +11,8 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //player.CharacterData.
-        player.StartCoroutine(WaitForHitStun(player));
+      if(player.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
+      else player.StartCoroutine(WaitForHitStunAirborne(player));
     }
 
    
@@ -26,18 +27,37 @@ public class PlayerHitStunState : PlayerBaseState
 //        Debug.Log("HitStun complete");
         DisableHitStun(player, originalSpeed);
     }
+    private IEnumerator WaitForHitStunAirborne(PlayerController player)
+    {
+        var originalSpeed = SetHitStun(player);
+        //      Debug.Log("HitStun");
+        yield return new WaitUntil(() => player.IsGrounded);
+//        Debug.Log("HitStun complete");
+        DisableHitStun(player, originalSpeed);
+    } 
 
 
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.HitStun) player.Animations.Animator.SetBool(Hit, true);
-        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame) playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking);
+        if (player.InputReader.curState == AttackData.States.Airborne && player.IsGrounded)
+        {
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.KnockDown);
+        }
+        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame) playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Running);
+        
     }
 
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        if (!player.IsGrounded)
+        {
+            player.GravityManager.ApplyGravity(player);
+            
+            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+        }
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
