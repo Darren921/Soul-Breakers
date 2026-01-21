@@ -41,7 +41,7 @@ public class PlayerAttackState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.HitStun);
         }
 
-        if (player.IsAttacking && !player.AtDashHeight && player.InputReader.curState == AttackData.States.Jumping)
+        if (player.IsAttacking &&  player.transform.position.y < 0.1  && player.InputReader.curState == AttackData.States.Jumping)
         {
             
             player.Animations.Animator.speed = 0;

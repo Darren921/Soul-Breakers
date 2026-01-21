@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         //All character data is added here (future ones must be added here as well)
 
         JumpHeight = CharacterData.jumpHeight;
-        GravScale = CharacterData.gravScale;
+        GravScale = CharacterData.normGravScale;
         WalkSpeed = CharacterData.walkSpeed;
         RunSpeed = CharacterData.runSpeed;
         Health = CharacterData.health;

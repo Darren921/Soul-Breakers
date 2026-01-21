@@ -24,7 +24,8 @@ public class GravityManager : MonoBehaviour
     public void ApplyGravity(PlayerController player)
     {
         //Applies the custom gravity based on grav scale
-        Velocity += Physics.gravity.y   * player.GravScale * Time.fixedDeltaTime;
+        if(Velocity > 0.1f) Velocity += Physics.gravity.y   * player.GravScale * Time.fixedDeltaTime;
+        if (Velocity < 0.1f) Velocity += Physics.gravity.y * player.CharacterData.FallingGravScale * Time.fixedDeltaTime;
     }
 
     public float GetVelocity()

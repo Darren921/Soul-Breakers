@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   characterAttacks: {fileID: 11400000, guid: f6df2f7e50b9e754d8eb994d9bc76b76, type: 2}
-  gravScale: 1.5
+  normGravScale: 5
+  FallingGravScale: 5.25
   health: 100
   characterName: Default
   walkSpeed: 5
