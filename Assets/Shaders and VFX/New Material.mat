@@ -115,20 +115,22 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Edge: 0.86
     - _EnvironmentReflections: 1
     - _Float: 1.19
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MaxBright: 2.03
+    - _LOD: 1.07
+    - _MaxBright: 3.44
     - _Metallic: 0
-    - _MinBright: -0.36
+    - _MinBright: 0.11
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.4
+    - _Shades: 0.47
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -144,9 +146,11 @@ Material:
     - _strength: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}
+    - _ref: {r: 0, g: 0, b: 0, a: 0}
+    - _refEdge: {r: -0.75, g: 0.14, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
