@@ -41,7 +41,6 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.HitStun) player.Animations.Animator.SetBool(Hit, true);
-        player.GravityManager.IsGrounded = player.GravityManager.CheckGrounded(player);
         if (player.InputReader.curState == AttackData.States.Airborne && player.GravityManager.IsGrounded)
         {
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.KnockDown);

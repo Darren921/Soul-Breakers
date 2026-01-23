@@ -17,14 +17,13 @@ public class PlayerAttackState : PlayerBaseState
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
         }
-          Debug.Log(lastMove); 
-          Debug.Log(player.InputReader.LastAttackInput);
+  //        Debug.Log(lastMove); 
+//          Debug.Log(player.InputReader.LastAttackInput);
     }
 
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        player.GravityManager.IsGrounded = player.GravityManager.CheckGrounded(player);
 
         player.Animations.Animator.SetBool(player.Animations.airborne, !player.GravityManager.IsGrounded);
 
@@ -43,12 +42,11 @@ public class PlayerAttackState : PlayerBaseState
 
         if (player.IsAttacking &&  player.GravityManager.IsGrounded  && player.InputReader.curState == AttackData.States.Airborne)
         {
-            
             player.Animations.Animator.speed = 0;
             player.Animations.ResetAttackingTrigger();
             player.Animations.Animator.Play("Neutral", 0, 0f); 
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
             player.Animations.Animator.speed = 1;
-
         }
 
         

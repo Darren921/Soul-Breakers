@@ -69,7 +69,7 @@ public class PlayerAnimations : MonoBehaviour
         //This may need to change to separate ones for each attack
         // This is used at the end of each animation 
         _player.IsAttacking = false;
-        print("Reset attacking trigger");
+//        print("Reset attacking trigger");
         Animator?.ResetTrigger(StartUp);
         Animator?.ResetTrigger(Attacking);
         Animator?.SetBool(Light,false);

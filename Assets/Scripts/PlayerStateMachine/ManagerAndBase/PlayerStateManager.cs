@@ -9,7 +9,7 @@ public class PlayerStateManager : MonoBehaviour
     internal Dictionary<PlayerStateTypes, PlayerBaseState> States;
     public string CurrentStateName => currentState?.GetType().Name;
 
-    [field:SerializeField] public PlayerBaseState currentState { get; private set; }
+    [field:SerializeReference] public PlayerBaseState currentState { get; private set; }
     [field:SerializeField] internal PlayerBaseState lastState { get; private set; }
  
     private PlayerController _player;
