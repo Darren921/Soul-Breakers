@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         PlayerKnockBack = GetComponent<PlayerKnockBack>();
         PlayerHitDetection = GetComponentInChildren<HitDetection>();
         _playerStateManager = GetComponent<PlayerStateManager>();
-        GravityManager = GetComponent<GravityManager>();
+        GravityManager = GetComponentInChildren<GravityManager>();
         InputReader = GetComponent<InputReader>();
         rb = GetComponent<Rigidbody>();
     }
