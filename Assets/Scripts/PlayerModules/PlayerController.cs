@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     [SerializeField] internal float Velocity;
     internal Rigidbody rb;
      [SerializeField] internal InputReader.MovementInputResult DashDir;
-     [SerializeField] internal bool IsGrounded;
      [SerializeField] internal bool SuperJumpActive;
      [SerializeField] internal GameObject hitBox;
      [SerializeField] internal bool JumpPressed;
@@ -92,8 +91,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         Animations = GetComponent<PlayerAnimations>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
-        IsGrounded = true;
-        RaycastDistance = 1.807687f;
+        RaycastDistance = 2F;
         HitDetection.OnDeath += OnPlayerDeath;
     }
 
@@ -201,26 +199,14 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
 
  
-    private void OnCollisionStay(Collision collision)
-    {
-        IsGrounded = GravityManager.CheckGrounded(this);
-        if (!collision.gameObject.CompareTag("Player")) return;
-//        Debug.Log(collision.gameObject.name);
-        if(IsGrounded) SetFrictionBox(true);
-    }
 
-   
-    private void OnCollisionExit(Collision other)
-    {
-        IsGrounded = false;
-        SetFrictionBox(false);
-    }
 
     private void Update()
     {
+        
         // sets animator booleans
-       if(!IsGrounded) SetFrictionBox(false);
-        AtDashHeight = !IsGrounded && transform.localPosition.y > MinDashHeight;
+       if(!GravityManager.IsGrounded) SetFrictionBox(false);
+        AtDashHeight = !GravityManager.IsGrounded && transform.localPosition.y > MinDashHeight;
 
     }
 
@@ -250,11 +236,11 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     }
     public void OnDash(InputAction.CallbackContext context)
     {
-        switch (IsGrounded)
+        switch (GravityManager.IsGrounded)
         {
             case false:
             {
-                if (IsDashing || IsGrounded || JumpCharges == 0 || !AtDashHeight) break;
+                if (IsDashing || GravityManager.IsGrounded || JumpCharges == 0 || !AtDashHeight) break;
                 print("entered dash");
                 PerformDash(true);
                 break;
@@ -271,7 +257,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     public void OnRun(InputAction.CallbackContext context)
     {
      
-        if (context.performed && InputReader.GetValidMoveInput() is not (InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.None or InputReader.MovementInputResult.Down) && IsGrounded && !IsRunning)
+        if (context.performed && InputReader.GetValidMoveInput() is not (InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.None or InputReader.MovementInputResult.Down) && GravityManager.IsGrounded && !IsRunning)
         {
             StartRun();
         }
@@ -363,13 +349,13 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         DashMarcoActive = true;
         switch (context.performed)
         {
-            case true when InputReader.CurrentMoveInput is not (InputReader.MovementInputResult.Forward or InputReader.MovementInputResult.None) && IsGrounded:
+            case true when InputReader.CurrentMoveInput is not (InputReader.MovementInputResult.Forward or InputReader.MovementInputResult.None) && GravityManager.IsGrounded:
                 print("dash back");
                 PerformDash();
                 break;
-            case true when !IsGrounded:
+            case true when !GravityManager.IsGrounded:
                 print("air dash");
-                if (IsDashing || IsGrounded || JumpCharges == 0 || !AtDashHeight) break;
+                if (IsDashing || GravityManager.IsGrounded || JumpCharges == 0 || !AtDashHeight) break;
                 PerformDash(true);
                 break;
             case true:

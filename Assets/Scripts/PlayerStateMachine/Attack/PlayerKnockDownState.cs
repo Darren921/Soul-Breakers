@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerKnockDownState : PlayerBaseState
 {
-    bool getUp ;
     bool complete ;
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
@@ -13,13 +12,11 @@ public class PlayerKnockDownState : PlayerBaseState
 
     private IEnumerator GroundAndGetUp(PlayerController player)
     {
-        player.Animations.Animator.Play("knockDown");
+        player.Animations.Animator.Play("knockDown",0,0f);
         yield return new WaitUntil(() =>player.Animations.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
-        player.Animations.Animator.enabled = false;
-        getUp = true;
-        player.Animations.Animator.enabled = true;
-        player.Animations.Animator.Play("getUp");
+        player.Animations.Animator.Play("getUp",0,0f);
         yield return new WaitUntil(() =>player.Animations.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1);
+        Debug.Log("getUp");
         complete = true;;
 
     }
@@ -39,6 +36,9 @@ public class PlayerKnockDownState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        complete = false;
         player.OnEnablePlayer();
+
+
     }
 }

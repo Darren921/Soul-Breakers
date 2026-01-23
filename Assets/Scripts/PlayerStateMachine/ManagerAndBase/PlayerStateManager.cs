@@ -139,7 +139,7 @@ public class PlayerStateManager : MonoBehaviour
             if (_player.PlayerMove.y > 0)
                 SwitchState(PlayerStateTypes.Jumping);
         if (transitionType.HasFlag(PlayerStateTypes.Neutral))
-            if (_player.PlayerMove == Vector3.zero && _player.IsGrounded)
+            if (_player.PlayerMove == Vector3.zero && _player.GravityManager.IsGrounded)
             {
                 SwitchState(PlayerStateTypes.Neutral); 
             }
@@ -153,7 +153,7 @@ public class PlayerStateManager : MonoBehaviour
                 SwitchState(PlayerStateTypes.Running);
 
         if (transitionType.HasFlag(PlayerStateTypes.Dash))
-            if (_player.IsDashing && _player.IsGrounded && _player.InputReader.GetValidMoveInput() != InputReader.MovementInputResult.Forward)
+            if (_player.IsDashing && _player.GravityManager.IsGrounded && _player.InputReader.GetValidMoveInput() != InputReader.MovementInputResult.Forward)
                 SwitchState(PlayerStateTypes.Dash);
 
         if (transitionType.HasFlag(PlayerStateTypes.Attack))
@@ -165,7 +165,7 @@ public class PlayerStateManager : MonoBehaviour
                 SwitchState(PlayerStateTypes.CrouchMove);
 
         if (transitionType.HasFlag(PlayerStateTypes.Crouching))
-            if (_player.PlayerMove.y < 0 && _player.IsGrounded)
+            if (_player.PlayerMove.y < 0 && _player.GravityManager.IsGrounded)
                 SwitchState(PlayerStateTypes.Crouching);
     }
 

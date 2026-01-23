@@ -70,7 +70,7 @@ public class PlayerDashState : PlayerMovingState
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //grab the last inputs given 
-        if (IsDashing  || !player.IsGrounded) return;
+        if (IsDashing  || !player.GravityManager.IsGrounded) return;
 
     Debug.Log("HEH"); 
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Walking);

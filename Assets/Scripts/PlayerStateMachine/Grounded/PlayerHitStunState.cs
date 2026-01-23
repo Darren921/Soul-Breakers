@@ -11,7 +11,7 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //player.CharacterData.
-      if(player.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
+      if(player.GravityManager.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
       else player.StartCoroutine(WaitForHitStunAirborne(player));
     }
 
@@ -31,7 +31,7 @@ public class PlayerHitStunState : PlayerBaseState
     {
         var originalSpeed = SetHitStun(player);
         //      Debug.Log("HitStun");
-        yield return new WaitUntil(() => player.IsGrounded);
+        yield return new WaitUntil(() => player.GravityManager.IsGrounded);
 //        Debug.Log("HitStun complete");
         DisableHitStun(player, originalSpeed);
     } 
@@ -41,7 +41,8 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.HitStun) player.Animations.Animator.SetBool(Hit, true);
-        if (player.InputReader.curState == AttackData.States.Airborne && player.IsGrounded)
+        player.GravityManager.IsGrounded = player.GravityManager.CheckGrounded(player);
+        if (player.InputReader.curState == AttackData.States.Airborne && player.GravityManager.IsGrounded)
         {
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.KnockDown);
         }
@@ -52,7 +53,7 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (!player.IsGrounded)
+        if (!player.GravityManager.IsGrounded)
         {
             player.GravityManager.ApplyGravity(player);
             

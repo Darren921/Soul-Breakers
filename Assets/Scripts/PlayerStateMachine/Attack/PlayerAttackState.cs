@@ -24,9 +24,9 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        player.IsGrounded = player.GravityManager.CheckGrounded(player);
+        player.GravityManager.IsGrounded = player.GravityManager.CheckGrounded(player);
 
-        player.Animations.Animator.SetBool(player.Animations.airborne, !player.IsGrounded);
+        player.Animations.Animator.SetBool(player.Animations.airborne, !player.GravityManager.IsGrounded);
 
 //        Debug.Log(player.Rb.linearVelocity); 
 
@@ -41,7 +41,7 @@ public class PlayerAttackState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.HitStun);
         }
 
-        if (player.IsAttacking &&  player.IsGrounded  && player.InputReader.curState == AttackData.States.Airborne)
+        if (player.IsAttacking &&  player.GravityManager.IsGrounded  && player.InputReader.curState == AttackData.States.Airborne)
         {
             
             player.Animations.Animator.speed = 0;
@@ -53,7 +53,7 @@ public class PlayerAttackState : PlayerBaseState
 
         
         // State swapping 
-        if (!player.IsGrounded || player.IsAttacking) return;
+        if (!player.GravityManager.IsGrounded || player.IsAttacking) return;
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
 //        Debug.Log(player.gravityManager.GetVelocity());
     }
@@ -95,7 +95,7 @@ public class PlayerAttackState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 
-        if (!player.IsGrounded && player.transform.localPosition.y > 0.1f)
+        if (!player.GravityManager.IsGrounded && player.transform.localPosition.y > 0.1f)
         {
             player.GravityManager.ApplyGravity(player);
             player.rb.linearVelocity = new Vector3( player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);

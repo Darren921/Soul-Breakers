@@ -38,7 +38,7 @@ public class PlayerBlockingState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (!player.IsGrounded)
+        if (!player.GravityManager.IsGrounded)
         {
             player.GravityManager.ApplyGravity(player);
             player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);

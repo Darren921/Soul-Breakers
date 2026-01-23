@@ -46,7 +46,7 @@ public class PlayerJumpingState : PlayerBaseState
     {
         
         // check to see if player is jumping 
-        switch (player.IsGrounded)
+        switch (player.GravityManager.IsGrounded)
         {
             case true:
                 player.Animations.Animator.SetBool(player.Animations.Jump, false);
@@ -60,7 +60,7 @@ public class PlayerJumpingState : PlayerBaseState
     
   
         //Transitioning states 
-        if (!player.IsGrounded)
+        if (!player.GravityManager.IsGrounded)
         {
             if(player.IsDashing && player.AtDashHeight && player.JumpCharges > 0) playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.AirDash);
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack );
@@ -78,7 +78,7 @@ public class PlayerJumpingState : PlayerBaseState
         else
         {
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking );
-            if (!player.IsGrounded)
+            if (!player.GravityManager.IsGrounded)
             {
                 switch (player.InputReader.CurrentMoveInput)
                 {
@@ -120,7 +120,7 @@ public class PlayerJumpingState : PlayerBaseState
     {
         //performing jump and applying custom gravity 
         player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
-        if (!player.IsGrounded && player.gameObject.transform.localPosition.y > 0.12f )
+        if (!player.GravityManager.IsGrounded && player.gameObject.transform.localPosition.y > 0.12f )
         {
             player.GravityManager.ApplyGravity(player);
         }
@@ -137,7 +137,7 @@ public class PlayerJumpingState : PlayerBaseState
         // }
 
         player.Animations.Animator.SetBool(player.Animations.Jump, false);
-     if(player.IsGrounded)   player.GravityManager.ResetVelocity();
+     if(player.GravityManager.IsGrounded)   player.GravityManager.ResetVelocity();
         xJumpVal = 0f;
         atJumpHeight = false;
         jumpTriggered =  false;

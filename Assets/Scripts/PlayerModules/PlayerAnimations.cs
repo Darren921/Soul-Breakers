@@ -43,9 +43,9 @@ public class PlayerAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Animator?.SetBool(airborne, !_player.IsGrounded);
+        Animator?.SetBool(airborne, !_player.GravityManager.IsGrounded);
 
-        switch (_player.IsGrounded)
+        switch (_player.GravityManager.IsGrounded)
         {
             case true:
                 Animator?.SetBool(Crouch,  _player.IsCrouching);

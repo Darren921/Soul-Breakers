@@ -6,18 +6,35 @@ public class GravityManager : MonoBehaviour
     private float Velocity { get; set; }
     private RaycastHit Hit;
     private LayerMask _groundLayerMask;
-
+    private PlayerController _player;
+    [SerializeField] internal bool IsGrounded;
 
     private void Awake()
     {
         _groundLayerMask = LayerMask.GetMask("Ground");
+        _player = GetComponent<PlayerController>();
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        IsGrounded = CheckGrounded(_player);
+        if (!collision.gameObject.CompareTag("Player")) return; 
+        Debug.Log(collision.gameObject.name);
+    }
+
+   
+    private void OnCollisionExit(Collision other)
+    {
+        IsGrounded = false;
+        _player.SetFrictionBox(false);
     }
 
     public bool CheckGrounded(PlayerController player)
     {
         //checks if the player is grounded and updates the related bool 
-        var grounded = Physics.Raycast(player.raycastPos.position, -player.transform.up, out Hit,player.RaycastDistance, _groundLayerMask); 
-        Debug.DrawRay(player.raycastPos.position, -player.transform.up * player.RaycastDistance, Color.red);
+        var grounded = Physics.Raycast(player.raycastPos.position, -player.transform.up, out Hit,player.RaycastDistance, _groundLayerMask);
+   
+        Debug.Log("CheckGrounded");
+        Debug.DrawRay(player.raycastPos.position, -player.transform.up * player.RaycastDistance, Color.red); ;
         return grounded;
     }
 

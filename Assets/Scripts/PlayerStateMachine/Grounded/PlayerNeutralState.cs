@@ -32,7 +32,7 @@ public class PlayerNeutralState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager,PlayerController player)
     {
-        if (!player.IsGrounded)
+        if (!player.GravityManager.IsGrounded)
         {
             player.GravityManager.ApplyGravity(player);
             

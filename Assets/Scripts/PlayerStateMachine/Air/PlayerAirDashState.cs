@@ -77,7 +77,7 @@ public class PlayerAirDashState : PlayerDashState
             player.StartCoroutine(AirDash(player));
         }
 
-        if (player.IsGrounded)
+        if (player.GravityManager.IsGrounded)
         {
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral |
                                                   PlayerStateManager.PlayerStateTypes.Walking);
@@ -89,7 +89,7 @@ public class PlayerAirDashState : PlayerDashState
     {
 //        Debug.Log(player.gravityManager.GetVelocity());
 
-        if (!player.IsGrounded && player.gameObject.transform.localPosition.y > 0.1f && !IsDashing)
+        if (!player.GravityManager.IsGrounded && player.gameObject.transform.localPosition.y > 0.1f && !IsDashing)
         {
             player.GravityManager.ApplyGravity(player);
             player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
