@@ -63,5 +63,6 @@ public class PlayerRunningState : PlayerMovingState
       player.IsRunning = false;          
       Debug.Log(player.rb.linearVelocity);
       player.DecelActive = false;
+      player.SetFrictionBox(false);
     }
 }

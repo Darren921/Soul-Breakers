@@ -315,6 +315,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         Debug.Log("Set Attacking");
         Animations.Animator?.SetBool(Animations.Attacking,true);
         IsAttacking = true;    
+        
     }
 
     public void SetFrictionBox(bool value)
@@ -377,14 +378,13 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     internal IEnumerator DecelerationCurve(PlayerController player)
     {
         Decelerating = true;
-
         while (_elapsedTime < DecelerationDuration && player.DecelActive)
         {
             player.rb.linearVelocity = Vector3.Lerp(player.rb.linearVelocity, new Vector3(0f, 0, 0), DecelerationDuration);
             _elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        player.SetFrictionBox(true);
         Decelerating = false;
         _elapsedTime = 0f;
     }

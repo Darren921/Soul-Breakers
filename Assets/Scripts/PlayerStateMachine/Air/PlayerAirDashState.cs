@@ -67,20 +67,17 @@ public class PlayerAirDashState : PlayerDashState
     {
         //      if(!player.isGrounded ||   isDashing || player.Dashing) return;
 
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack);
         if (_airDashCharges > 0 && player.IsDashing && !IsDashing && player.AtDashHeight)
         {
             //  Debug.Log("PlayerDashState Dash again");
             _airDashCharges--;
             player.GravityManager.ResetVelocity();
-
             player.StartCoroutine(AirDash(player));
         }
 
         if (player.GravityManager.IsGrounded)
         {
-            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral |
-                                                  PlayerStateManager.PlayerStateTypes.Walking);
+            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking);
         }
         // Debug.Log(player.GravityManager.GetVelocity());
     }
@@ -99,6 +96,7 @@ public class PlayerAirDashState : PlayerDashState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.IsDashing = false;
+        player.Animations.ResetAttackingTrigger();
         player.Animations.Animator.ResetTrigger(player.Animations.Dashing);
     }
 }
