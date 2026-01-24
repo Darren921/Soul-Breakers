@@ -18909,7 +18909,7 @@ MonoBehaviour:
   SuperJumpActive: 0
   hitBox: {fileID: 341504900}
   JumpPressed: 0
-  DecelerationDuration: 0.3
+  DecelerationDuration: 0.1
   Decelerating: 0
   _elapsedTime: 0
   DecelActive: 0
@@ -41513,7 +41513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1439645767
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -63379,7 +63379,7 @@ MonoBehaviour:
   SuperJumpActive: 0
   hitBox: {fileID: 833347422}
   JumpPressed: 0
-  DecelerationDuration: 0.7
+  DecelerationDuration: 0.1
   Decelerating: 0
   _elapsedTime: 0
   DecelActive: 0
