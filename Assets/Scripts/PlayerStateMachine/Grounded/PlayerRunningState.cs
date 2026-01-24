@@ -29,10 +29,7 @@ public class PlayerRunningState : PlayerMovingState
     var backWardDir = player.Reversed ? 1 : -1;
     
     
-        Debug.Log( player.DecelActive);
-        Debug.Log(!player.Decelerating);
-        Debug.Log((int)player.PlayerMove.x == backWardDir);
-        Debug.Log(player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward);
+       
         if (player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward &&  (int)player.PlayerMove.x == backWardDir )
         {
             Debug.Log("entered");
