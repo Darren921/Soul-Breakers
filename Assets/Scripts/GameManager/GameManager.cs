@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] internal List<PlayerController> players;
    [SerializeField] private CharacterSODataBase characterDatabase;
    private readonly List<InputDevice> _availableDevices = new (); 
-   private const int MinDistance = 1;
+   private const float MinDistance = 0.1f;
 
     #region Win Screen Setting
    [Header ("Win Screen Settings")]

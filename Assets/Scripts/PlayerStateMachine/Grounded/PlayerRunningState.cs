@@ -26,8 +26,14 @@ public class PlayerRunningState : PlayerMovingState
 
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
 
-    var backWardDir = player.Reversed ? 1f : -1f;
-        if (player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward &&  Mathf.Approximately(player.PlayerMove.x, backWardDir) && !player.Decelerating && player.DecelActive)
+    var backWardDir = player.Reversed ? 1 : -1;
+    
+    
+        Debug.Log( player.DecelActive);
+        Debug.Log(!player.Decelerating);
+        Debug.Log((int)player.PlayerMove.x == backWardDir);
+        Debug.Log(player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward);
+        if (player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward &&  (int)player.PlayerMove.x == backWardDir )
         {
             Debug.Log("entered");
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Walking);
@@ -45,7 +51,7 @@ public class PlayerRunningState : PlayerMovingState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log( !player.DashMarcoActive ? new Vector2(player.PlayerMove.x, 0) :  !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
+//        Debug.Log( !player.DashMarcoActive ? new Vector2(player.PlayerMove.x, 0) :  !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
      
         SetMoveDir( !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
         SmoothMovement();
