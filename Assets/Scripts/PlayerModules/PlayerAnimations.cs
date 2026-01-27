@@ -32,6 +32,7 @@ public class PlayerAnimations : MonoBehaviour
     private PlayerController _player;
     
     public bool IsActiveFrame{get; private set;}
+    public bool IsRecoveryFrame{get; private set;}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,16 +50,18 @@ public class PlayerAnimations : MonoBehaviour
         {
             case true:
                 Animator?.SetBool(Crouch,  _player.IsCrouching);
-                Animator?.SetBool(Walking, _player.IsWalking);
+                if(!_player.Decelerating) Animator?.SetBool(Walking, _player.IsWalking);
                 Animator?.SetBool(Running, _player.IsRunning);
                 break;
             case false:
                 Animator?.SetBool(Crouch, false);
-                Animator?.SetBool(Walking, false);
+                 Animator?.SetBool(Walking, false);
                 Animator?.SetBool(Running, false);
                 break;
         }
         if (Animator) IsActiveFrame = Animator.GetBool(Active);
+        if (Animator) IsRecoveryFrame = Animator.GetBool(Recovery);
+
     }
     
     

@@ -19,11 +19,9 @@ public class GravityManager : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        print(other.gameObject.CompareTag("Ground"));
+//        print(other.gameObject.CompareTag("Ground"));
         IsGrounded = other.gameObject.CompareTag("Ground");
 //        Debug.Log(other.gameObject.tag);
-        if (!other.gameObject.CompareTag("Player")) return;
-        _player.SetFrictionBox(true);
     }
 
     private void OnTriggerExit(Collider other)

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     internal InputReader InputReader;
    [SerializeField] internal CharacterSO CharacterData;
     internal GravityManager GravityManager;
-    internal HitDetection PlayerHitDetection;
+    public HitDetection PlayerHitDetection;
     internal PlayerKnockBack PlayerKnockBack;
     public PlayerStateManager _playerStateManager;
 
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     private void Update()
     {
-        
+        if (InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward && IsRunning) IsRunning = false;   
         // sets animator booleans
        if(!GravityManager.IsGrounded) SetFrictionBox(false);
         AtDashHeight = !GravityManager.IsGrounded && transform.localPosition.y > MinDashHeight;
@@ -261,8 +261,9 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         {
             StartRun();
         }
-        if (!IsRunning || !context.canceled || PlayerMove.x == 0 || _playerStateManager.currentState == _playerStateManager.States[PlayerStateManager.PlayerStateTypes.Running]) return;
-        StopRun(true);
+//        print($"{!IsRunning } {InputReader.GetValidMoveInput()}");
+        if (!IsRunning || InputReader.GetValidMoveInput() is not InputReader.MovementInputResult.Backward) return; 
+        StopRun(false);
     }
     
     public void OnLight(InputAction.CallbackContext context)
@@ -320,6 +321,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     public void SetFrictionBox(bool value)
     {
+        print("Used" + value);
         FrictionBox.enabled = value;
     }
     #region Run/Dash
@@ -332,12 +334,15 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     }
     private void StartRun()
     {
+        if(IsRunning) return;
+        print("Starting run");
         IsRunning = true;
         IsWalking = false;
     }
     private void StopRun(bool startWalk)
     {
         IsRunning = false;
+        print("Stop run");
         if (startWalk) IsWalking = true;
     }
 
@@ -375,21 +380,21 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     }
 
   
-    internal IEnumerator DecelerationCurve(PlayerController player)
+
+    public IEnumerator OnDeceleration(PlayerController player)
     {
         Decelerating = true;
-        while (_elapsedTime < DecelerationDuration && player.DecelActive)
+        while (Decelerating)
         {
-            player.rb.linearVelocity = Vector3.Lerp(player.rb.linearVelocity, new Vector3(0f, 0, 0), DecelerationDuration);
-            _elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        player.SetFrictionBox(true);
-        Decelerating = false;
-        _elapsedTime = 0f;
-    }
-    
+            SetFrictionBox(true);
+           player.rb.linearVelocity = new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z); 
+           yield return new WaitForSeconds(player.DecelerationDuration);
+           Decelerating = false;
+           SetFrictionBox(false);
 
+        }
+
+    }
     #endregion
  
 

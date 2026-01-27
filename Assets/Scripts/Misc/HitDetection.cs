@@ -14,36 +14,52 @@ public class HitDetection : MonoBehaviour, IDamageable
     public static event Action OnDeath;
     public static event Action OnPlayerHit;
     internal bool _hit;
+    internal  bool _damageDone;
+    
     internal bool Blocking;
 
     private void Awake()
     {
         _player = gameObject.GetComponentInParent<PlayerController>();
     }
+
+    private void CheckHit(Collider hitCollider)
+    {
+        
+    }
     
     private void OnTriggerStay(Collider other)
     {
-    
-        if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !otherPlayer.HitStun)
+      
+        if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
-            if (_hit) return;
             _hit = true;
             Blocking = CheckBlocking();
             print(Blocking);
-            TakeDamageSwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
+            SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
+            if (!_damageDone)
+            {
+                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+            }
         }
+
+        if (otherPlayer.Animations.IsRecoveryFrame)
+        {
+            _hit = false;
+            _damageDone = false;
+        }
+        
         if (other.gameObject.CompareTag("Wall"))
         {
             _player.AtBorder = true;
         }
     }
 
-    private void TakeDamageSwitchState(PlayerStateManager.PlayerStateTypes newState)
+    private void SwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
         if (otherPlayer.InputReader.LastAttackInput.Type != InputReader.AttackType.Grab)
         {
             _player._playerStateManager.SwitchState(newState);
-            _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
         }
         else
         {
@@ -92,11 +108,11 @@ public class HitDetection : MonoBehaviour, IDamageable
   
     public void TakeDamage(float damage)
     {
+        _damageDone = true;
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
         otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : otherPlayer.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
-
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }

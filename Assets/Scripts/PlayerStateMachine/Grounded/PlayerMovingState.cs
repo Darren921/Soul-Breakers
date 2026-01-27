@@ -15,7 +15,7 @@ public abstract class PlayerMovingState : PlayerBaseState
 //        Debug.Log("Entered " + playerStateManager.currentState);
         
         Player = player;
-        player.rb.linearVelocity = Vector3.zero;
+  //      player.rb.linearVelocity = Vector3.zero;
     }
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
@@ -25,7 +25,8 @@ public abstract class PlayerMovingState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Blocking);
             return;
         }
-        
+        if(player.Decelerating) return;
+        Debug.Log("Player is moving");
         SetMoveDir(new Vector2(player.PlayerMove.x, 0));
         SmoothMovement();
         ApplyVelocity(player);

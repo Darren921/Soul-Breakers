@@ -49,6 +49,5 @@ public class PlayerBlockingState : PlayerBaseState
     {
         if (_blockCoroutine != null) player.StopCoroutine(_blockCoroutine);
         player.Animations.Animator.SetBool(player.Animations.blocking, false);
-        player.PlayerHitDetection._hit = false;
     }
 }

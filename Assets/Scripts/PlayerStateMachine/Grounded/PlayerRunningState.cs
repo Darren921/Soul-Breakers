@@ -13,35 +13,15 @@ public class PlayerRunningState : PlayerMovingState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        //controls the decel curve to make slow down movement more accurate 
-        if (player.PlayerMove == Vector3.zero && !player.DashMarcoActive || player.IsCrouching)
+        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward )
         {
-            if (!player.Decelerating && !player.DecelActive)
+            if (!player.Decelerating)
             {
-                player.DecelActive = true;
-                player.Decelerating = true;
-                player.StartCoroutine(player.DecelerationCurve(player));
+                player.StartCoroutine(player.OnDeceleration(player));
             }
-        }
-
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
-
-    var backWardDir = player.Reversed ? 1 : -1;
-    
-    
-       
-        if (player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward &&  (int)player.PlayerMove.x == backWardDir )
-        {
-            Debug.Log("entered");
-            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Walking);
-        }
-       
-        
-        //switch states 
-        if(player.Decelerating || !player.DecelActive ) return;
-        
-      
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking);
+            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking| PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
+          
+        }  
         
 
     }
@@ -63,9 +43,9 @@ public class PlayerRunningState : PlayerMovingState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-      player.IsRunning = false;          
-      Debug.Log(player.rb.linearVelocity);
-      player.DecelActive = false;
-      player.SetFrictionBox(false);
+      player.IsRunning = false;
+       Debug.Log(player.rb.linearVelocity);
+
     }
+    
 }

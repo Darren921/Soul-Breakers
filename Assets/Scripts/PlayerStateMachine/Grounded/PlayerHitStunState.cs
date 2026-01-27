@@ -63,7 +63,6 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
 //        Debug.Log("Exit State");
-        player.PlayerHitDetection._hit = false;
         player.Animations.Animator.SetBool(Hit,false);
     }
     

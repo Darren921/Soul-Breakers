@@ -9,6 +9,7 @@ public class PlayerWalkingState : PlayerMovingState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         base.EnterState(playerStateManager, player);
+        if(player.Decelerating) return;
         player.IsWalking = true;
     }
 
