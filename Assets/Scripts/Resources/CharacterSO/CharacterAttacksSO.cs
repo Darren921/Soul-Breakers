@@ -35,7 +35,7 @@ using UnityEngine.Serialization;
 
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         {
-            Debug.Log(attack.Type);
+          //  Debug.Log(attack.Type);
 //            Debug.Log(state);
             var attackUsed = Attacks.Find( data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state) ;
             if (attackUsed.Equals(new AttackData()))

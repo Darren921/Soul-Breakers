@@ -12,7 +12,7 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log("Entered attack state");
+//        Debug.Log("Entered attack state");
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
@@ -93,7 +93,7 @@ public class PlayerAttackState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 
-        if (!player.GravityManager.IsGrounded && player.transform.localPosition.y > 0.1f)
+        if (!player.GravityManager.IsGrounded && player.transform.localPosition.y > 0.1f )
         {
             player.GravityManager.ApplyGravity(player);
             player.rb.linearVelocity = new Vector3( player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);

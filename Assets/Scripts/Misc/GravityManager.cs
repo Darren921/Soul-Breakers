@@ -20,7 +20,13 @@ public class GravityManager : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 //        print(other.gameObject.CompareTag("Ground"));
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            if (Velocity < 0) ResetVelocity();
+        }           
         IsGrounded = other.gameObject.CompareTag("Ground");
+
+        
 //        Debug.Log(other.gameObject.tag);
     }
 
@@ -33,6 +39,7 @@ public class GravityManager : MonoBehaviour
     public void ApplyGravity(PlayerController player)
     {
         //Applies the custom gravity based on grav scale
+        if(player.PlayerKnockBack._isBeingKnockedBack) return;
         if (Velocity > 0.1f) Velocity += Physics.gravity.y * player.GravScale * Time.fixedDeltaTime;
         if (Velocity < 0.1f)
             Velocity += Physics.gravity.y * player.CharacterData.FallingGravScale * Time.fixedDeltaTime;

@@ -26,7 +26,7 @@ public abstract class PlayerMovingState : PlayerBaseState
             return;
         }
         if(player.Decelerating) return;
-        Debug.Log("Player is moving");
+//        Debug.Log("Player is moving");
         SetMoveDir(new Vector2(player.PlayerMove.x, 0));
         SmoothMovement();
         ApplyVelocity(player);

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerKnockBack : MonoBehaviour
 {
-    private bool _isBeingKnockedBack;
+    internal bool _isBeingKnockedBack;
     private const float KnockBackTime = 0.1f;
     private Vector3 _hitDirectionForce;
 
@@ -16,11 +16,12 @@ public class PlayerKnockBack : MonoBehaviour
         _hitDirectionForce = ReturnHitForce(player.PlayerHitDetection.otherPlayer);
         var hitForce = new Vector3(hitDir.x * _hitDirectionForce.x, _hitDirectionForce.y, 0);
         var elapsedTime = 0f;
+        print(elapsedTime);
         while (elapsedTime < KnockBackTime && player.PlayerHitDetection._hit)
         {
             elapsedTime += Time.fixedDeltaTime;
             player.rb.linearVelocity = hitForce;
-            Debug.Log(player.rb.linearVelocity );
+//            Debug.Log(player.rb.linearVelocity );
             yield return new WaitForFixedUpdate();
         }
 

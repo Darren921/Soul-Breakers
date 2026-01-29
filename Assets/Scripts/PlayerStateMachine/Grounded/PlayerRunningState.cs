@@ -13,7 +13,7 @@ public class PlayerRunningState : PlayerMovingState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward )
+        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward || player.IsAttacking )
         {
             if (!player.Decelerating)
             {

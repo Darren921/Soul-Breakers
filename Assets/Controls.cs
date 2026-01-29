@@ -178,7 +178,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""d0ff13c3-b779-43ba-80e3-2d9c0196b25c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTapOrHold"",
+                    ""interactions"": ""MultiTapOrHold(releasePoint=0.4,totalDuration=0.75,tapDuration=0.6)"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -726,17 +726,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""e8cf1a2f-3c19-4f61-bafe-d36abd8b41f1"",
                     ""path"": ""<Keyboard>/comma"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Special"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e0e7595-7457-43ae-a122-601eb2d30dd5"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

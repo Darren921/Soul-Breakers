@@ -52,7 +52,7 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (!player.GravityManager.IsGrounded)
+        if (!player.GravityManager.IsGrounded && !player.PlayerKnockBack._isBeingKnockedBack)
         {
             player.GravityManager.ApplyGravity(player);
             

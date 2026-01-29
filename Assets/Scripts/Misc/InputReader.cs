@@ -267,7 +267,7 @@ public class InputReader : MonoBehaviour
     private Attack ReturnAttack(AttackType attackType, MovementInputResult movementInput)
     {
         var attack = new Attack(attackType, movementInput);
-        Debug.Log("Attack");
+//        Debug.Log("Attack");
         return attack;
 
     }

@@ -75,7 +75,7 @@ MonoBehaviour:
     Tag: 1
     State: 0
     Damage: 20
-    Knockback: {x: 5, y: 5, z: 0}
+    Knockback: {x: 5, y: 20, z: 0}
     HitStun: 1
     BlockStun: 0
   - Attack:
@@ -84,7 +84,7 @@ MonoBehaviour:
     Tag: 0
     State: 2
     Damage: 20
-    Knockback: {x: 5, y: 5, z: 0}
+    Knockback: {x: 5, y: 20, z: 0}
     HitStun: 1
     BlockStun: 0
   - Attack:
@@ -93,7 +93,7 @@ MonoBehaviour:
     Tag: 2
     State: 1
     Damage: 20
-    Knockback: {x: 5, y: 5, z: 0}
+    Knockback: {x: 5, y: 20, z: 0}
     HitStun: 1
     BlockStun: 0
   Attacks:

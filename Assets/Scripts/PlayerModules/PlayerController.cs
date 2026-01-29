@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, Controls.IPlayerActions
+public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparable
 {
 
     #region Class references
@@ -313,7 +314,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     private void SetAttackVars()
     {
-        Debug.Log("Set Attacking");
+//        Debug.Log("Set Attacking");
         Animations.Animator?.SetBool(Animations.Attacking,true);
         IsAttacking = true;    
         
@@ -321,7 +322,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     public void SetFrictionBox(bool value)
     {
-        print("Used" + value);
+//        print("Used" + value);
         FrictionBox.enabled = value;
     }
     #region Run/Dash
@@ -396,7 +397,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     }
     #endregion
- 
 
-  
+
+    public int CompareTo(object obj)
+    {
+        if(obj is null) return 1;
+        var other = obj as PlayerController;
+        return transform.position.x.CompareTo(other.transform.position.x);
+    }
 }
