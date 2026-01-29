@@ -68,6 +68,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 10
     - _Float: 0
+    - _Float_1: 0
     - _MaxBright: 1.98
     - _MinBright: -0.21
     - _QueueControl: 0
