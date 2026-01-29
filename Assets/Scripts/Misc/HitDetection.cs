@@ -35,11 +35,10 @@ public class HitDetection : MonoBehaviour, IDamageable
         {
             _hit = true;
             Blocking = CheckBlocking();
-//            print(Blocking);
+            print(Blocking);
             SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
             if (!_damageDone)
             {
-                _damageDone = true;
                 print("Damage taken");
                 TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
             }
@@ -110,10 +109,9 @@ public class HitDetection : MonoBehaviour, IDamageable
   
     public void TakeDamage(float damage)
     {
-        if(_damageDone) return;
-        _player.Health -=  Blocking ? damage * 0.25f : damage;
-        Debug.Log(damage);
+        _damageDone = true;
         // deal damage and active death event to trigger end of game 
+        _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
         otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : otherPlayer.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
         if (_player.Health <= 0) OnDeath?.Invoke();
