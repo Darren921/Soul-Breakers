@@ -48,7 +48,7 @@ public class PlayerRunningState : PlayerMovingState
 
     protected override void ApplyVelocity(PlayerController player)
     {
-        player.rb.MovePosition(player.transform.position + SmoothedMoveDir * (MoveSpeed * Time.deltaTime ));
+        player.rb.MovePosition(player.transform.position + SmoothedMoveDir * (MoveSpeed * Time.fixedDeltaTime ));
         /*var velocity =  new Vector3(SmoothedMoveDir.x * MoveSpeed, player.rb.linearVelocity.y) ;
         player.rb.linearVelocity = velocity;  */  
     }

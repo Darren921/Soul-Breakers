@@ -54,6 +54,11 @@ public class PlayerDashState : PlayerMovingState
     //    player.rb.linearVelocity = new Vector3(NewDashVelo.x, _jumpVelocity, 0);
         Debug.Log(player.rb.linearVelocity);
         yield return new WaitForSeconds(DashTime);
+        if (player.rb.linearVelocity.y > 1)
+        {
+            Debug.Log(player.rb.linearVelocity); 
+            player.GravityManager.ResetVelocity();
+        }
         IsDashing = false;
       
     }
@@ -67,7 +72,6 @@ public class PlayerDashState : PlayerMovingState
 
         if (!IsDashing && !player.GravityManager.IsGrounded)
         {
-           
                 player.GravityManager.ApplyGravity(player);
                 player.rb.MovePosition(player.transform.position + new Vector3(player.rb.linearVelocity.x , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime ) );
 

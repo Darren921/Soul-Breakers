@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAttacks: {fileID: 11400000, guid: f6df2f7e50b9e754d8eb994d9bc76b76, type: 2}
   normGravScale: 5
-  FallingGravScale: 5.1
+  FallingGravScale: 5.05
   health: 100
   characterName: Default
   walkSpeed: 5
@@ -23,5 +23,5 @@ MonoBehaviour:
   airDashCharges: 2
   jumpCharges: 2
   dashDistance: 2
-  dashTime: 0.3
+  dashTime: 0.4
   dashVertHeight: 4.75
