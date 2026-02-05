@@ -20,7 +20,8 @@ public class PlayerKnockBack : MonoBehaviour
         while (elapsedTime < KnockBackTime && player.PlayerHitDetection._hit)
         {
             elapsedTime += Time.fixedDeltaTime;
-            player.rb.linearVelocity = hitForce;
+            player.rb.MovePosition(transform.position +hitForce  * Time.fixedDeltaTime);
+          //  player.rb.linearVelocity = hitForce;
 //            Debug.Log(player.rb.linearVelocity );
             yield return new WaitForFixedUpdate();
         }

@@ -8,21 +8,55 @@ public class GravityManager : MonoBehaviour
     private RaycastHit Hit;
     private LayerMask _groundLayerMask;
     private PlayerController _player;
+    [SerializeField] Collider _playerCollider;  
     [SerializeField] internal bool IsGrounded;
-
+    private Vector3 groundPoint;
     private void Awake()
     {
         _groundLayerMask = LayerMask.GetMask("Ground");
         _player = GetComponentInParent<PlayerController>();
     }
 
+    private void Update()
+    {
+     
+    }
 
-    private void OnTriggerStay(Collider other)
+ 
+    /*
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            if (Velocity < 0) ResetVelocity();
+        }           
+        IsGrounded = other.gameObject.CompareTag("Ground");
+
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        IsGrounded = false; 
+        print("reset");
+        _player.SetFrictionBox(false);    }
+        */
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = true;
+            ResetVelocity();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)  
     {
 //        print(other.gameObject.CompareTag("Ground"));
         if (other.gameObject.CompareTag("Ground"))
         {
-            if (Velocity < 0) ResetVelocity();
+            if (Velocity <= 0) ResetVelocity();
         }           
         IsGrounded = other.gameObject.CompareTag("Ground");
 
@@ -41,8 +75,7 @@ public class GravityManager : MonoBehaviour
         //Applies the custom gravity based on grav scale
         if(player.PlayerKnockBack._isBeingKnockedBack) return;
         if (Velocity > 0.1f) Velocity += Physics.gravity.y * player.GravScale * Time.fixedDeltaTime;
-        if (Velocity < 0.1f)
-            Velocity += Physics.gravity.y * player.CharacterData.FallingGravScale * Time.fixedDeltaTime;
+        if (Velocity < 0.1f) Velocity += Physics.gravity.y * player.CharacterData.FallingGravScale * Time.fixedDeltaTime;
     }
 
     public float GetVelocity()

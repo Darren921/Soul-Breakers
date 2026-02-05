@@ -77,6 +77,7 @@ public class PlayerJumpingState : PlayerBaseState
         }
         else
         {
+            
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking );
             if (!player.GravityManager.IsGrounded)
             {
@@ -119,12 +120,13 @@ public class PlayerJumpingState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //performing jump and applying custom gravity 
-        player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
-        if (!player.GravityManager.IsGrounded && player.gameObject.transform.localPosition.y > 0.12f )
+        player.rb.MovePosition(player.transform.position + new Vector3(xJumpVal , player.GravityManager.GetVelocity(), 0) * Time.fixedDeltaTime);
+       // player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
+        if (!player.GravityManager.IsGrounded  )
         {
             player.GravityManager.ApplyGravity(player);
         }
-        //        Debug.Log(player.gravityManager.GetVelocity());
+               Debug.Log(player.GravityManager.GetVelocity());
 
     }
 
@@ -138,6 +140,7 @@ public class PlayerJumpingState : PlayerBaseState
 
         player.Animations.Animator.SetBool(player.Animations.Jump, false);
      if(player.GravityManager.IsGrounded)   player.GravityManager.ResetVelocity();
+    // var GroundSnapping = player.GetComponent<Collider>().ClosestPoint(player.transform.position);
         xJumpVal = 0f;
         atJumpHeight = false;
         jumpTriggered =  false;

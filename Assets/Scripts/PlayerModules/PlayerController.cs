@@ -179,7 +179,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     private void OnDestroy()
     {
-        _playerActions.RemoveCallbacks(this);
         HitDetection.OnDeath -= OnPlayerDeath;
         _playerActions.Disable();
         PauseManager.Instance?.UnregisterPlayer(this);
@@ -385,13 +384,17 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     public IEnumerator OnDeceleration(PlayerController player)
     {
         Decelerating = true;
+        yield return new WaitForSeconds(player.DecelerationDuration);
+        Decelerating = false;
+        SetFrictionBox(false);
         while (Decelerating)
         {
             SetFrictionBox(true);
-           player.rb.linearVelocity = new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z); 
-           yield return new WaitForSeconds(player.DecelerationDuration);
-           Decelerating = false;
-           SetFrictionBox(false);
+            Debug.Log(rb.linearVelocity);
+            player.rb.MovePosition( player.transform.position + new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z) * Time.fixedDeltaTime );
+         // player.rb.linearVelocity = new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z); 
+           yield return new WaitForFixedUpdate();
+          
 
         }
 

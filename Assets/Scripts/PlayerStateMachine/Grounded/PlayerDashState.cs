@@ -51,7 +51,7 @@ public class PlayerDashState : PlayerMovingState
     {
         Debug.Log("PlayerDashState Dash");
         IsDashing = true;
-        player.rb.linearVelocity = new Vector3(NewDashVelo.x, _jumpVelocity, 0);
+    //    player.rb.linearVelocity = new Vector3(NewDashVelo.x, _jumpVelocity, 0);
         Debug.Log(player.rb.linearVelocity);
         yield return new WaitForSeconds(DashTime);
         IsDashing = false;
@@ -60,6 +60,18 @@ public class PlayerDashState : PlayerMovingState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        if (IsDashing)
+        {
+            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x, _jumpVelocity, 0 ) * Time.fixedDeltaTime);
+        }
+
+        if (!IsDashing && !player.GravityManager.IsGrounded)
+        {
+           
+                player.GravityManager.ApplyGravity(player);
+                player.rb.MovePosition(player.transform.position + new Vector3(player.rb.linearVelocity.x , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime ) );
+
+        }
     }
 
     protected override void ApplyVelocity(PlayerController player)

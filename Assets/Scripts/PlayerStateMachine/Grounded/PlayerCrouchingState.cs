@@ -6,7 +6,7 @@ public class PlayerCrouchingState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager,PlayerController player)
     {
      //   Debug.Log("Entering PlayerCrouchingState");
-     player.rb.linearVelocity = Vector3.zero;
+   //  player.rb.linearVelocity = Vector3.zero;
     }
 
     internal override void UpdateState(PlayerStateManager playerStateManager,PlayerController player)

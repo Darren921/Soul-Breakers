@@ -41,7 +41,7 @@ public abstract class PlayerMovingState : PlayerBaseState
 
     protected void SetMoveDir(Vector3 newDir)
     {
-        MoveDir = newDir.normalized;
+        MoveDir = newDir.normalized;    
     }
  
 

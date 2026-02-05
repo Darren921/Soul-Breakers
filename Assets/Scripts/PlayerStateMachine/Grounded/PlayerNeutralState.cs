@@ -12,7 +12,6 @@ public class PlayerNeutralState : PlayerBaseState
     {
         if(player is  null) return;
         _idleCoroutine = player?.StartCoroutine(CheckIfIdle(player));
-    if(playerStateManager.lastState != playerStateManager.States[PlayerStateTypes.Running])    player.rb.linearVelocity = Vector3.zero;
 //        Debug.Log("Entered PlayerNeutralState");
     }
 
@@ -36,7 +35,8 @@ public class PlayerNeutralState : PlayerBaseState
         {
             player.GravityManager.ApplyGravity(player);
             
-            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+           player.rb.MovePosition(player.transform.position + new Vector3(player.PlayerMove.x, player.GravityManager.GetVelocity() , 0f) * Time.fixedDeltaTime );
+          //  player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
         }
       
     }
