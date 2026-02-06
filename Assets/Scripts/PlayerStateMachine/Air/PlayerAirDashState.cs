@@ -44,22 +44,19 @@ public class PlayerAirDashState : PlayerDashState
         GetDashValues(player);
         
         // Debug.Log(DashDir);
-            NewDashVelo = DashDir * (1.25f * (DashDistance / DashTime));
+            NewDashVelo = DashDir *   (DashDistance / DashTime);
        
      
     }
     
     private IEnumerator AirDash(PlayerController player)
     {
+        player.GravityManager.ResetVelocity();
         //    Debug.Log("PlayerDashState Dash");
         IsDashing = true;
-        SetUpDash(player);
-        player.rb.useGravity = false;
-        player.rb.linearVelocity = new Vector3(NewDashVelo.x, 0, 0);
-        Debug.Log( player.rb.linearVelocity);
+        // player.rb.useGravity = false;
+        // player.rb.linearVelocity = new Vector3(NewDashVelo.x, 0, 0);
         yield return new WaitForSeconds(DashTime);
-        player.GravityManager.ResetVelocity();
-        player.rb.useGravity = true;
         IsDashing = false;
     }
 
@@ -86,10 +83,17 @@ public class PlayerAirDashState : PlayerDashState
     {
 //        Debug.Log(player.gravityManager.GetVelocity());
 
-        if (!player.GravityManager.IsGrounded && player.gameObject.transform.localPosition.y > 0.1f && !IsDashing)
+        if (player.IsDashing)
+        {
+            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x * 1.3f,0,0) * Time.fixedDeltaTime);
+            Debug.Log( player.rb.linearVelocity);
+
+        }
+        if (!player.GravityManager.IsGrounded && !IsDashing)
         {
             player.GravityManager.ApplyGravity(player);
-            player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
+            player.rb.MovePosition(player.transform.position + new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(),0) * Time.fixedDeltaTime);
+           // player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
         }
     }
 

@@ -81,6 +81,7 @@ public class PlayerAnimations : MonoBehaviour
         Animator?.SetBool(left, false);
         Animator?.SetBool(right, false);
         Animator?.SetBool(Active,false);
+        _player.InputReader.CurrentAttackInput.IsBeingUsed = false;
     }
 
     public void SetUpStartupFrame()
@@ -111,4 +112,38 @@ public class PlayerAnimations : MonoBehaviour
 
     #endregion
 
+  
+
+    public void SetAttackingHash(InputReader.AttackType inputType)
+    {
+        switch (inputType)
+        {
+            case InputReader.AttackType.Light:
+                Animator?.SetBool(Light,true);
+                break;
+            case InputReader.AttackType.Grab:
+                Animator?.SetBool(Light,true);
+                Animator?.SetBool(Medium,true);
+                break;
+            case InputReader.AttackType.Heavy:
+                Animator?.SetBool(Heavy,true);
+                break;
+            case InputReader.AttackType.Medium:
+                Animator?.SetBool(Medium,true);
+                break;
+        }
+
+        if (Animator)
+        {
+            if (Animator.GetBool(Heavy) && Animator.GetBool(Light))
+            {
+                Animator.SetBool(Light,false);
+            }
+            else if (Animator.GetBool(Medium) && Animator.GetBool(Heavy))
+            {
+                Animator.SetBool(Medium,false);
+            }
+            Animator?.SetBool(Attacking,true);
+        }
+    }
 }

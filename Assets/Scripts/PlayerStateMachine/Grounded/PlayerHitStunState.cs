@@ -56,7 +56,7 @@ public class PlayerHitStunState : PlayerBaseState
         {
             player.GravityManager.ApplyGravity(player);
             
-            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+            player.rb.MovePosition(player.transform.position + new Vector3(player.rb.linearVelocity.x , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime ) );
         }
     }
 

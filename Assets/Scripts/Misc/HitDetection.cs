@@ -113,7 +113,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : otherPlayer.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
+        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }

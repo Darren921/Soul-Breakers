@@ -268,17 +268,17 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     
     public void OnLight(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Light, Animations.Light);
+        ReadAttackInput(context, InputReader.AttackType.Light);
     }
     
     public void OnMedium(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context,InputReader.AttackType.Medium,Animations.Medium);
+        ReadAttackInput(context,InputReader.AttackType.Medium);
     }
 
     public void OnHeavy(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Heavy, Animations.Heavy);
+        ReadAttackInput(context, InputReader.AttackType.Heavy);
     }
     
     public void OnSpecial(InputAction.CallbackContext context)
@@ -301,10 +301,9 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     #endregion
    
-    private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type ,int AnimatorHash  )
+    private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type )
     {
         PlayerAttackAction?.Invoke(type);
-        if(!OnAttackCoolDown) Animations.Animator?.SetTrigger(AnimatorHash);
         if (OnAttackCoolDown || IsAttacking || !context.performed) return;
         SetAttackVars();
         
@@ -314,7 +313,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     private void SetAttackVars()
     {
 //        Debug.Log("Set Attacking");
-        Animations.Animator?.SetBool(Animations.Attacking,true);
         IsAttacking = true;    
         
     }
