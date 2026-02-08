@@ -11,6 +11,8 @@ public class PlayerNeutralState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player )
     {
         if(player is  null) return;
+        if(player.Animations.IsRecoveryFrame) player.Animations.ResetRecoveryFrame();
+        
         _idleCoroutine = player?.StartCoroutine(CheckIfIdle(player));
 //        Debug.Log("Entered PlayerNeutralState");
     }

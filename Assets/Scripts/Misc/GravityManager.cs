@@ -67,7 +67,7 @@ public class GravityManager : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         IsGrounded = false;
-        print("reset");
+//        print("reset");
         _player.SetFrictionBox(false);
     }
     public void ApplyGravity(PlayerController player)

@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class PlayerAnimations : MonoBehaviour
+public class PlayerAnimations : MonoBehaviour 
 {
     #region Animator Hashed variables
     public readonly int Idle = Animator.StringToHash("Idle");
@@ -26,6 +27,9 @@ public class PlayerAnimations : MonoBehaviour
     public readonly int WalkDir = Animator.StringToHash("WalkDir");
     public readonly int Grab = Animator.StringToHash("Grab");
     public readonly int Grabbed = Animator.StringToHash("Grabbed");
+    public  readonly int Super = Animator.StringToHash("Super");
+    public  readonly int Hit = Animator.StringToHash("Hit");
+
     #endregion
     internal Animator Animator;
 
@@ -81,6 +85,8 @@ public class PlayerAnimations : MonoBehaviour
         Animator?.SetBool(left, false);
         Animator?.SetBool(right, false);
         Animator?.SetBool(Active,false);
+        Animator?.SetBool(Super,false);
+        Animator?.SetBool(Special,false);
         _player.InputReader.CurrentAttackInput.IsBeingUsed = false;
     }
 
@@ -116,8 +122,11 @@ public class PlayerAnimations : MonoBehaviour
 
     public void SetAttackingHash(InputReader.AttackType inputType)
     {
+//        print(inputType);
+        if(inputType.ToString().Contains("Super") && _player.superMeter < 100) return;
         switch (inputType)
         {
+            
             case InputReader.AttackType.Light:
                 Animator?.SetBool(Light,true);
                 break;
@@ -131,10 +140,28 @@ public class PlayerAnimations : MonoBehaviour
             case InputReader.AttackType.Medium:
                 Animator?.SetBool(Medium,true);
                 break;
+            case InputReader.AttackType.SuperLight:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Light,true);
+                break;
+            case InputReader.AttackType.SuperMedium:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Medium,true);
+                break;
+            case InputReader.AttackType.SuperHeavy:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Heavy,true);
+                break;
+            case InputReader.AttackType.Special:
+                Animator?.SetBool(Special,true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(inputType), inputType, null);
         }
 
-        if (Animator)
+        if (Animator )
         {
+            if(Animator.GetBool(Super)) return;
             if (Animator.GetBool(Heavy) && Animator.GetBool(Light))
             {
                 Animator.SetBool(Light,false);

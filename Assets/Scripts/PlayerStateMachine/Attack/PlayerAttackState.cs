@@ -42,11 +42,10 @@ public class PlayerAttackState : PlayerBaseState
 
         if (player.IsAttacking &&  player.GravityManager.IsGrounded  && player.InputReader.curState == AttackData.States.Airborne)
         {
-            player.Animations.Animator.speed = 0;
-            player.Animations.ResetAttackingTrigger();
+            Debug.Log("Switch to Grounded");
             player.Animations.Animator.Play("Neutral", 0, 0f); 
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
-            player.Animations.Animator.speed = 1;
+            player.PlayerHitDetection.otherPlayer.PlayerHitDetection.resetHit();
         }
 
         

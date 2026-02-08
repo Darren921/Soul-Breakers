@@ -6,7 +6,6 @@ using UnityEngine;
 [Serializable]
 public class PlayerHitStunState : PlayerBaseState
 {
-    private static readonly int Hit = Animator.StringToHash("Hit");
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
@@ -22,13 +21,14 @@ public class PlayerHitStunState : PlayerBaseState
     private IEnumerator WaitForHitStun(PlayerController player)
     {
         var originalSpeed = SetHitStun(player);
-        //      Debug.Log("HitStun");
+              Debug.Log("HitStun");
         yield return new WaitForSecondsRealtime(player.PlayerHitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.PlayerHitDetection.otherPlayer.InputReader.LastAttackInput,player.PlayerHitDetection.otherPlayer.InputReader.curState).HitStun);
 //        Debug.Log("HitStun complete");
         DisableHitStun(player, originalSpeed);
     }
     private IEnumerator WaitForHitStunAirborne(PlayerController player)
     {
+        Debug.Log("HitStunAirborne");
         var originalSpeed = SetHitStun(player);
         //      Debug.Log("HitStun");
         yield return new WaitUntil(() => player.GravityManager.IsGrounded);
@@ -40,12 +40,18 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (player.HitStun) player.Animations.Animator.SetBool(Hit, true);
         if (player.InputReader.curState == AttackData.States.Airborne && player.GravityManager.IsGrounded)
         {
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.KnockDown);
         }
-        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame) playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Running);
+
+        Debug.Log(player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame);
+        Debug.Log(!player.HitStun);
+        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame)
+        {
+            Debug.Log("Entered ");
+            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Running);
+        }
         
     }
 
@@ -63,7 +69,7 @@ public class PlayerHitStunState : PlayerBaseState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
 //        Debug.Log("Exit State");
-        player.Animations.Animator.SetBool(Hit,false);
+        player.Animations.Animator.SetBool(player.Animations.Hit, false);
     }
     
     

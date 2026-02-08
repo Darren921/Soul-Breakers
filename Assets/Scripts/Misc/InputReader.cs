@@ -27,10 +27,16 @@ public class InputReader : MonoBehaviour
         Heavy = 1 << 2,
         Special = 1 << 3,
         Grab = Light | Medium ,
+        SuperLight = Light | Special,  
+        SuperMedium = Medium | Special,
+        SuperHeavy = Heavy | Special,
     }
 
     private static readonly Dictionary<AttackType, int> Attackpriority = new()
     {
+        [AttackType.SuperHeavy] = 6,
+        [AttackType.SuperMedium] = 6,
+        [AttackType.SuperLight] = 6,
         [AttackType.Grab] = 5,
         [AttackType.Special] = 4, 
         [AttackType.Heavy] = 3,      
@@ -40,7 +46,8 @@ public class InputReader : MonoBehaviour
 
        
     };
-    
+
+
     [Serializable]
     public struct Attack : IEquatable<Attack>
     {
@@ -176,6 +183,7 @@ public class InputReader : MonoBehaviour
                 break;
             newAttack.Input.Type |= input.Input.Type;
 
+            newAttack = CheckForSuper(newAttack);
             if (  newAttack.Input.Type  != AttackType.None)   newAttack.Input.Type  = GetAttackPriority( newAttack.Input.Type );
             if (newAttack.Input.Move == MovementInputResult.None) newAttack.Input.Move = input.Input.Move;
             newAttack.IsBeingUsed = true;
@@ -186,13 +194,33 @@ public class InputReader : MonoBehaviour
             LastAttackInput = newAttack.Input;
             LastAttackInputFrame = curFrame;
         }
-        
+        return newAttack;
+    }
+
+    private BufferedInput<Attack> CheckForSuper(BufferedInput<Attack> newAttack)
+    {
+        if (!newAttack.Input.Type.ToString().Contains("Super")) return newAttack;
+
+        if (_player.superMeter >= 100)
+        {
+            print("Super triggered");
+            _player.superMeter -= 100;
+            _player.Animations.Animator.SetBool(_player.Animations.Super, true);
+          
+        }
+        else
+        {
+            var flagToRemove = newAttack.Input.Type;
+            flagToRemove = ~ AttackType.Special;
+            newAttack.Input.Type =  ~ flagToRemove;
+            print( newAttack.Input.Type );
+        }
         return newAttack;
     }
 
     public AttackType GetAttackPriority(AttackType type)
     {
-        var activeFlags = Enum.GetValues(typeof(AttackType)).Cast<AttackType>().Where(x => x != AttackType.None && (type & x) == x);
+        var activeFlags = Enum.GetValues(typeof(AttackType)).Cast<AttackType>().Where(attackType => attackType != AttackType.None && (type & attackType) == attackType);
         
         var priorityAttack = -2000;
         var output = AttackType.None;

@@ -95,7 +95,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""9fb589fb-7fa7-435d-805c-d3ea44e296e5"",
-                    ""expectedControlType"": ""Vector3"",
+                    ""expectedControlType"": """",
                     ""processors"": ""NormalizeVector3,Range"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -741,7 +741,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Navigate"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""c95b2375-e6d9-4b88-9c4c-c5e76515df4b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",

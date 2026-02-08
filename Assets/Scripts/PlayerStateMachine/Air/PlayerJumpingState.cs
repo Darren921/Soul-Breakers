@@ -126,7 +126,7 @@ public class PlayerJumpingState : PlayerBaseState
         {
             player.GravityManager.ApplyGravity(player);
         }
-               Debug.Log(player.GravityManager.GetVelocity());
+//               Debug.Log(player.GravityManager.GetVelocity());
 
     }
 

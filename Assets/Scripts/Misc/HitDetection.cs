@@ -27,14 +27,23 @@ public class HitDetection : MonoBehaviour, IDamageable
     {
         
     }
-    
+
+   
+    public void resetHit()
+    {
+        _hit = false;
+        _damageDone = false;
+    }
     private void OnTriggerStay(Collider other)
     {
+        
       
         if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
+            print("Hit");
             _hit = true;
             Blocking = CheckBlocking();
+            otherPlayer.hitBox.gameObject.SetActive(false);
             print(Blocking);
             SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
             if (!_damageDone)
@@ -44,11 +53,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             }
         }
 
-        if (otherPlayer.Animations.IsRecoveryFrame)
-        {
-            _hit = false;
-            _damageDone = false;
-        }
+        
         
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -58,6 +63,7 @@ public class HitDetection : MonoBehaviour, IDamageable
 
     private void SwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
+//        Debug.Log(otherPlayer.InputReader.LastAttackInput.Type);
         if (otherPlayer.InputReader.LastAttackInput.Type != InputReader.AttackType.Grab)
         {
             _player._playerStateManager.SwitchState(newState);
@@ -65,6 +71,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         else
         {
             // This is temp and 
+            print("Grabbed");
             otherPlayer.Animations.Animator.SetBool(_player.Animations.Grab, true);
             _player.Animations.Animator.SetBool(_player.Animations.Grabbed,true);
              _player._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
@@ -110,6 +117,7 @@ public class HitDetection : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         _damageDone = true;
+        _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();

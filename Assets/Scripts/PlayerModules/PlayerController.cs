@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     [SerializeField] internal Transform raycastPos;
     [SerializeField] internal int JumpCharges;
     [SerializeField] internal float JumpHeight;
-    internal float RaycastDistance; //2.023f
     internal float GravScale; // (Hold for now )  character data affects gravity 5 
     [SerializeField] internal float Velocity;
     internal Rigidbody rb;
@@ -83,6 +82,10 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     [SerializeField]  internal bool DashMarcoActive;
     [SerializeField] private float MinDashHeight;
     private BoxCollider FrictionBox;
+    [SerializeField]internal float superMeter; 
+    
+    public bool PlayerConnected { get;  private set; }
+
     #endregion
 
     public bool isDead { get; private set; } 
@@ -92,7 +95,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         Animations = GetComponent<PlayerAnimations>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
-        RaycastDistance = 2F;
         HitDetection.OnDeath += OnPlayerDeath;
     }
 
@@ -118,11 +120,18 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         _controls = new Controls();
         //creates a new set of controls for the chosen device 
         _controls.devices = new[] { device };
-        _playerActions = device != null ? _controls.Player : new Controls.PlayerActions();
+        if (device is not null)
+        {
+            _playerActions = _controls.Player;
+           
+        }
+
+        PlayerConnected = device is not null;
         SetUpCallBacks();
         OnEnablePlayer();
         SetUpCharacterVariables();
     }
+
 
     private void SetUpCallBacks()
     {
@@ -153,12 +162,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     public void OnEnablePlayer()
     {
-        _playerActions.Enable();
+        if(PlayerConnected) _playerActions.Enable();
     }
 
     public void OnDisablePlayer()
     {
-        _playerActions.Disable();
+        if(PlayerConnected) _playerActions.Disable();
     }
 
     private void OnPlayerDeath()
@@ -171,20 +180,21 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         InputReader.enabled = false;
         _playerStateManager.ResetStateMachine();
         StopAllCoroutines();
-        _playerActions.RemoveCallbacks(this);
+     if(PlayerConnected)  _playerActions.RemoveCallbacks(this);
         HitDetection.OnDeath -= OnPlayerDeath;
-        _playerActions.Disable();
+        OnDisablePlayer();
         PauseManager.Instance?.UnregisterPlayer(this);
     }
 
     private void OnDestroy()
     {
         HitDetection.OnDeath -= OnPlayerDeath;
-        _playerActions.Disable();
+        OnDisablePlayer();
         PauseManager.Instance?.UnregisterPlayer(this);
 
     }
 
+    
 
     private void SetUpCharacterVariables()
     {
@@ -283,8 +293,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     
     public void OnSpecial(InputAction.CallbackContext context)
     {
-        //ReadAttackInput(context, InputReader.AttackType.Special, Special);
-        Debug.Log("Special attack triggered");
+        ReadAttackInput(context, InputReader.AttackType.Special);
     }
     public void OnJumping(InputAction.CallbackContext context)
     {

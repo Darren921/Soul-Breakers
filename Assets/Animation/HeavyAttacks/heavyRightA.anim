@@ -6160,7 +6160,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.53333336
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -8192,7 +8192,7 @@ AnimationClip:
         outWeight: 0
       - serializedVersion: 3
         time: 0.53333336
-        value: 1
+        value: 0
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -41794,7 +41794,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.3
+  - time: 0.15
     functionName: SetUpActiveFrame
     data: 
     objectReferenceParameter: {fileID: 0}

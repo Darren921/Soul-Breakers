@@ -58,6 +58,8 @@ public class UIController : MonoBehaviour
         {
             LastselectedObject = eventSystem.currentSelectedGameObject;
         }
+        if(!eventSystem.currentSelectedGameObject && LastselectedObject) eventSystem.SetSelectedGameObject(LastselectedObject);
+
 
         var nullCheck = CheckForNextTarget();
         if (!nullCheck && LastselectedObject) 
