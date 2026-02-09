@@ -13,10 +13,9 @@ public class PlayerBlockingState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log("Blocked state triggered");
-        
+
         player.Animations.Animator.SetBool(player.Animations.blocking, true);
         
-        player.rb.linearVelocity = Vector3.zero;
         
         _blockCoroutine = player.StartCoroutine(BlockDuration(playerStateManager, player));
     }
@@ -25,7 +24,7 @@ public class PlayerBlockingState : PlayerBaseState
     {
         if (player.PlayerHitDetection.Blocking == false)
         {
-            playerStateManager.SwitchToLastState();
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
         }
     }
 
@@ -38,10 +37,12 @@ public class PlayerBlockingState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (!player.GravityManager.IsGrounded)
+        if (!player.GravityManager.IsGrounded && !player.HitStun)
         {
             player.GravityManager.ApplyGravity(player);
-            player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
+            
+            player.rb.MovePosition(player.transform.position + new Vector3(player.PlayerMove.x, player.GravityManager.GetVelocity() , 0f) * Time.fixedDeltaTime );
+            //  player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
         }
     }
 
@@ -49,5 +50,8 @@ public class PlayerBlockingState : PlayerBaseState
     {
         if (_blockCoroutine != null) player.StopCoroutine(_blockCoroutine);
         player.Animations.Animator.SetBool(player.Animations.blocking, false);
+        player.Animations.Animator.SetBool(player.Animations.Hit, false);
+        player.PlayerHitDetection.resetHit();
+
     }
 }

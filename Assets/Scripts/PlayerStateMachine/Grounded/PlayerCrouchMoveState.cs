@@ -6,7 +6,7 @@ public class PlayerCrouchMoveState : PlayerMovingState
     protected override void ApplyVelocity(PlayerController player)
     {
         var velocity = new Vector3(SmoothedMoveDir.x * MoveSpeed, player.rb.linearVelocity.y);
-        player.rb.linearVelocity = velocity;    
+//        player.rb.linearVelocity = velocity;    
     }
 
 

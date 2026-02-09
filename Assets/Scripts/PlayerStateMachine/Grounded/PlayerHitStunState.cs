@@ -9,6 +9,7 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        player.Animations.ResetAttackingTrigger();
         //player.CharacterData.
       if(player.GravityManager.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
       else player.StartCoroutine(WaitForHitStunAirborne(player));
@@ -68,7 +69,7 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-//        Debug.Log("Exit State");
+        Debug.Log("Exit State");
         player.Animations.Animator.SetBool(player.Animations.Hit, false);
     }
     
