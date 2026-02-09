@@ -21,7 +21,7 @@ public class PlayerHitStunState : PlayerBaseState
     private IEnumerator WaitForHitStun(PlayerController player)
     {
         var originalSpeed = SetHitStun(player);
-              Debug.Log("HitStun");
+//              Debug.Log("HitStun");
         yield return new WaitForSecondsRealtime(player.PlayerHitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.PlayerHitDetection.otherPlayer.InputReader.LastAttackInput,player.PlayerHitDetection.otherPlayer.InputReader.curState).HitStun);
 //        Debug.Log("HitStun complete");
         DisableHitStun(player, originalSpeed);
@@ -45,11 +45,11 @@ public class PlayerHitStunState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.KnockDown);
         }
 
-        Debug.Log(player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame);
-        Debug.Log(!player.HitStun);
+//        Debug.Log(player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame);
+//        Debug.Log(!player.HitStun);
         if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame)
         {
-            Debug.Log("Entered ");
+//            Debug.Log("Entered ");
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Running);
         }
         

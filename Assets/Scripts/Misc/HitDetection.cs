@@ -36,19 +36,21 @@ public class HitDetection : MonoBehaviour, IDamageable
     }
     private void OnTriggerStay(Collider other)
     {
+     
         
-      
+        
+        
         if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
-            print("Hit");
+//            print("Hit");
             _hit = true;
             Blocking = CheckBlocking();
             otherPlayer.hitBox.gameObject.SetActive(false);
-            print(Blocking);
+//            print(Blocking);
             SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
             if (!_damageDone)
             {
-                print("Damage taken");
+              //  print("Damage taken");
                 TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
             }
         }
