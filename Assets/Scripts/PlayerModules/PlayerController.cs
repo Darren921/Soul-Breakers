@@ -82,11 +82,14 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     [SerializeField]  internal bool DashMarcoActive;
     [SerializeField] private float MinDashHeight;
     private BoxCollider FrictionBox;
-    [SerializeField]internal float superMeter; 
-    
+    [SerializeField]internal float superMeter;
+    internal bool PlayersColliding;
+    [field : SerializeField]  public GameObject playerModel { get; private set; }
+
     public bool PlayerConnected { get;  private set; }
 
     #endregion
+    
 
     public bool isDead { get; private set; } 
 

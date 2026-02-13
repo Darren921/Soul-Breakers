@@ -25,7 +25,14 @@ public abstract class PlayerMovingState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Blocking);
             return;
         }
-        if(player.Decelerating) return;
+        // if (!player.GravityManager.IsGrounded && !player.HitStun)
+        // {
+        //     player.GravityManager.ApplyGravity(player);
+        //     
+        //     player.rb.MovePosition(player.transform.position + new Vector3(player.PlayerMove.x, player.GravityManager.GetVelocity() , 0f) * Time.fixedDeltaTime );
+        //     //  player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+        // }
+        if(player.Decelerating || player.PlayersColliding) return;
 //        Debug.Log("Player is moving");
         SetMoveDir(new Vector2(player.PlayerMove.x, 0));
         SmoothMovement();

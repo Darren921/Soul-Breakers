@@ -22,7 +22,6 @@ public class PlayerJumpingState : PlayerBaseState
     private Coroutine jumpCoroutine;
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        
         player.JumpCharges = player.CharacterData.jumpCharges;
         //apply jump immediately when entering state to prevent update glitches   
         collider = player.GetComponent<Collider>();

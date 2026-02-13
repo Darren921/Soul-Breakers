@@ -29,7 +29,6 @@ public class PlayerAnimations : MonoBehaviour
     public readonly int Grabbed = Animator.StringToHash("Grabbed");
     public  readonly int Super = Animator.StringToHash("Super");
     public  readonly int Hit = Animator.StringToHash("Hit");
-
     #endregion
     internal Animator Animator;
 

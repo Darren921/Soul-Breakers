@@ -19,7 +19,7 @@ MonoBehaviour:
   characterName: Default
   walkSpeed: 5
   runSpeed: 12
-  jumpHeight: 3.5
+  jumpHeight: 5
   airDashCharges: 2
   jumpCharges: 2
   dashDistance: 2
