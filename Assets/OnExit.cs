@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class OnExit : StateMachineBehaviour
 {
-    // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    // // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
+    // override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // {
+    //
+    // }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -15,10 +15,14 @@ public class OnExit : StateMachineBehaviour
     //}
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Debug.Log("OnExit");
+        var player = animator.GetComponentInParent<PlayerController>();
+        player.PlayerHitDetection.otherPlayer.PlayerHitDetection.resetHit();
+        
+        player.PlayerHitDetection.otherPlayer.canCancel = false;
+    }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -38,9 +42,9 @@ public class OnExit : StateMachineBehaviour
     //    
     //}
 
-    // OnStateMachineExit is called when exiting a state machine via its Exit Node
-    override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
-    {
-        animator.GetComponentInParent<PlayerController>().PlayerHitDetection.resetHit();
-    }
+    // // OnStateMachineExit is called when exiting a state machine via its Exit Node
+    // public override void OnStateMachineExit(Animator animator, int stateMachinePathHash)
+    // {
+    //     
+    // }
 }

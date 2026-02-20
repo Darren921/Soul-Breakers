@@ -86,7 +86,7 @@ public class PlayerAirDashState : PlayerDashState
         if (player.IsDashing)
         {
             player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x * 1.3f,0,0) * Time.fixedDeltaTime);
-            Debug.Log( player.rb.linearVelocity);
+//            Debug.Log( player.rb.linearVelocity);
 
         }
         if (!player.GravityManager.IsGrounded && !IsDashing)

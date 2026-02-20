@@ -18801,7 +18801,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 120
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!114 &685541187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18814,7 +18814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a36ba01377b4db49953ec8b144526b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curState: 0
+  CurrentAttackInput:
+    Input:
+      Move: 0
+      Type: 0
+    IsBeingUsed: 0
   movementInputsVisual: []
   attackInputsVisual: []
 --- !u!114 &685541189
@@ -18842,6 +18846,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <currentState>k__BackingField:
+    rid: -2
+  <lastState>k__BackingField:
     rid: -2
   references:
     version: 2
@@ -54498,8 +54504,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.32, y: 1.2715046, z: 1.0000002}
-  m_Center: {x: 0, y: 0.13575211, z: 0}
+  m_Size: {x: 2.009049, y: 1.2715046, z: 1.0000002}
+  m_Center: {x: 0.08493528, y: 0.13575214, z: 3.1882468e-16}
 --- !u!43 &1869668380
 Mesh:
   m_ObjectHideFlags: 0
@@ -57101,8 +57107,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.32, y: 1.2715046, z: 1.0000002}
-  m_Center: {x: 0, y: 0.13575211, z: 0}
+  m_Size: {x: 2.009049, y: 1.2715046, z: 1.0000002}
+  m_Center: {x: 0.08493528, y: 0.13575214, z: 3.1882468e-16}
 --- !u!1 &1959417838
 GameObject:
   m_ObjectHideFlags: 0
@@ -63427,7 +63433,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 1
   m_Constraints: 120
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!114 &2239886189421363307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63440,7 +63446,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a36ba01377b4db49953ec8b144526b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curState: 0
+  CurrentAttackInput:
+    Input:
+      Move: 0
+      Type: 0
+    IsBeingUsed: 0
   movementInputsVisual: []
   attackInputsVisual: []
 --- !u!114 &2239886189421363309
@@ -63468,6 +63478,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <currentState>k__BackingField:
+    rid: -2
+  <lastState>k__BackingField:
     rid: -2
   references:
     version: 2

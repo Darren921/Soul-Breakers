@@ -45,6 +45,7 @@ public class HitDetection : MonoBehaviour, IDamageable
 //            print("Hit");
             _hit = true;
             Blocking = CheckBlocking();
+            
             otherPlayer.hitBox.gameObject.SetActive(false);
 //            print(Blocking);
             SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
@@ -120,6 +121,10 @@ public class HitDetection : MonoBehaviour, IDamageable
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
+        if (!Blocking && !otherPlayer.canCancel)
+        {
+            otherPlayer.StartCoroutine(CanCancel());
+        }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
@@ -128,5 +133,12 @@ public class HitDetection : MonoBehaviour, IDamageable
         
     }
 
-    
+    private IEnumerator CanCancel()
+    {
+        otherPlayer.canCancel = true;
+        Debug.Log(otherPlayer.canCancel);
+        yield return new WaitUntil(() => !otherPlayer.canCancel, TimeSpan.FromSeconds(3),
+            () => otherPlayer.canCancel = false);
+
+    }
 }

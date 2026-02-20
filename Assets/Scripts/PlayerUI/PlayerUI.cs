@@ -29,7 +29,7 @@ public class PlayerUI : MonoBehaviour
             _slider.value = _playerController.CharacterData.health;
         }
 
-        _playerController.Health = 100;
+        _playerController.Health = _playerController.CharacterData.health;
        
         UpdateHealth();
     }

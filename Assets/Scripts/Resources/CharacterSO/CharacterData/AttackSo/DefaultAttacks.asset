@@ -22,6 +22,7 @@ MonoBehaviour:
     Knockback: {x: 4, y: 0, z: 0}
     HitStun: 0.1
     BlockStun: 0
+    AnimationName: lightNorm
   - Attack:
       Move: 0
       Type: 1
@@ -31,6 +32,7 @@ MonoBehaviour:
     Knockback: {x: 3, y: 0, z: 0}
     HitStun: 0.1
     BlockStun: 0
+    AnimationName: lightNormC
   - Attack:
       Move: 0
       Type: 1
@@ -40,6 +42,7 @@ MonoBehaviour:
     Knockback: {x: 4, y: 0, z: 0}
     HitStun: 0.1
     BlockStun: 0
+    AnimationName: lightNormA
   DefaultMedAttacks:
   - Attack:
       Move: 0
@@ -50,6 +53,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 0, z: 0}
     HitStun: 0.5
     BlockStun: 0
+    AnimationName: medNorm
   - Attack:
       Move: 0
       Type: 2
@@ -59,6 +63,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 0, z: 0}
     HitStun: 0.5
     BlockStun: 0
+    AnimationName: medNormC
   - Attack:
       Move: 0
       Type: 2
@@ -68,6 +73,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 0, z: 0}
     HitStun: 0.5
     BlockStun: 0
+    AnimationName: medNormA
   DefaultHeavyAttacks:
   - Attack:
       Move: 0
@@ -78,6 +84,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 10, z: 0}
     HitStun: 1
     BlockStun: 0
+    AnimationName: heavyNorm
   - Attack:
       Move: 0
       Type: 3
@@ -87,6 +94,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 10, z: 0}
     HitStun: 1
     BlockStun: 0
+    AnimationName: heavyNormC
   - Attack:
       Move: 0
       Type: 3
@@ -96,4 +104,5 @@ MonoBehaviour:
     Knockback: {x: 5, y: 10, z: 0}
     HitStun: 1
     BlockStun: 0
+    AnimationName: heavyNormA
   Attacks: []

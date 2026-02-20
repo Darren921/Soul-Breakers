@@ -6,18 +6,7 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    public enum MovementInputResult
-    {
-        None,
-        Up,
-        Down,
-        Forward,
-        Backward,
-        UpLeft,
-        UpRight,
-        DownLeft,
-        DownRight,
-    }
+    #region AttackEnums
     [Flags]
     public enum AttackType
     {
@@ -46,17 +35,38 @@ public class InputReader : MonoBehaviour
 
        
     };
+    
 
+    #endregion
+    #region Input Structs
 
+    [Serializable]
+    public struct BufferedInput<T>
+    {
+        public T Input;
+        public readonly int CurFrame;
+        public  bool IsBeingUsed; 
+    
+
+        public BufferedInput(T input, int curFrame, bool isBeingUsed)
+        {
+            Input = input;
+            CurFrame = curFrame;
+            IsBeingUsed = isBeingUsed;
+        }
+    }
     [Serializable]
     public struct Attack : IEquatable<Attack>
     {
         public MovementInputResult Move;
         public AttackType Type;
+        public int Priority => Attackpriority.GetValueOrDefault(Type, -1);
+
         public Attack(AttackType type = AttackType.None ,MovementInputResult move = MovementInputResult.None)
         {
             Type = type;
             Move = move;
+//            Debug.Log(Priority);
         }
 
         public override string ToString()
@@ -81,6 +91,22 @@ public class InputReader : MonoBehaviour
             return HashCode.Combine((int)Move, (int)Type);
         }
     }
+
+  
+
+    #endregion
+    public enum MovementInputResult
+    {
+        None,
+        Up,
+        Down,
+        Forward,
+        Backward,
+        UpLeft,
+        UpRight,
+        DownLeft,
+        DownRight,
+    }
     
     private PlayerController _player;
     public MovementInputResult CurrentMoveInput { get; private set; }
@@ -88,8 +114,9 @@ public class InputReader : MonoBehaviour
     public int CurrentAttackFrame { get; private set; }
     public Attack LastAttackInput { get; private set; }
     private int LastAttackInputFrame { get; set; }
+    internal BufferedInput<Attack> currentAttackCached;
 
-    public AttackData.States curState; 
+    public AttackData.States curState { get; private set; } 
     private readonly List<BufferedInput<MovementInputResult>> _movementBuffer = new();
     private readonly List<BufferedInput<Attack>> _attackBuffer = new();
     
@@ -101,22 +128,9 @@ public class InputReader : MonoBehaviour
 
    // private AttackType _currentFrameAttackInputs; 
 
-   public struct BufferedInput<T>
-    {
-        public T Input;
-        public readonly int CurFrame;
-        public  bool IsBeingUsed; 
-
-
-        public BufferedInput(T input, int curFrame, bool isBeingUsed)
-        {
-            Input = input;
-            CurFrame = curFrame;
-            IsBeingUsed = isBeingUsed;
-        }
-    }
 
   
+   
     private void AddMovementInput(MovementInputResult result)
     {
         if (_movementBuffer.Count >= _bufferCap)
@@ -182,7 +196,6 @@ public class InputReader : MonoBehaviour
             if (_attackBuffer[^1].CurFrame - input.CurFrame > 5)
                 break;
             newAttack.Input.Type |= input.Input.Type;
-
             newAttack = CheckForSuper(newAttack);
             if (  newAttack.Input.Type  != AttackType.None)   newAttack.Input.Type  = GetAttackPriority( newAttack.Input.Type );
             if (newAttack.Input.Move == MovementInputResult.None) newAttack.Input.Move = input.Input.Move;
@@ -239,13 +252,11 @@ public class InputReader : MonoBehaviour
             Debug.LogError("Attack priority unknown");
         }
 
-        _player.Animations.SetAttackingHash(output);
+       // _player.Animations.SetAttackingHash(output);
 //        Debug.Log(output.ToString());
         return output;
         
     } 
-
-
     private void UpdateInputBuffers()
     {
         var curFrame = Time.frameCount;
@@ -253,9 +264,11 @@ public class InputReader : MonoBehaviour
         _attackBuffer.RemoveAll(i => curFrame - i.CurFrame > _bufferTime && !i.IsBeingUsed);
 
         CurrentMoveInput = _movementBuffer.Count > 0 ? _movementBuffer[^1].Input : MovementInputResult.None;
-        CurrentAttackInput = _attackBuffer.Count > 0 ? GetBufferedAttack() : new ();
-        CurrentAttackFrame = _attackBuffer.Count > 0 ? _attackBuffer[^1].CurFrame : 0;
-
+        if (CurrentAttackInput.Input.Type == AttackType.None && _attackBuffer.Count > 0)
+        {
+            CurrentAttackInput = GetBufferedAttack();
+            CurrentAttackFrame = curFrame;
+        }        
         if (curFrame - LastAttackInputFrame > _bufferTime && !_player.IsAttacking)
         {
             LastAttackInput = new Attack();
@@ -312,4 +325,10 @@ public class InputReader : MonoBehaviour
         return validInput.Input;
 
     }
+    public void ConsumeCurrentInput()
+    {
+        CurrentAttackInput.IsBeingUsed = true;
+        CurrentAttackInput = new BufferedInput<Attack>();
+    }
+
 }

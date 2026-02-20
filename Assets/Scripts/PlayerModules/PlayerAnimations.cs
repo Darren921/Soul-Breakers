@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour 
@@ -30,6 +31,9 @@ public class PlayerAnimations : MonoBehaviour
     public  readonly int Super = Animator.StringToHash("Super");
     public  readonly int Hit = Animator.StringToHash("Hit");
     #endregion
+
+
+    
     internal Animator Animator;
 
     private PlayerController _player;

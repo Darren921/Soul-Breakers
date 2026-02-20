@@ -32,7 +32,7 @@ using UnityEngine.Serialization;
         #endregion
         
         public List<AttackData> Attacks;
-
+       
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         { 
 //            Debug.Log(attack.Type);
@@ -85,12 +85,26 @@ using UnityEngine.Serialization;
         public Vector3 Knockback;
         public float HitStun;
         public float BlockStun;
-        
-        public AttackData( InputReader.Attack attack  , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0 )
+        public string AnimationName; 
+        private int _animHash; 
+        public int AnimHash 
+        {
+            get 
+            {
+                if (_animHash == 0 && !string.IsNullOrEmpty(AnimationName))
+                {
+                    _animHash = Animator.StringToHash(AnimationName);
+                }
+                return _animHash;
+            }
+        }
+        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" )
         {
             Attack = attack;
             Tag = tag;
             State = state;
+            AnimationName = animName.ToLower();
+            _animHash = 0; 
             Damage = damage;
             Knockback = knockback;
             HitStun = hitStun;

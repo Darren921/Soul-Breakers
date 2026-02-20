@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     [field : SerializeField]  public GameObject playerModel { get; private set; }
 
     public bool PlayerConnected { get;  private set; }
+    internal bool canCancel;
 
     #endregion
     

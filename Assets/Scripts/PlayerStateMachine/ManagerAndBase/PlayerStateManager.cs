@@ -10,7 +10,7 @@ public class PlayerStateManager : MonoBehaviour
     public string CurrentStateName => currentState?.GetType().Name;
 
     [field:SerializeReference] public PlayerBaseState currentState { get; private set; }
-    [field:SerializeField] internal PlayerBaseState lastState { get; private set; }
+    [field:SerializeReference] internal PlayerBaseState lastState { get; private set; }
  
     private PlayerController _player;
 
@@ -167,6 +167,7 @@ public class PlayerStateManager : MonoBehaviour
         if (transitionType.HasFlag(PlayerStateTypes.Crouching))
             if (_player.PlayerMove.y < 0 && _player.GravityManager.IsGrounded)
                 SwitchState(PlayerStateTypes.Crouching);
+        
     }
 
     private void OnDestroy()

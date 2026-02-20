@@ -23,7 +23,10 @@ public class PlayerHitStunState : PlayerBaseState
     {
         var originalSpeed = SetHitStun(player);
 //              Debug.Log("HitStun");
+      //  Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(player.PlayerHitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.PlayerHitDetection.otherPlayer.InputReader.LastAttackInput,player.PlayerHitDetection.otherPlayer.InputReader.curState).HitStun);
+     //   Time.timeScale = 1;
+
 //        Debug.Log("HitStun complete");
         DisableHitStun(player, originalSpeed);
     }
@@ -69,7 +72,7 @@ public class PlayerHitStunState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log("Exit State");
+//        Debug.Log("Exit State");
         player.Animations.Animator.SetBool(player.Animations.Hit, false);
     }
     
