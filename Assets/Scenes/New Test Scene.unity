@@ -42612,7 +42612,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1296030288919032856, guid: 8e4d6978fde9db94d98250e96676d7f1, type: 3}
       propertyPath: m_DetailObjectDistance
-      value: 803
+      value: 746
       objectReference: {fileID: 0}
     - target: {fileID: 2505580961242134140, guid: 8e4d6978fde9db94d98250e96676d7f1, type: 3}
       propertyPath: m_LocalPosition.x
