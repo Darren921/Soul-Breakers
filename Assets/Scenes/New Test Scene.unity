@@ -5403,7 +5403,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 48
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -5429,8 +5429,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026880715, y: 0.95366853, z: -0.28592932, w: 0.08965604}
-  m_LocalPosition: {x: -122.75871, y: 4.462001, z: 243.99596}
+  m_LocalRotation: {x: -0.000000014806448, y: -0.0000000019524313, z: -7.316658e-11, w: 1}
+  m_LocalPosition: {x: 0.22391033, y: 1.0344152, z: 16.324034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7606,7 +7606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &440485578
 Animator:
   serializedVersion: 7
@@ -7802,7 +7802,7 @@ Transform:
   m_GameObject: {fileID: 450182428}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0043449244, y: 0.00084013934, z: 0.00095913257, w: 0.99998975}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 22.324034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11913,7 +11913,7 @@ Transform:
   m_GameObject: {fileID: 658777617}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.0787144, y: -8.098, z: 11.845967}
+  m_LocalPosition: {x: -7.0787144, y: -8.098, z: 24.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12345,7 +12345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a36ba01377b4db49953ec8b144526b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curState: 0
+  CurrentAttackInput:
+    Input:
+      Move: 0
+      Type: 0
+    IsBeingUsed: 0
   movementInputsVisual: []
   attackInputsVisual: []
 --- !u!114 &685541189
@@ -12373,6 +12377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <currentState>k__BackingField:
+    rid: -2
+  <lastState>k__BackingField:
     rid: -2
   references:
     version: 2
@@ -19432,7 +19438,7 @@ Transform:
   m_GameObject: {fileID: 1053772600}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000014806448, y: -0.0000000019524313, z: -7.316658e-11, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 12.324034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29901,7 +29907,7 @@ Transform:
   m_GameObject: {fileID: 1610581903}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.0787144, y: 8.098, z: -11.845967}
+  m_LocalPosition: {x: 7.0787144, y: 8.098, z: -24.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39751,7 +39757,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a36ba01377b4db49953ec8b144526b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curState: 0
+  CurrentAttackInput:
+    Input:
+      Move: 0
+      Type: 0
+    IsBeingUsed: 0
   movementInputsVisual: []
   attackInputsVisual: []
 --- !u!114 &2239886189421363309
@@ -39779,6 +39789,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <currentState>k__BackingField:
+    rid: -2
+  <lastState>k__BackingField:
     rid: -2
   references:
     version: 2
@@ -42612,7 +42624,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1296030288919032856, guid: 8e4d6978fde9db94d98250e96676d7f1, type: 3}
       propertyPath: m_DetailObjectDistance
-      value: 746
+      value: 451
       objectReference: {fileID: 0}
     - target: {fileID: 2505580961242134140, guid: 8e4d6978fde9db94d98250e96676d7f1, type: 3}
       propertyPath: m_LocalPosition.x
