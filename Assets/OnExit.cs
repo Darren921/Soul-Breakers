@@ -19,9 +19,9 @@ public class OnExit : StateMachineBehaviour
     {
         Debug.Log("OnExit");
         var player = animator.GetComponentInParent<PlayerController>();
-        player.PlayerHitDetection.otherPlayer.PlayerHitDetection.resetHit();
+        player.HitDetection.otherPlayer.HitDetection.resetHit();
         
-        player.PlayerHitDetection.otherPlayer.canCancel = false;
+        player.HitDetection.otherPlayer.canCancel = false;
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

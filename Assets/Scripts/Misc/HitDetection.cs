@@ -17,7 +17,7 @@ public class HitDetection : MonoBehaviour, IDamageable
     internal  bool _damageDone;
     
     internal bool Blocking;
-
+    private Bounds _bounds;
     private void Awake()
     {
         _player = gameObject.GetComponentInParent<PlayerController>();
@@ -28,7 +28,14 @@ public class HitDetection : MonoBehaviour, IDamageable
         
     }
 
-   
+    private void Update()
+    {
+        if (_player.AtBorder)
+        {
+            _player.rb.MovePosition(_player.transform.position +  new Vector3(!_player.Reversed ? _bounds.size.x : -_bounds.size.x, 0,0));
+        }
+    }
+
     public void resetHit()
     {
         _hit = false;
@@ -36,10 +43,6 @@ public class HitDetection : MonoBehaviour, IDamageable
     }
     private void OnTriggerStay(Collider other)
     {
-     
-        
-        
-        
         if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
 //            print("Hit");
@@ -55,12 +58,10 @@ public class HitDetection : MonoBehaviour, IDamageable
                 TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
             }
         }
-
-        
-        
         if (other.gameObject.CompareTag("Wall"))
         {
             _player.AtBorder = true;
+            _bounds = other.bounds;
         }
     }
 

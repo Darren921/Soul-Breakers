@@ -76,6 +76,7 @@ public class PlayerAnimations : MonoBehaviour
 
     public void ResetAttackingTrigger()
     {
+        Animator.StopPlayback();
         //This may need to change to separate ones for each attack
         // This is used at the end of each animation 
         _player.IsAttacking = false;

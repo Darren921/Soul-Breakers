@@ -7,10 +7,13 @@ using UnityEngine;
 public class PlayerHitStunState : PlayerBaseState
 {
 
+    [Obsolete("Obsolete")]
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        
         player.Animations.ResetAttackingTrigger();
         //player.CharacterData.
+      player.Animations.Animator.Play("Hit", 0,0 );
       if(player.GravityManager.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
       else player.StartCoroutine(WaitForHitStunAirborne(player));
     }
@@ -22,9 +25,10 @@ public class PlayerHitStunState : PlayerBaseState
     private IEnumerator WaitForHitStun(PlayerController player)
     {
         var originalSpeed = SetHitStun(player);
+
 //              Debug.Log("HitStun");
       //  Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(player.PlayerHitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.PlayerHitDetection.otherPlayer.InputReader.LastAttackInput,player.PlayerHitDetection.otherPlayer.InputReader.curState).HitStun);
+        yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.HitDetection.otherPlayer.InputReader.LastAttackInput,player.HitDetection.otherPlayer.InputReader.curState).HitStun);
      //   Time.timeScale = 1;
 
 //        Debug.Log("HitStun complete");
@@ -51,7 +55,7 @@ public class PlayerHitStunState : PlayerBaseState
 
 //        Debug.Log(player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame);
 //        Debug.Log(!player.HitStun);
-        if (!player.HitStun && !player.PlayerHitDetection.otherPlayer.Animations.IsActiveFrame)
+        if (!player.HitStun && !player.HitDetection.otherPlayer.Animations.IsActiveFrame)
         {
 //            Debug.Log("Entered ");
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Dash | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Running);

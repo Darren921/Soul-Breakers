@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparable
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     internal InputReader InputReader;
    [SerializeField] internal CharacterSO CharacterData;
     internal GravityManager GravityManager;
-    public HitDetection PlayerHitDetection;
+    public HitDetection HitDetection;
     internal PlayerKnockBack PlayerKnockBack;
     public PlayerStateManager _playerStateManager;
 
@@ -106,7 +107,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     {
         FrictionBox = GetComponent<BoxCollider>();
         PlayerKnockBack = GetComponent<PlayerKnockBack>();
-        PlayerHitDetection = GetComponentInChildren<HitDetection>();
+        HitDetection = GetComponentInChildren<HitDetection>();
         _playerStateManager = GetComponent<PlayerStateManager>();
         GravityManager = GetComponentInChildren<GravityManager>();
         InputReader = GetComponent<InputReader>();

@@ -58,7 +58,7 @@ public class PlayerAttackState : PlayerBaseState
             Debug.Log("Switch to Grounded");
             player.Animations.Animator.Play("Neutral", 0, 0f);
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
-            player.PlayerHitDetection.otherPlayer.PlayerHitDetection.resetHit();
+            player.HitDetection.otherPlayer.HitDetection.resetHit();
         }
 
 

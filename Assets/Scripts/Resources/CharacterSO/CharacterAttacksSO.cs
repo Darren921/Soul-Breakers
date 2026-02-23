@@ -26,18 +26,38 @@ using UnityEngine.Serialization;
             new (new InputReader.Attack(InputReader.AttackType.Heavy), AttackData.Tags.Low , AttackData.States.Crouching ),
             new (new InputReader.Attack(InputReader.AttackType.Heavy), AttackData.Tags.High , AttackData.States.Airborne)
         };
-
-        
-
+        public AttackData[] GrabAttacks = 
+        {
+            new (new InputReader.Attack(InputReader.AttackType.Grab)),
+            new (new InputReader.Attack(InputReader.AttackType.Grab)),
+        };
+        public AttackData[] SpecialAttacks = 
+        {
+            new (new InputReader.Attack(InputReader.AttackType.Special)),
+            new (new InputReader.Attack(InputReader.AttackType.Special)),
+            new (new InputReader.Attack(InputReader.AttackType.Special))
+        };
+        public AttackData[] SuperAttacks = 
+        {
+            
+        };
         #endregion
-        
-        public List<AttackData> Attacks;
-       
+        public List<AttackData> CustomLightAttacks;
+        public List<AttackData> CustomMedAttacks;
+        public List<AttackData> CustomHeavyAttacks;
+
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         { 
 //            Debug.Log(attack.Type);
 //            Debug.Log(state);
-            var attackUsed = Attacks.Find( data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state) ;
+            var attackUsed = attack.Type switch
+            {
+                InputReader.AttackType.Light => CustomLightAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
+                InputReader.AttackType.Medium => CustomMedAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
+                InputReader.AttackType.Heavy => CustomHeavyAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
+                InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
+                _ => new AttackData()
+            };
             if (attackUsed.Equals(new AttackData()))
             {
 //                Debug.Log(attackUsed.Attack.Type);
@@ -46,16 +66,17 @@ using UnityEngine.Serialization;
                     InputReader.AttackType.Light => DefaultLightAttacks.FirstOrDefault((data => data.State == state)),
                     InputReader.AttackType.Medium => DefaultMedAttacks.FirstOrDefault((data => data.State == state)),
                     InputReader.AttackType.Heavy => DefaultHeavyAttacks.FirstOrDefault((data => data.State == state)),
-                    InputReader.AttackType.Grab =>  DefaultLightAttacks.FirstOrDefault((data => data.State == state)),
                     _ => throw new ArgumentOutOfRangeException(nameof(attack),"check the following" )
                 };
             }
+
+            if (attackUsed.AnimationName == string.Empty) Debug.LogWarning("No animation found");
             return attackUsed; 
         }
     }
+    
 
-
-
+    
     [Serializable]
     public struct AttackData : IEquatable<AttackData>
     { 
@@ -94,6 +115,7 @@ using UnityEngine.Serialization;
                 if (_animHash == 0 && !string.IsNullOrEmpty(AnimationName))
                 {
                     _animHash = Animator.StringToHash(AnimationName);
+                    
                 }
                 return _animHash;
             }

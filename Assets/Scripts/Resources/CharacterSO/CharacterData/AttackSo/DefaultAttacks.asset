@@ -105,4 +105,69 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: heavyNormA
-  Attacks: []
+  GrabAttacks:
+  - Attack:
+      Move: 4
+      Type: 3
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: lightLeft
+  - Attack:
+      Move: 0
+      Type: 3
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: lightNorm
+  - Attack:
+      Move: 3
+      Type: 3
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: lightRight
+  SpecialAttacks:
+  - Attack:
+      Move: 0
+      Type: 8
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 0
+    BlockStun: 0
+    AnimationName: 
+  - Attack:
+      Move: 0
+      Type: 8
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 0
+    BlockStun: 0
+    AnimationName: 
+  - Attack:
+      Move: 0
+      Type: 8
+    Tag: 1
+    State: 0
+    Damage: 0
+    Knockback: {x: 0, y: 0, z: 0}
+    HitStun: 0
+    BlockStun: 0
+    AnimationName: 
+  SuperAttacks: []
+  CustomLightAttacks: []
+  CustomMedAttacks: []
+  CustomHeavyAttacks: []
