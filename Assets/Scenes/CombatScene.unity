@@ -6908,7 +6908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &282811111
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46370,7 +46370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1565915923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -48705,7 +48705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1663960362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66885,7 +66885,7 @@ GameObject:
   - component: {fileID: 3579694232765782525}
   - component: {fileID: 4835200218233530650}
   m_Layer: 0
-  m_Name: Alpha_Surface1
+  m_Name: Alpha_Surface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

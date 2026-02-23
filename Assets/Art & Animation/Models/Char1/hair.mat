@@ -121,7 +121,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _LOD: 4.71
-    - _MaxBright: -0.95
+    - _MaxBright: -0.66
     - _Metallic: 0
     - _MinBright: 0.32
     - _OcclusionStrength: 1
