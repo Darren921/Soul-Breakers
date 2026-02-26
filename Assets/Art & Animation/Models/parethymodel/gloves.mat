@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: gloves
-  m_Shader: {fileID: -6465566751694194690, guid: 2f4038a0b02d4824f9c99ff002d8f383, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 6fbcb01fe014543449ed152e3b1bcc98, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
