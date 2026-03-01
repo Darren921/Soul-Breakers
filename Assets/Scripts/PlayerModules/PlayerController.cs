@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     public bool PlayerConnected { get;  private set; }
     internal bool canCancel;
-
+    internal DetectOtherPlayer _detector; 
     #endregion
     
 
@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         GravityManager = GetComponentInChildren<GravityManager>();
         InputReader = GetComponent<InputReader>();
         rb = GetComponent<Rigidbody>();
+        _detector = GetComponentInChildren<DetectOtherPlayer>();
     }
 
     private void Start()

@@ -51,8 +51,8 @@ public class UIController : MonoBehaviour
 
     private void ActionOnperformed(InputAction.CallbackContext ctx)
     {
-        Debug.Log(ctx.phase);
-        Debug.Log(ctx.ReadValue<Vector2>());
+ //       Debug.Log(ctx.phase);
+//        Debug.Log(ctx.ReadValue<Vector2>());
 
         if (eventSystem.currentSelectedGameObject && LastselectedObject != eventSystem.currentSelectedGameObject)
         {

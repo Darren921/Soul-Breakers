@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 [System.Serializable]
@@ -9,8 +10,8 @@ public class PlayerAirDashState : PlayerDashState
     {
         _airDashCharges = player.CharacterData.airDashCharges;
         _airDashCharges--;
-        player.StartCoroutine(AirDash(player));
         SetUpDash(player);
+        player.StartCoroutine(AirDash(player));
 //      Debug.Log(newDashVelo);
     }
 
@@ -51,20 +52,22 @@ public class PlayerAirDashState : PlayerDashState
     
     private IEnumerator AirDash(PlayerController player)
     {
+        GetDashValues(player);
         player.GravityManager.ResetVelocity();
         //    Debug.Log("PlayerDashState Dash");
-        IsDashing = true;
+        DashActive = true;
         // player.rb.useGravity = false;
         // player.rb.linearVelocity = new Vector3(NewDashVelo.x, 0, 0);
-        yield return new WaitForSeconds(DashTime);
-        IsDashing = false;
+        Debug.Log(DashTime);
+        yield return new WaitUntil(() => player._detector.intersecting || player.PlayersColliding , TimeSpan.FromSeconds(DashTime), () => DashActive = false) ;
+        DashActive = false;
     }
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //      if(!player.isGrounded ||   isDashing || player.Dashing) return;
 
-        if (_airDashCharges > 0 && player.IsDashing && !IsDashing && player.AtDashHeight)
+        if (_airDashCharges > 0 && player.IsDashing && !DashActive && player.AtDashHeight)
         {
             //  Debug.Log("PlayerDashState Dash again");
             _airDashCharges--;
@@ -83,17 +86,16 @@ public class PlayerAirDashState : PlayerDashState
     {
 //        Debug.Log(player.gravityManager.GetVelocity());
 
-        if (player.IsDashing)
+        if (DashActive)
         {
             player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x ,0,0) * Time.fixedDeltaTime);
 //            Debug.Log( player.rb.linearVelocity);
 
         }
-        if (!player.GravityManager.IsGrounded && !IsDashing)
+       Debug.Log($"{!player.GravityManager.IsGrounded} {!DashActive} {!player._detector.intersecting}");
+        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting )
         {
-            player.GravityManager.ApplyGravity(player);
-            player.rb.MovePosition(player.transform.position + new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(),0) * Time.fixedDeltaTime);
-           // player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
+          player.GravityManager.ApplyGravityToPlayer(player);
         }
     }
 

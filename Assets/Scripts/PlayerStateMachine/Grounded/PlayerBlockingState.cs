@@ -39,10 +39,7 @@ public class PlayerBlockingState : PlayerBaseState
     {
         if (!player.GravityManager.IsGrounded && !player.HitStun)
         {
-            player.GravityManager.ApplyGravity(player);
-            
-            player.rb.MovePosition(player.transform.position + new Vector3(player.PlayerMove.x, player.GravityManager.GetVelocity() , 0f) * Time.fixedDeltaTime );
-            //  player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+            player.GravityManager.ApplyGravityToPlayer(player);
         }
     }
 

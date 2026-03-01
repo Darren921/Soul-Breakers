@@ -108,17 +108,8 @@ public class PlayerAttackState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 
-        if (!player.GravityManager.IsGrounded && player.transform.localPosition.y > 0.1f)
-        {
-            player.GravityManager.ApplyGravity(player);
-            player.rb.MovePosition(player.transform.position +
-                                   new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0) *
-                                   (Time.fixedDeltaTime));
-        }
-
-
-
-//        Debug.Log(player.gravityManager.GetVelocity());
+        player.GravityManager.ApplyGravityToPlayer(player);
+        
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)

@@ -9,7 +9,7 @@ public class DetectOtherPlayer : MonoBehaviour
     BoxCollider BoxCollider;
     private RaycastHit Hit;
     private float PushForce;
-    private bool intersecting;
+    internal bool intersecting;
     private Bounds intersectionBounds;
     private BoxCollider otherPlayersCollider;
     private float rayDistance;

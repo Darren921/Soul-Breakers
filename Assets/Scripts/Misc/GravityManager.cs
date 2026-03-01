@@ -95,6 +95,16 @@ public class GravityManager : MonoBehaviour
         Velocity = 0;
     }
 
+    public void ApplyGravityToPlayer(PlayerController player)
+    {
+        if (!IsGrounded && player.transform.localPosition.y > 0.1f)
+        {
+            player.GravityManager.ApplyGravity(player);
+            player.rb.MovePosition(player.transform.position + new Vector3(Mathf.Clamp(player.rb.linearVelocity.x, -10,10) , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime));
+        }  
+        
+    }
+  
     public float SetJumpVelocity(PlayerController player)
     {
         //uses formula in order to get a constant jump height 
