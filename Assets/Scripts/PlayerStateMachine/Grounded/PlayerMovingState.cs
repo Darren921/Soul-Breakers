@@ -15,7 +15,7 @@ public abstract class PlayerMovingState : PlayerBaseState
 //        Debug.Log("Entered " + playerStateManager.currentState);
         
         Player = player;
-        player.rb.linearVelocity = Vector3.zero;
+  //      player.rb.linearVelocity = Vector3.zero;
     }
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
@@ -25,7 +25,15 @@ public abstract class PlayerMovingState : PlayerBaseState
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Blocking);
             return;
         }
-        
+        // if (!player.GravityManager.IsGrounded && !player.HitStun)
+        // {
+        //     player.GravityManager.ApplyGravity(player);
+        //     
+        //     player.rb.MovePosition(player.transform.position + new Vector3(player.PlayerMove.x, player.GravityManager.GetVelocity() , 0f) * Time.fixedDeltaTime );
+        //     //  player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+        // }
+        if(player.Decelerating || player.PlayersColliding) return;
+//        Debug.Log("Player is moving");
         SetMoveDir(new Vector2(player.PlayerMove.x, 0));
         SmoothMovement();
         ApplyVelocity(player);
@@ -40,7 +48,7 @@ public abstract class PlayerMovingState : PlayerBaseState
 
     protected void SetMoveDir(Vector3 newDir)
     {
-        MoveDir = newDir.normalized;
+        MoveDir = newDir.normalized;    
     }
  
 

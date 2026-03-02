@@ -1,6 +1,8 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimations : MonoBehaviour
+public class PlayerAnimations : MonoBehaviour 
 {
     #region Animator Hashed variables
     public readonly int Idle = Animator.StringToHash("Idle");
@@ -26,12 +28,18 @@ public class PlayerAnimations : MonoBehaviour
     public readonly int WalkDir = Animator.StringToHash("WalkDir");
     public readonly int Grab = Animator.StringToHash("Grab");
     public readonly int Grabbed = Animator.StringToHash("Grabbed");
+    public  readonly int Super = Animator.StringToHash("Super");
+    public  readonly int Hit = Animator.StringToHash("Hit");
     #endregion
+
+
+    
     internal Animator Animator;
 
     private PlayerController _player;
     
     public bool IsActiveFrame{get; private set;}
+    public bool IsRecoveryFrame{get; private set;}
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,16 +57,18 @@ public class PlayerAnimations : MonoBehaviour
         {
             case true:
                 Animator?.SetBool(Crouch,  _player.IsCrouching);
-                Animator?.SetBool(Walking, _player.IsWalking);
+                if(!_player.Decelerating) Animator?.SetBool(Walking, _player.IsWalking);
                 Animator?.SetBool(Running, _player.IsRunning);
                 break;
             case false:
                 Animator?.SetBool(Crouch, false);
-                Animator?.SetBool(Walking, false);
+                 Animator?.SetBool(Walking, false);
                 Animator?.SetBool(Running, false);
                 break;
         }
         if (Animator) IsActiveFrame = Animator.GetBool(Active);
+        if (Animator) IsRecoveryFrame = Animator.GetBool(Recovery);
+
     }
     
     
@@ -66,10 +76,11 @@ public class PlayerAnimations : MonoBehaviour
 
     public void ResetAttackingTrigger()
     {
+        Animator.StopPlayback();
         //This may need to change to separate ones for each attack
         // This is used at the end of each animation 
         _player.IsAttacking = false;
-        print("Reset attacking trigger");
+//        print("Reset attacking trigger");
         Animator?.ResetTrigger(StartUp);
         Animator?.ResetTrigger(Attacking);
         Animator?.SetBool(Light,false);
@@ -78,6 +89,9 @@ public class PlayerAnimations : MonoBehaviour
         Animator?.SetBool(left, false);
         Animator?.SetBool(right, false);
         Animator?.SetBool(Active,false);
+        Animator?.SetBool(Super,false);
+        Animator?.SetBool(Special,false);
+        _player.InputReader.CurrentAttackInput.IsBeingUsed = false;
     }
 
     public void SetUpStartupFrame()
@@ -108,4 +122,59 @@ public class PlayerAnimations : MonoBehaviour
 
     #endregion
 
+  
+
+    public void SetAttackingHash(InputReader.AttackType inputType)
+    {
+//        print(inputType);
+        if(inputType.ToString().Contains("Super") && _player.superMeter < 100) return;
+        switch (inputType)
+        {
+            
+            case InputReader.AttackType.Light:
+                Animator?.SetBool(Light,true);
+                break;
+            case InputReader.AttackType.Grab:
+                Animator?.SetBool(Light,true);
+                Animator?.SetBool(Medium,true);
+                break;
+            case InputReader.AttackType.Heavy:
+                Animator?.SetBool(Heavy,true);
+                break;
+            case InputReader.AttackType.Medium:
+                Animator?.SetBool(Medium,true);
+                break;
+            case InputReader.AttackType.SuperLight:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Light,true);
+                break;
+            case InputReader.AttackType.SuperMedium:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Medium,true);
+                break;
+            case InputReader.AttackType.SuperHeavy:
+                Animator?.SetBool(Super,true);
+                Animator?.SetBool(Heavy,true);
+                break;
+            case InputReader.AttackType.Special:
+                Animator?.SetBool(Special,true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(inputType), inputType, null);
+        }
+
+        if (Animator )
+        {
+            if(Animator.GetBool(Super)) return;
+            if (Animator.GetBool(Heavy) && Animator.GetBool(Light))
+            {
+                Animator.SetBool(Light,false);
+            }
+            else if (Animator.GetBool(Medium) && Animator.GetBool(Heavy))
+            {
+                Animator.SetBool(Medium,false);
+            }
+            Animator?.SetBool(Attacking,true);
+        }
+    }
 }

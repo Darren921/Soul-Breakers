@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour, Controls.IPlayerActions
+public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparable
 {
 
     #region Class references
@@ -13,7 +15,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     internal InputReader InputReader;
    [SerializeField] internal CharacterSO CharacterData;
     internal GravityManager GravityManager;
-    internal HitDetection PlayerHitDetection;
+    public HitDetection HitDetection;
     internal PlayerKnockBack PlayerKnockBack;
     public PlayerStateManager _playerStateManager;
 
@@ -55,7 +57,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     [SerializeField] internal Transform raycastPos;
     [SerializeField] internal int JumpCharges;
     [SerializeField] internal float JumpHeight;
-    internal float RaycastDistance; //2.023f
     internal float GravScale; // (Hold for now )  character data affects gravity 5 
     [SerializeField] internal float Velocity;
     internal Rigidbody rb;
@@ -82,7 +83,15 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     [SerializeField]  internal bool DashMarcoActive;
     [SerializeField] private float MinDashHeight;
     private BoxCollider FrictionBox;
+    [SerializeField]internal float superMeter;
+    internal bool PlayersColliding;
+    [field : SerializeField]  public GameObject playerModel { get; private set; }
+
+    public bool PlayerConnected { get;  private set; }
+    internal bool canCancel;
+    internal DetectOtherPlayer _detector; 
     #endregion
+    
 
     public bool isDead { get; private set; } 
 
@@ -91,7 +100,6 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         Animations = GetComponent<PlayerAnimations>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
-        RaycastDistance = 2F;
         HitDetection.OnDeath += OnPlayerDeath;
     }
 
@@ -99,11 +107,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     {
         FrictionBox = GetComponent<BoxCollider>();
         PlayerKnockBack = GetComponent<PlayerKnockBack>();
-        PlayerHitDetection = GetComponentInChildren<HitDetection>();
+        HitDetection = GetComponentInChildren<HitDetection>();
         _playerStateManager = GetComponent<PlayerStateManager>();
-        GravityManager = GetComponent<GravityManager>();
+        GravityManager = GetComponentInChildren<GravityManager>();
         InputReader = GetComponent<InputReader>();
         rb = GetComponent<Rigidbody>();
+        _detector = GetComponentInChildren<DetectOtherPlayer>();
     }
 
     private void Start()
@@ -117,11 +126,18 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         _controls = new Controls();
         //creates a new set of controls for the chosen device 
         _controls.devices = new[] { device };
-        _playerActions = device != null ? _controls.Player : new Controls.PlayerActions();
+        if (device is not null)
+        {
+            _playerActions = _controls.Player;
+           
+        }
+
+        PlayerConnected = device is not null;
         SetUpCallBacks();
         OnEnablePlayer();
         SetUpCharacterVariables();
     }
+
 
     private void SetUpCallBacks()
     {
@@ -152,12 +168,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     public void OnEnablePlayer()
     {
-        _playerActions.Enable();
+        if(PlayerConnected) _playerActions.Enable();
     }
 
     public void OnDisablePlayer()
     {
-        _playerActions.Disable();
+        if(PlayerConnected) _playerActions.Disable();
     }
 
     private void OnPlayerDeath()
@@ -170,21 +186,21 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         InputReader.enabled = false;
         _playerStateManager.ResetStateMachine();
         StopAllCoroutines();
-        _playerActions.RemoveCallbacks(this);
+     if(PlayerConnected)  _playerActions.RemoveCallbacks(this);
         HitDetection.OnDeath -= OnPlayerDeath;
-        _playerActions.Disable();
+        OnDisablePlayer();
         PauseManager.Instance?.UnregisterPlayer(this);
     }
 
     private void OnDestroy()
     {
-        _playerActions.RemoveCallbacks(this);
         HitDetection.OnDeath -= OnPlayerDeath;
-        _playerActions.Disable();
+        OnDisablePlayer();
         PauseManager.Instance?.UnregisterPlayer(this);
 
     }
 
+    
 
     private void SetUpCharacterVariables()
     {
@@ -203,7 +219,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     private void Update()
     {
-        
+        if (InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward && IsRunning) IsRunning = false;   
         // sets animator booleans
        if(!GravityManager.IsGrounded) SetFrictionBox(false);
         AtDashHeight = !GravityManager.IsGrounded && transform.localPosition.y > MinDashHeight;
@@ -261,29 +277,29 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
         {
             StartRun();
         }
-        if (!IsRunning || !context.canceled || PlayerMove.x == 0 || _playerStateManager.currentState == _playerStateManager.States[PlayerStateManager.PlayerStateTypes.Running]) return;
-        StopRun(true);
+//        print($"{!IsRunning } {InputReader.GetValidMoveInput()}");
+        if (!IsRunning || InputReader.GetValidMoveInput() is not InputReader.MovementInputResult.Backward) return; 
+        StopRun(false);
     }
     
     public void OnLight(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Light, Animations.Light);
+        ReadAttackInput(context, InputReader.AttackType.Light);
     }
     
     public void OnMedium(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context,InputReader.AttackType.Medium,Animations.Medium);
+        ReadAttackInput(context,InputReader.AttackType.Medium);
     }
 
     public void OnHeavy(InputAction.CallbackContext context)
     {
-        ReadAttackInput(context, InputReader.AttackType.Heavy, Animations.Heavy);
+        ReadAttackInput(context, InputReader.AttackType.Heavy);
     }
     
     public void OnSpecial(InputAction.CallbackContext context)
     {
-        //ReadAttackInput(context, InputReader.AttackType.Special, Special);
-        Debug.Log("Special attack triggered");
+        ReadAttackInput(context, InputReader.AttackType.Special);
     }
     public void OnJumping(InputAction.CallbackContext context)
     {
@@ -300,10 +316,9 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     #endregion
    
-    private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type ,int AnimatorHash  )
+    private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type )
     {
         PlayerAttackAction?.Invoke(type);
-        if(!OnAttackCoolDown) Animations.Animator?.SetTrigger(AnimatorHash);
         if (OnAttackCoolDown || IsAttacking || !context.performed) return;
         SetAttackVars();
         
@@ -312,13 +327,14 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
 
     private void SetAttackVars()
     {
-        Debug.Log("Set Attacking");
-        Animations.Animator?.SetBool(Animations.Attacking,true);
+//        Debug.Log("Set Attacking");
         IsAttacking = true;    
+        
     }
 
     public void SetFrictionBox(bool value)
     {
+//        print("Used" + value);
         FrictionBox.enabled = value;
     }
     #region Run/Dash
@@ -331,12 +347,15 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     }
     private void StartRun()
     {
+        if(IsRunning) return;
+        print("Starting run");
         IsRunning = true;
         IsWalking = false;
     }
     private void StopRun(bool startWalk)
     {
         IsRunning = false;
+        print("Stop run");
         if (startWalk) IsWalking = true;
     }
 
@@ -374,24 +393,32 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions
     }
 
   
-    internal IEnumerator DecelerationCurve(PlayerController player)
+
+    public IEnumerator OnDeceleration(PlayerController player)
     {
         Decelerating = true;
-
-        while (_elapsedTime < DecelerationDuration && player.DecelActive)
+        yield return new WaitForSeconds(player.DecelerationDuration);
+        Decelerating = false;
+        SetFrictionBox(false);
+        while (Decelerating)
         {
-            player.rb.linearVelocity = Vector3.Lerp(player.rb.linearVelocity, new Vector3(0f, 0, 0), DecelerationDuration);
-            _elapsedTime += Time.deltaTime;
-            yield return null;
+            SetFrictionBox(true);
+            Debug.Log(rb.linearVelocity);
+            player.rb.MovePosition( player.transform.position + new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z) * Time.fixedDeltaTime );
+         // player.rb.linearVelocity = new Vector3(Mathf.MoveTowards(player.rb.linearVelocity.x, 0f, 1 * Time.deltaTime), 0, player.rb.linearVelocity.z); 
+           yield return new WaitForFixedUpdate();
+          
+
         }
 
-        Decelerating = false;
-        _elapsedTime = 0f;
     }
-    
-
     #endregion
- 
 
-  
+
+    public int CompareTo(object obj)
+    {
+        if(obj is null) return 1;
+        var other = obj as PlayerController;
+        return transform.position.x.CompareTo(other.transform.position.x);
+    }
 }

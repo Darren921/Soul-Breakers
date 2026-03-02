@@ -20,6 +20,7 @@ public class MainMenuScripts : MonoBehaviour
 
     [SerializeField] bool Player1Ready;
     [SerializeField] bool Player2Ready;
+    [SerializeField] bool snapPlayerPos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,13 +28,18 @@ public class MainMenuScripts : MonoBehaviour
         Character2.SetActive(true);
         UIAnim = GameObject.Find("Canvas").GetComponent<Animator>();
         WorldUIanim = GameObject.Find("SceneCanvas").GetComponent<Animator>();
+        snapPlayerPos = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Character1.transform.position = PlayerArea1.position;
-        Character2.transform.position = PlayerArea2.position;
+        if ( snapPlayerPos)
+        {
+            Character1.transform.position = PlayerArea1.position;
+            Character2.transform.position = PlayerArea2.position;
+        }
+        
     }
     public void Char1Active1()
     {

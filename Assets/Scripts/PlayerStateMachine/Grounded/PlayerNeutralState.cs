@@ -11,8 +11,9 @@ public class PlayerNeutralState : PlayerBaseState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player )
     {
         if(player is  null) return;
+        if(player.Animations.IsRecoveryFrame) player.Animations.ResetRecoveryFrame();
+        
         _idleCoroutine = player?.StartCoroutine(CheckIfIdle(player));
-    if(playerStateManager.lastState != playerStateManager.States[PlayerStateTypes.Running])    player.rb.linearVelocity = Vector3.zero;
 //        Debug.Log("Entered PlayerNeutralState");
     }
 
@@ -32,11 +33,11 @@ public class PlayerNeutralState : PlayerBaseState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager,PlayerController player)
     {
-        if (!player.GravityManager.IsGrounded)
+        if (!player.GravityManager.IsGrounded && !player.HitStun)
         {
-            player.GravityManager.ApplyGravity(player);
-            
-            player.rb.linearVelocity  = new Vector3(player.rb.linearVelocity.x,player.GravityManager.GetVelocity() ,0);
+            Debug.Log("gravity on neutral state");
+            player.GravityManager.ApplyGravityToPlayer(player);
+
         }
       
     }

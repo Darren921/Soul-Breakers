@@ -95,7 +95,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""9fb589fb-7fa7-435d-805c-d3ea44e296e5"",
-                    ""expectedControlType"": ""Vector3"",
+                    ""expectedControlType"": """",
                     ""processors"": ""NormalizeVector3,Range"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -151,7 +151,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""64c3bc92-79be-4fdc-ad65-320571f059b0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTap(tapTime=0.2,tapDelay=0.75,pressPoint=0.5)"",
+                    ""interactions"": ""MultiTap(tapTime=0.2,tapDelay=0.3,pressPoint=0.5)"",
                     ""initialStateCheck"": true
                 },
                 {
@@ -178,7 +178,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""id"": ""d0ff13c3-b779-43ba-80e3-2d9c0196b25c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""MultiTapOrHold"",
+                    ""interactions"": ""MultiTapOrHold(releasePoint=0.4,totalDuration=0.75,tapDuration=0.6)"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -592,17 +592,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c61ade6e-757e-4e3a-910a-4b8a19cfa866"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""5613b751-e9b4-46a8-852f-d12858055be3"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
@@ -614,11 +603,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2fd2246e-28ac-4c97-bf94-401a5b24eaf4"",
-                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""id"": ""d7ea0d12-6bea-4c1c-bb8e-88038e3f1aca"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -636,8 +625,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4e9e8446-f92b-456c-b2e5-6a771ba5c54e"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""id"": ""e3bcbaf5-7cbe-4a14-8fd9-39960852bb9d"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -649,6 +638,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""775c9c22-c32d-4e9c-8a30-93dd19ac6239"",
                     ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""984a449a-2e7e-4699-a574-6083b92978bc"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -732,17 +732,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Special"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3e0e7595-7457-43ae-a122-601eb2d30dd5"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Special"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -752,7 +741,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Navigate"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""c95b2375-e6d9-4b88-9c4c-c5e76515df4b"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",

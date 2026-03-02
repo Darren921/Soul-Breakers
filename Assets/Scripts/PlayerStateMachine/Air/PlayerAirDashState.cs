@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 [System.Serializable]
@@ -9,8 +10,8 @@ public class PlayerAirDashState : PlayerDashState
     {
         _airDashCharges = player.CharacterData.airDashCharges;
         _airDashCharges--;
-        player.StartCoroutine(AirDash(player));
         SetUpDash(player);
+        player.StartCoroutine(AirDash(player));
 //      Debug.Log(newDashVelo);
     }
 
@@ -44,43 +45,39 @@ public class PlayerAirDashState : PlayerDashState
         GetDashValues(player);
         
         // Debug.Log(DashDir);
-            NewDashVelo = DashDir * (1.25f * (DashDistance / DashTime));
+            NewDashVelo = DashDir *   (DashDistance / DashTime);
        
      
     }
     
     private IEnumerator AirDash(PlayerController player)
     {
-        //    Debug.Log("PlayerDashState Dash");
-        IsDashing = true;
-        SetUpDash(player);
-        player.rb.useGravity = false;
-        player.rb.linearVelocity = new Vector3(NewDashVelo.x, 0, 0);
-        Debug.Log( player.rb.linearVelocity);
-        yield return new WaitForSeconds(DashTime);
+        GetDashValues(player);
         player.GravityManager.ResetVelocity();
-        player.rb.useGravity = true;
-        IsDashing = false;
+        //    Debug.Log("PlayerDashState Dash");
+        DashActive = true;
+        // player.rb.useGravity = false;
+        // player.rb.linearVelocity = new Vector3(NewDashVelo.x, 0, 0);
+        Debug.Log(DashTime);
+        yield return new WaitUntil(() => player._detector.intersecting || player.PlayersColliding , TimeSpan.FromSeconds(DashTime), () => DashActive = false) ;
+        DashActive = false;
     }
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //      if(!player.isGrounded ||   isDashing || player.Dashing) return;
 
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack);
-        if (_airDashCharges > 0 && player.IsDashing && !IsDashing && player.AtDashHeight)
+        if (_airDashCharges > 0 && player.IsDashing && !DashActive && player.AtDashHeight)
         {
             //  Debug.Log("PlayerDashState Dash again");
             _airDashCharges--;
             player.GravityManager.ResetVelocity();
-
             player.StartCoroutine(AirDash(player));
         }
 
         if (player.GravityManager.IsGrounded)
         {
-            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral |
-                                                  PlayerStateManager.PlayerStateTypes.Walking);
+            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking);
         }
         // Debug.Log(player.GravityManager.GetVelocity());
     }
@@ -89,16 +86,23 @@ public class PlayerAirDashState : PlayerDashState
     {
 //        Debug.Log(player.gravityManager.GetVelocity());
 
-        if (!player.GravityManager.IsGrounded && player.gameObject.transform.localPosition.y > 0.1f && !IsDashing)
+        if (DashActive)
         {
-            player.GravityManager.ApplyGravity(player);
-            player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
+            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x ,0,0) * Time.fixedDeltaTime);
+//            Debug.Log( player.rb.linearVelocity);
+
+        }
+       Debug.Log($"{!player.GravityManager.IsGrounded} {!DashActive} {!player._detector.intersecting}");
+        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting )
+        {
+          player.GravityManager.ApplyGravityToPlayer(player);
         }
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.IsDashing = false;
+        player.Animations.ResetAttackingTrigger();
         player.Animations.Animator.ResetTrigger(player.Animations.Dashing);
     }
 }

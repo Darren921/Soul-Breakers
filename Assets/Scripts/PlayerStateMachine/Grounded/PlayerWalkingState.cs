@@ -9,13 +9,15 @@ public class PlayerWalkingState : PlayerMovingState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         base.EnterState(playerStateManager, player);
+        if(player.Decelerating) return;
         player.IsWalking = true;
     }
 
     protected override void ApplyVelocity(PlayerController player)
     {
-        var velocity = new Vector3(player.PlayerMove.x * MoveSpeed, player.rb.linearVelocity.y);
-        player.rb.linearVelocity = velocity;
+        player.rb.MovePosition(player.transform.position + player.PlayerMove * (Time.fixedDeltaTime * MoveSpeed));
+        // var velocity = new Vector3(player.PlayerMove.x * MoveSpeed, player.rb.linearVelocity.y);
+        // player.rb.linearVelocity = velocity;
         if (!player.Animations.Animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")) return;
         switch (player.rb.linearVelocity.x)
         {

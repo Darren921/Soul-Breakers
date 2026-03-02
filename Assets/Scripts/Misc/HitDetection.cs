@@ -14,40 +14,68 @@ public class HitDetection : MonoBehaviour, IDamageable
     public static event Action OnDeath;
     public static event Action OnPlayerHit;
     internal bool _hit;
+    internal  bool _damageDone;
+    
     internal bool Blocking;
-
+    private Bounds _bounds;
     private void Awake()
     {
         _player = gameObject.GetComponentInParent<PlayerController>();
     }
-    
+
+    private void CheckHit(Collider hitCollider)
+    {
+        
+    }
+
+    private void Update()
+    {
+        if (_player.AtBorder)
+        {
+            _player.rb.MovePosition(_player.transform.position +  new Vector3(!_player.Reversed ? _bounds.size.x : -_bounds.size.x, 0,0));
+        }
+    }
+
+    public void resetHit()
+    {
+        _hit = false;
+        _damageDone = false;
+    }
     private void OnTriggerStay(Collider other)
     {
-    
-        if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !otherPlayer.HitStun)
+        if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
-            if (_hit) return;
+//            print("Hit");
             _hit = true;
             Blocking = CheckBlocking();
-            print(Blocking);
-            TakeDamageSwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
+            
+            otherPlayer.hitBox.gameObject.SetActive(false);
+//            print(Blocking);
+            SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
+            if (!_damageDone)
+            {
+              //  print("Damage taken");
+                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+            }
         }
         if (other.gameObject.CompareTag("Wall"))
         {
             _player.AtBorder = true;
+            _bounds = other.bounds;
         }
     }
 
-    private void TakeDamageSwitchState(PlayerStateManager.PlayerStateTypes newState)
+    private void SwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
+//        Debug.Log(otherPlayer.InputReader.LastAttackInput.Type);
         if (otherPlayer.InputReader.LastAttackInput.Type != InputReader.AttackType.Grab)
         {
             _player._playerStateManager.SwitchState(newState);
-            _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
         }
         else
         {
             // This is temp and 
+            print("Grabbed");
             otherPlayer.Animations.Animator.SetBool(_player.Animations.Grab, true);
             _player.Animations.Animator.SetBool(_player.Animations.Grabbed,true);
              _player._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
@@ -92,14 +120,26 @@ public class HitDetection : MonoBehaviour, IDamageable
   
     public void TakeDamage(float damage)
     {
+        _damageDone = true;
+        _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
+        if (!Blocking && !otherPlayer.canCancel)
+        {
+            otherPlayer.StartCoroutine(CanCancel());
+        }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : otherPlayer.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
-
+        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }
 
-    
+    private IEnumerator CanCancel()
+    {
+        otherPlayer.canCancel = true;
+        Debug.Log(otherPlayer.canCancel);
+        yield return new WaitUntil(() => !otherPlayer.canCancel, TimeSpan.FromSeconds(3),
+            () => otherPlayer.canCancel = false);
+
+    }
 }

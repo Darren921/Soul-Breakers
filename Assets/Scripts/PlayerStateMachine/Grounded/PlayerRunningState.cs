@@ -9,44 +9,38 @@ public class PlayerRunningState : PlayerMovingState
     {
         base.EnterState(playerStateManager, player);
         player.IsRunning = true;
+        
     }
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        //controls the decel curve to make slow down movement more accurate 
-        if (player.PlayerMove == Vector3.zero && !player.DashMarcoActive || player.IsCrouching)
+        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward || player.IsAttacking )
         {
-            if (!player.Decelerating && !player.DecelActive)
-            {
-                player.DecelActive = true;
-                player.Decelerating = true;
-                player.StartCoroutine(player.DecelerationCurve(player));
-            }
-        }
-
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
-
-    var backWardDir = player.Reversed ? 1f : -1f;
-        if (player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward &&  Mathf.Approximately(player.PlayerMove.x, backWardDir) && !player.Decelerating && player.DecelActive)
-        {
-            Debug.Log("entered");
-            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Walking);
-        }
-       
-        
-        //switch states 
-        if(player.Decelerating || !player.DecelActive ) return;
-        
-      
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking);
+            // if (!player.Decelerating)
+            // {
+            //     
+            //     player.StartCoroutine(player.OnDeceleration(player));
+            // }
+            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking| PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
+          
+        }  
         
 
     }
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log( !player.DashMarcoActive ? new Vector2(player.PlayerMove.x, 0) :  !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
-     
+//        Debug.Log( !player.DashMarcoActive ? new Vector2(player.PlayerMove.x, 0) :  !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
+        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left ||
+            player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward || player.IsAttacking)
+        {
+            if (!player.Decelerating)
+            {
+
+                player.StartCoroutine(player.OnDeceleration(player));
+            }
+        }
+
         SetMoveDir( !player.Reversed ? new Vector2(1, 0) : new Vector2(-1, 0));
         SmoothMovement();
         ApplyVelocity(player);
@@ -54,14 +48,17 @@ public class PlayerRunningState : PlayerMovingState
 
     protected override void ApplyVelocity(PlayerController player)
     {
-        var velocity =  new Vector3(SmoothedMoveDir.x * MoveSpeed, player.rb.linearVelocity.y) ;
-        player.rb.linearVelocity = velocity;    
+        if(player.PlayersColliding) return;
+        player.rb.MovePosition(player.transform.position + SmoothedMoveDir * (MoveSpeed * Time.fixedDeltaTime ));
+        /*var velocity =  new Vector3(SmoothedMoveDir.x * MoveSpeed, player.rb.linearVelocity.y) ;
+        player.rb.linearVelocity = velocity;  */  
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-      player.IsRunning = false;          
-      Debug.Log(player.rb.linearVelocity);
-      player.DecelActive = false;
+      player.IsRunning = false;
+       Debug.Log(player.rb.linearVelocity);
+
     }
+    
 }

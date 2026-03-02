@@ -9,8 +9,8 @@ public class PlayerStateManager : MonoBehaviour
     internal Dictionary<PlayerStateTypes, PlayerBaseState> States;
     public string CurrentStateName => currentState?.GetType().Name;
 
-    [field:SerializeField] public PlayerBaseState currentState { get; private set; }
-    [field:SerializeField] internal PlayerBaseState lastState { get; private set; }
+    [field:SerializeReference] public PlayerBaseState currentState { get; private set; }
+    [field:SerializeReference] internal PlayerBaseState lastState { get; private set; }
  
     private PlayerController _player;
 
@@ -115,7 +115,7 @@ public class PlayerStateManager : MonoBehaviour
             currentState?.ExitState(this, _player);
             lastState = currentState;
             currentState = state;
-//            Debug.Log(currentState.GetType().Name);
+//            Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.EnterState(this, _player);
         }
     }
@@ -167,6 +167,7 @@ public class PlayerStateManager : MonoBehaviour
         if (transitionType.HasFlag(PlayerStateTypes.Crouching))
             if (_player.PlayerMove.y < 0 && _player.GravityManager.IsGrounded)
                 SwitchState(PlayerStateTypes.Crouching);
+        
     }
 
     private void OnDestroy()

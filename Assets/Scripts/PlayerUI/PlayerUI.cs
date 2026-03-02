@@ -7,11 +7,11 @@ public class PlayerUI : MonoBehaviour
     private PlayerController _playerController;
 
     [SerializeField] private Slider _slider;
-
-
     private void Awake()
     {
         HitDetection.OnPlayerHit += UpdateHealth;
+        GameManager.OnRefresh += UpdateHealth;
+        
         _playerController = GetComponent<PlayerController>();
       
     }
@@ -23,8 +23,14 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        _slider.maxValue = _playerController.CharacterData.health;
-        _slider.value = _playerController.CharacterData.health;
+        if (_playerController.CharacterData != null)
+        {
+            _slider.maxValue = _playerController.CharacterData.health;
+            _slider.value = _playerController.CharacterData.health;
+        }
+
+        _playerController.Health = _playerController.CharacterData.health;
+       
         UpdateHealth();
     }
 

@@ -8,81 +8,89 @@ public class PlayerAttackState : PlayerBaseState
 {
     private Coroutine cooldownCoroutine;
     private InputReader.MovementInputResult lastMove;
-
+    private bool attackCancel;
+    private int AnimationToPlay = -1;
 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log("Entered attack state");
+
+//        Debug.Log("Entered attack state");
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
         }
-          Debug.Log(lastMove); 
-          Debug.Log(player.InputReader.LastAttackInput);
+        player.InputReader.currentAttackCached = player.InputReader.CurrentAttackInput;
+        player.InputReader.ConsumeCurrentInput();
+        //        Debug.Log(lastMove); 
+//          Debug.Log(player.InputReader.LastAttackInput);
     }
 
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        player.GravityManager.IsGrounded = player.GravityManager.CheckGrounded(player);
 
         player.Animations.Animator.SetBool(player.Animations.airborne, !player.GravityManager.IsGrounded);
 
 //        Debug.Log(player.Rb.linearVelocity); 
 
-        if (player.IsAttacking && !player.OnAttackCoolDown)
+        if (CancelCheck(player) )
         {
-//            Debug.Log("attacking");
-            PerformAttack(player);
-        }
-
-        if (player.HitStun)
-        {
-            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.HitStun);
-        }
-
-        if (player.IsAttacking &&  player.GravityManager.IsGrounded  && player.InputReader.curState == AttackData.States.Airborne)
-        {
-            
-            player.Animations.Animator.speed = 0;
+            player.canCancel = false;
+            attackCancel = true;
+            Debug.Log("attack cancel");
+            AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
+            player.Animations.Animator.StopPlayback();
             player.Animations.ResetAttackingTrigger();
-            player.Animations.Animator.Play("Neutral", 0, 0f); 
-            player.Animations.Animator.speed = 1;
+            PerformAttack(player);
 
         }
-
+        if (player.IsAttacking && !player.OnAttackCoolDown && !attackCancel)
+        {
+            if(AnimationToPlay == -1)AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
+                Debug.Log("attacking");
+                PerformAttack(player);
+        }
         
+        if (player.HitStun) playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.HitStun);
+        if (player.IsAttacking && player.GravityManager.IsGrounded &&
+            player.InputReader.curState == AttackData.States.Airborne)
+        {
+            Debug.Log("Switch to Grounded");
+            player.Animations.Animator.Play("Neutral", 0, 0f);
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
+            player.HitDetection.otherPlayer.HitDetection.resetHit();
+        }
+
+
         // State swapping 
         if (!player.GravityManager.IsGrounded || player.IsAttacking) return;
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
+        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral |
+                                              PlayerStateManager.PlayerStateTypes.Walking |
+                                              PlayerStateManager.PlayerStateTypes.Crouching |
+                                              PlayerStateManager.PlayerStateTypes.Jumping |
+                                              PlayerStateManager.PlayerStateTypes.Running);
 //        Debug.Log(player.gravityManager.GetVelocity());
     }
 
+    private bool CancelCheck(PlayerController player)
+    {
+        if (player.canCancel && player.InputReader.CurrentAttackInput.Input.Priority > player.InputReader.currentAttackCached.Input.Priority && !attackCancel &&  player.InputReader.currentAttackCached.Input.Priority != -1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
     private void PerformAttack(PlayerController player)
     {
-        lastMove = player.InputReader.LastAttackInput.Move;
-        if (!player.IsAttacking || player.OnAttackCoolDown) return;
-        ChosenAttack( player,lastMove);
+
+        if (!player.IsAttacking || player.OnAttackCoolDown || attackCancel) return;
+        player.Animations.Animator.Play(AnimationToPlay, 0, 0f);
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
 
-    private void ChosenAttack(PlayerController player, InputReader.MovementInputResult movement)
-    {
-        
-        switch (movement)
-        {
-            case InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.UpRight
-                or InputReader.MovementInputResult.DownRight:
-                player.Animations.Animator.SetBool(player.Animations.right, true);
-                break;
-            case InputReader.MovementInputResult.Forward or InputReader.MovementInputResult.UpLeft
-                or InputReader.MovementInputResult.DownLeft:
-                player.Animations.Animator.SetBool(player.Animations.left, true);
-                break;
-            case InputReader.MovementInputResult.None:
-                break;
-        }  
-    }
+
 
     private IEnumerator EnforceCooldown(PlayerController player)
     {
@@ -91,24 +99,25 @@ public class PlayerAttackState : PlayerBaseState
         player.OnAttackCoolDown = false;
     }
 
-  
+
+
+
+
+
+
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 
-        if (!player.GravityManager.IsGrounded && player.transform.localPosition.y > 0.1f)
-        {
-            player.GravityManager.ApplyGravity(player);
-            player.rb.linearVelocity = new Vector3( player.rb.linearVelocity.x, player.GravityManager.GetVelocity(), 0);
-        }
-
+        player.GravityManager.ApplyGravityToPlayer(player);
         
-
-//        Debug.Log(player.gravityManager.GetVelocity());
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        attackCancel = false;
         player.GravityManager.ResetVelocity();
+        player.canCancel = false;
         player.Animations.ResetAttackingTrigger();
+        AnimationToPlay = -1;
     }
 }

@@ -1,32 +1,39 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerKnockBack : MonoBehaviour
 {
-    private bool _isBeingKnockedBack;
+    internal bool _isBeingKnockedBack;
     private const float KnockBackTime = 0.1f;
     private Vector3 _hitDirectionForce;
+    private PlayerController _playerController;
+    private bool isOther;
+
+    private void Start()
+    {
+    }
 
     public IEnumerator KnockBackOtherPlayer(PlayerController player)
     {
+        _playerController = player;
+        var hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
+         var hitForce = ReturnHitForce(player.HitDetection.otherPlayer);
+        _hitDirectionForce = new Vector3(hitDir.x * hitForce.x, hitForce.y, 0);
         //Use this to knock back the other player 
         _isBeingKnockedBack = true;
-
-        var hitDir = ReturnHitDir(player.PlayerHitDetection.otherPlayer);
-        _hitDirectionForce = ReturnHitForce(player.PlayerHitDetection.otherPlayer);
-        var hitForce = new Vector3(hitDir.x * _hitDirectionForce.x, _hitDirectionForce.y, 0);
-        var elapsedTime = 0f;
-        while (elapsedTime < KnockBackTime && player.PlayerHitDetection._hit)
-        {
-            elapsedTime += Time.fixedDeltaTime;
-            player.rb.linearVelocity = hitForce;
-            Debug.Log(player.rb.linearVelocity );
-            yield return new WaitForFixedUpdate();
-        }
-
+        yield return new WaitForSeconds(KnockBackTime);
         _isBeingKnockedBack = false;
     }
 
+    private void FixedUpdate()
+    {
+        if (_isBeingKnockedBack)
+        {
+            _playerController.rb.MovePosition(!isOther ? _playerController.transform.position + _hitDirectionForce  * Time.fixedDeltaTime : _playerController.HitDetection.otherPlayer.transform.position + _hitDirectionForce  * Time.fixedDeltaTime);
+        }
+
+    }
     private Vector3 ReturnHitDir(PlayerController player)
     {
         // depending on the players direction return the direction 
@@ -35,22 +42,15 @@ public class PlayerKnockBack : MonoBehaviour
 
     public IEnumerator KnockBackThisPlayer(PlayerController player)
     {
+        isOther = true;
         _isBeingKnockedBack = true;
         //Use this to knock back the attacking player 
-
-        var hitDir = ReturnHitDir(player.PlayerHitDetection.otherPlayer);
-        _hitDirectionForce = ReturnHitForce(player);
-        var hitForce = new Vector3(hitDir.x * _hitDirectionForce.x,  _hitDirectionForce.y, 0);
-        var elapsedTime = 0f;
-        while (elapsedTime < KnockBackTime)
-        {
-            elapsedTime += Time.fixedDeltaTime;
-            player.rb.linearVelocity = hitForce;
-            Debug.Log(player.rb.linearVelocity );
-            yield return new WaitForFixedUpdate();
-        }
-
+        var hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
+        var hitForce = ReturnHitForce(player);
+        _hitDirectionForce = new Vector3(hitDir.x * hitForce.x, hitForce.y, 0);
+        yield return new WaitForSeconds(KnockBackTime);
         _isBeingKnockedBack = false;
+        isOther = false;
     }
 
 

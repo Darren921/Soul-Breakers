@@ -45,6 +45,8 @@ public class Pause : MonoBehaviour
         PauseManager.Instance?.SetPaused(true);
     }
 
+  
+
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);

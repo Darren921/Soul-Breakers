@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] internal List<PlayerController> players;
    [SerializeField] private CharacterSODataBase characterDatabase;
    private readonly List<InputDevice> _availableDevices = new (); 
-   private const int MinDistance = 1;
+   private const float MinDistance = 0.1f;
+   public static  Action OnRefresh ; 
 
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
     }
 
     //This is purely for Debug Mode, skips cutscene 
-    private void StartGameDebug()
+    public void StartGameDebug()
     {
         AnimationCamera.enabled = false;
         UIAnim.Play("slide in");
@@ -175,27 +176,36 @@ public class GameManager : MonoBehaviour
     private void OnConnect()
     {
         ConnectPlayer();
+        OnRefresh?.Invoke();
     }
     
     private void ConnectPlayer()
     {
-        for (var i = 0; i < players.Count; i++)
-        {
-            if (i < _availableDevices.Count)
-            {
-                players[i].InitializePlayer(_availableDevices[i]);
-      //          Debug.Log($"Assigned {_availableDevices[i].name} to Player {i + 1}");
-            }
-            else
-            {
-                if(!_availableDevices.Contains( Keyboard.current) ) players[i].InitializePlayer(Keyboard.current);
-                else players[i].InitializePlayer(new Gamepad());
-            }
-
-        }
+      var GamepadCount = _availableDevices.FindAll(device => device.name.Contains("GamePad")).Count;
+      var Gamepads = _availableDevices.FindAll(device => device.name.Contains("Gamepad"));
+      if (GamepadCount >= 2)
+      {
+          for (var i = 0; i < GamepadCount; i++)
+          {
+             players[i].InitializePlayer(Gamepads[i]);   
+          }
+      }
+      else
+      {
+          for (var i = 0; i < players.Count; i++)
+          {
+              if (i < _availableDevices.Count)
+              {
+                  players[i].InitializePlayer(_availableDevices[i]);
+                  //          Debug.Log($"Assigned {_availableDevices[i].name} to Player {i + 1}");
+              }
+          }
+      }
+        
     }
 
     #endregion
+    
     
     private void Update()
     { 
@@ -210,22 +220,22 @@ public class GameManager : MonoBehaviour
     private void CheckIfReversed()
     {
         //depending on the distance between players, and if they are grounded, reverse (flip) the player 
-        var distance = Mathf.Abs(players[0].transform.position.x - players[1].transform.position.x);
+        var distance = Vector3.Distance(players[0].transform.position, players[1].transform.position);
 
         if (distance < MinDistance)
             return;
-            
-        if (players[1].transform.position.x < players[0].transform.position.x)
-        {
-            players[0].Reversed = true;
-            players[1].Reversed = false;
-        }
-        else
-        {
-            players[0].Reversed = false;
-            players[1].Reversed = true;
-        }
 
+
+        var leftMost = players.GroupBy(controller => controller.transform.position.x).OrderByDescending(group => group.Key );
+        var selected = leftMost.First().Last();
+        foreach (var player in players)
+        {
+            if (player != selected)
+            {
+                player.Reversed = false;
+            }
+        }
+        selected.Reversed = true;
         foreach (var player in players)
         {
             UpdatePlayerDirection(player);
@@ -238,6 +248,7 @@ public class GameManager : MonoBehaviour
         var rotation = player.transform.eulerAngles;
         rotation.y = targetYRotation;
         player.transform.eulerAngles = rotation;
+        player.playerModel.transform.localScale = new Vector3(!player.Reversed ? 1 : -1, player.playerModel.transform.localScale.y, player.playerModel.transform.localScale.z);
     }
     #endregion
 
