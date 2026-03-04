@@ -122,9 +122,14 @@ public class HitDetection : MonoBehaviour, IDamageable
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
-        if (!Blocking && !otherPlayer.canCancel)
-        {
-            otherPlayer.StartCoroutine(CanCancel());
+        if (!Blocking )
+        {           
+            otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
+            if (!otherPlayer.canCancel)
+            {
+                otherPlayer.canCancel = true;
+            }
+            // otherPlayer.StartCoroutine(CanCancel());
         }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
@@ -134,12 +139,12 @@ public class HitDetection : MonoBehaviour, IDamageable
         
     }
 
-    private IEnumerator CanCancel()
-    {
-        otherPlayer.canCancel = true;
-        Debug.Log(otherPlayer.canCancel);
-        yield return new WaitUntil(() => !otherPlayer.canCancel, TimeSpan.FromSeconds(3),
-            () => otherPlayer.canCancel = false);
-
-    }
+    // private IEnumerator CanCancel()
+    // {
+    //     otherPlayer.canCancel = true;
+    //     Debug.Log(otherPlayer.canCancel);
+    //     yield return new WaitUntil(() => !otherPlayer.canCancel, TimeSpan.FromSeconds(3),
+    //         () => otherPlayer.canCancel = false);
+    //
+    // }
 }

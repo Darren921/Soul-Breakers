@@ -35,7 +35,7 @@ public class PlayerNeutralState : PlayerBaseState
     {
         if (!player.GravityManager.IsGrounded && !player.HitStun)
         {
-            Debug.Log("gravity on neutral state");
+  //          Debug.Log("gravity on neutral state");
             player.GravityManager.ApplyGravityToPlayer(player);
 
         }

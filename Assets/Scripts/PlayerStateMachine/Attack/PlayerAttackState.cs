@@ -19,7 +19,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
         }
-        player.InputReader.currentAttackCached = player.InputReader.CurrentAttackInput;
+   //    player.InputReader.currentAttackCached = player.InputReader.CurrentAttackInput;
         player.InputReader.ConsumeCurrentInput();
         //        Debug.Log(lastMove); 
 //          Debug.Log(player.InputReader.LastAttackInput);
@@ -33,16 +33,14 @@ public class PlayerAttackState : PlayerBaseState
 
 //        Debug.Log(player.Rb.linearVelocity); 
 
-        if (CancelCheck(player) )
+        if (CancelCheck(player) && !attackCancel )
         {
             player.canCancel = false;
             attackCancel = true;
             Debug.Log("attack cancel");
             AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-            player.Animations.Animator.StopPlayback();
-            player.Animations.ResetAttackingTrigger();
-            PerformAttack(player);
-
+            Debug.Log(AnimationToPlay);
+            player.Animations.Animator.Play(AnimationToPlay, 0, 0f);
         }
         if (player.IsAttacking && !player.OnAttackCoolDown && !attackCancel)
         {
@@ -74,7 +72,8 @@ public class PlayerAttackState : PlayerBaseState
 
     private bool CancelCheck(PlayerController player)
     {
-        if (player.canCancel && player.InputReader.CurrentAttackInput.Input.Priority > player.InputReader.currentAttackCached.Input.Priority && !attackCancel &&  player.InputReader.currentAttackCached.Input.Priority != -1)
+        Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority}" + $"and not cancelled prior {!attackCancel} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
+        if (player.canCancel && player.InputReader.CurrentAttackInput.Input.Priority > player.InputReader.currentAttackCached.Input.Priority && !attackCancel &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
         {
             return true;
         }
@@ -86,6 +85,7 @@ public class PlayerAttackState : PlayerBaseState
     {
 
         if (!player.IsAttacking || player.OnAttackCoolDown || attackCancel) return;
+        Debug.Log("attacking");
         player.Animations.Animator.Play(AnimationToPlay, 0, 0f);
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
@@ -114,9 +114,9 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        Debug.Log("Exit attacking");
         attackCancel = false;
         player.GravityManager.ResetVelocity();
-        player.canCancel = false;
         player.Animations.ResetAttackingTrigger();
         AnimationToPlay = -1;
     }

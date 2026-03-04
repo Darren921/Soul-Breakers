@@ -17,11 +17,11 @@ public class OnExit : StateMachineBehaviour
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("OnExit");
+//        Debug.Log("OnExit");
         var player = animator.GetComponentInParent<PlayerController>();
         player.HitDetection.otherPlayer.HitDetection.resetHit();
         
-        player.HitDetection.otherPlayer.canCancel = false;
+    //    player.HitDetection.otherPlayer.canCancel = false;
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
