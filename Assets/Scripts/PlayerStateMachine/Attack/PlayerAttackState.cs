@@ -8,7 +8,6 @@ public class PlayerAttackState : PlayerBaseState
 {
     private Coroutine cooldownCoroutine;
     private InputReader.MovementInputResult lastMove;
-
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
@@ -17,7 +16,7 @@ public class PlayerAttackState : PlayerBaseState
         }
         player.Animations.Animator.SetBool(player.Animations.Attacking, true);
 
-
+        
         player.InputReader.ConsumeCurrentInput();
 //        Debug.Log("Entered attack state");
 
@@ -31,25 +30,30 @@ public class PlayerAttackState : PlayerBaseState
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
 
+        if (CancelCheck(player) && !player.Animations.IsActiveFrame )
+        {
+             player.canCancel = false;
+            player.Animations.CancelActive = true;
+            Debug.Log(" cancel dectected l");
+            player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
+            player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
+            cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
+            Debug.Log("cancel attack");
+            player.Animations.CancelActive = false;
+        
+            return;
+            
+        }
         player.Animations.Animator.SetBool(player.Animations.airborne, !player.GravityManager.IsGrounded);
 
 //        Debug.Log(player.Rb.linearVelocity); 
 
-        if (CancelCheck(player) && !player.Animations.IsActiveFrame )
-        {
-            player.canCancel = false;
-            player.Animations.attackCancel = true;
-            Debug.Log("attack cancel");
-            player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-            Debug.Log(  player.Animations.AnimationToPlay);
-            PerformAttack(player);
+//       Debug.Log(CancelCheck(player)); ;
+      
 
-            
-        }
-
-        if (!player.Animations.attackCancel)
+        if (!player.Animations.CancelActive)
         {
-            if (player.IsAttacking && !player.OnAttackCoolDown && !player.Animations.attackCancel)
+            if (player.IsAttacking && !player.OnAttackCoolDown && !player.Animations.CancelActive)
             {
                 if(  player.Animations.AnimationToPlay == -1)  player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
                 Debug.Log("attacking");
@@ -70,19 +74,15 @@ public class PlayerAttackState : PlayerBaseState
 
 
         // State swapping 
-        if (!player.GravityManager.IsGrounded || player.IsAttacking) return;
-        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral |
-                                              PlayerStateManager.PlayerStateTypes.Walking |
-                                              PlayerStateManager.PlayerStateTypes.Crouching |
-                                              PlayerStateManager.PlayerStateTypes.Jumping |
-                                              PlayerStateManager.PlayerStateTypes.Running);
+        if (!player.GravityManager.IsGrounded || player.IsAttacking || player.Animations.CancelActive || CancelCheck(player)  ) return;
+        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
 //        Debug.Log(player.gravityManager.GetVelocity());
     }
 
     private bool CancelCheck(PlayerController player)
     {
-        Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority}" + $"and not cancelled prior {!player.Animations.attackCancel} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
-        if (player.canCancel && player.InputReader.CurrentAttackInput.Input.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
+//        Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority}" + $"and not cancelled prior {!player.Animations.attackCancel} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
+        if (player.canCancel && player.InputReader.LastAttackInput.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
         {
             return true;
         }
@@ -92,18 +92,14 @@ public class PlayerAttackState : PlayerBaseState
 
     private void PerformAttack(PlayerController player)
     {
-        if (player.Animations.attackCancel)
-        {
-            player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
-            cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
-        }
-        if (!player.IsAttacking || player.OnAttackCoolDown || player.Animations.attackCancel) return;
-        Debug.Log("attacking");
+       
+        if (!player.IsAttacking || player.OnAttackCoolDown || player.Animations.CancelActive) return;
+        Debug.Log("normal attack");
         player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
 
-
+    
 
     private IEnumerator EnforceCooldown(PlayerController player)
     {
@@ -128,7 +124,6 @@ public class PlayerAttackState : PlayerBaseState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log("Exit attacking");
-        player.Animations.attackCancel = false;
         player.GravityManager.ResetVelocity();
         player.Animations.ResetAttackingTrigger();
         player.Animations.AnimationToPlay = -1;

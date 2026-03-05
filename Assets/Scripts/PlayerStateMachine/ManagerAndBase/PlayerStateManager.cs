@@ -128,7 +128,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void CheckForTransition(PlayerStateTypes transitionType)
     {
-       
+       if(_player.Animations.CancelActive) return;
         if (transitionType.HasFlag(PlayerStateTypes.AirDash))
         {
             if (_player.IsDashing && _player.AtDashHeight)

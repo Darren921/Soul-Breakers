@@ -125,10 +125,8 @@ public class HitDetection : MonoBehaviour, IDamageable
         if (!Blocking )
         {           
             otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
-            if (!otherPlayer.canCancel)
-            {
-                otherPlayer.canCancel = true;
-            }
+            otherPlayer.canCancel = true;
+            
             // otherPlayer.StartCoroutine(CanCancel());
         }
         // deal damage and active death event to trigger end of game 

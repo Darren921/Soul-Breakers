@@ -39,7 +39,7 @@ public class PlayerAnimations : MonoBehaviour
     private PlayerController _player;
    
     internal int AnimationToPlay = -1;
-    internal bool attackCancel;
+    internal bool CancelActive;
 
     public bool IsActiveFrame{get; private set;}
     public bool IsRecoveryFrame{get; private set;}
@@ -89,8 +89,6 @@ public class PlayerAnimations : MonoBehaviour
         Animator?.SetBool(Light,false);
         Animator?.SetBool(Medium,false);
         Animator?.SetBool(Heavy,false);
-        Animator?.SetBool(left, false);
-        Animator?.SetBool(right, false);
         Animator?.SetBool(Active,false);
         Animator?.SetBool(Super,false);
         Animator?.SetBool(Special,false);

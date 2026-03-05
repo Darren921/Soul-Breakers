@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     private void ReadAttackInput(InputAction.CallbackContext context,InputReader.AttackType type )
     {
         PlayerAttackAction?.Invoke(type);
-        if (OnAttackCoolDown || IsAttacking || !context.performed) return;
+        if (IsAttacking || !context.performed) return;
         SetAttackVars();
         
 
