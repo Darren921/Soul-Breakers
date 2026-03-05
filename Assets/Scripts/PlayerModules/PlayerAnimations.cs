@@ -37,7 +37,10 @@ public class PlayerAnimations : MonoBehaviour
     internal Animator Animator;
 
     private PlayerController _player;
-    
+   
+    internal int AnimationToPlay = -1;
+    internal bool attackCancel;
+
     public bool IsActiveFrame{get; private set;}
     public bool IsRecoveryFrame{get; private set;}
 
