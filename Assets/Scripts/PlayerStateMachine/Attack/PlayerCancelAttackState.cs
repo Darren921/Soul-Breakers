@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGrabState : PlayerBaseState
+[System.Serializable]
+public class PlayerCancelAttackState : PlayerBaseState
 {
     private bool CancelPlaying;
     private int TempHash;
+    
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        
-        // player.OnDisablePlayer();
-        // Alex disable this when the animation event to disable grab/grabbing is added
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
@@ -27,16 +28,26 @@ public class PlayerGrabState : PlayerBaseState
         player.StartCoroutine(WaitForCancelAnimation(player));
         Debug.Log("cancel attack" + player.name);
     }
+
     private IEnumerator WaitForCancelAnimation(PlayerController player)
     {
         Debug.Log( $" cur hash = {player.Animations.Animator.GetCurrentAnimatorStateInfo(0).fullPathHash} temp hash = {TempHash}");
         yield return new WaitUntil(() =>
             player.Animations.Animator.GetCurrentAnimatorStateInfo(0).fullPathHash != TempHash);
     }
+
+
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log(player.name);
+    
     }
+
+   
+
+
+    
+
     private IEnumerator EnforceCooldown(PlayerController player)
     {
         player.OnAttackCoolDown = true;
@@ -44,10 +55,17 @@ public class PlayerGrabState : PlayerBaseState
         player.OnAttackCoolDown = false;
     }
 
+  
+
+
+
+
+
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 
         player.GravityManager.ApplyGravityToPlayer(player);
+        
     }
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)

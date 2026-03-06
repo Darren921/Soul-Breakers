@@ -31,6 +31,8 @@ public class PlayerStateManager : MonoBehaviour
         Blocking = 1 << 10,
         Grab = 1 << 11,
         KnockDown = 1 << 12,
+        CancelAttack = 1 << 13,
+
     }
 
  
@@ -80,7 +82,8 @@ public class PlayerStateManager : MonoBehaviour
             { PlayerStateTypes.HitStun, new PlayerHitStunState() },
             { PlayerStateTypes.Blocking, new PlayerBlockingState() },
             { PlayerStateTypes.Grab, new PlayerGrabState() },
-            { PlayerStateTypes.KnockDown, new PlayerKnockDownState() }
+            { PlayerStateTypes.KnockDown, new PlayerKnockDownState() },
+            { PlayerStateTypes.CancelAttack , new PlayerCancelAttackState()}
         };
     }
 
@@ -115,7 +118,7 @@ public class PlayerStateManager : MonoBehaviour
             currentState?.ExitState(this, _player);
             lastState = currentState;
             currentState = state;
-//            Debug.Log(currentState.GetType().Name + _player.name);
+           Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.EnterState(this, _player);
         }
     }

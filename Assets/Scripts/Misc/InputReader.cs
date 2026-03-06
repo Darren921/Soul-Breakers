@@ -35,7 +35,8 @@ public class InputReader : MonoBehaviour
 
        
     };
-    
+
+    private static readonly int CancelDectect = Animator.StringToHash("CancelDectect");
 
     #endregion
     #region Input Structs
@@ -108,7 +109,7 @@ public class InputReader : MonoBehaviour
         DownRight,
     }
     
-    private PlayerController _player;
+    private PlayerController player;
     public MovementInputResult CurrentMoveInput { get; private set; }
     public BufferedInput<Attack> CurrentAttackInput;
     public int CurrentAttackFrame { get; private set; }
@@ -149,13 +150,26 @@ public class InputReader : MonoBehaviour
         _attackBuffer.Add(new BufferedInput<Attack>(input, Time.frameCount,false));
     }
 
+    private bool CancelCheck(PlayerController player)
+    {
+        if (player.InputReader.currentAttackCached.Input.Priority != -1 &&
+            player.InputReader.CurrentAttackInput.Input.Priority != -1)
+        {
+//            Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
+        }
+        if (player.canCancel && player.InputReader.LastAttackInput.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
+        {
+            return true;
+        }
+        return false;
+    }
 
     private AttackData.States CheckState(PlayerBaseState lastState)
     {
        // Debug.Log(lastState);
-        var state = _player._playerStateManager.AirborneStates.Contains(lastState) ? AttackData.States.Airborne :
-            _player._playerStateManager.StandingStates.Contains(lastState) ? AttackData.States.Standing :
-            _player._playerStateManager.CrouchingStates.Contains(lastState) ? AttackData.States.Crouching : curState;
+        var state = player._playerStateManager.AirborneStates.Contains(lastState) ? AttackData.States.Airborne :
+            player._playerStateManager.StandingStates.Contains(lastState) ? AttackData.States.Standing :
+            player._playerStateManager.CrouchingStates.Contains(lastState) ? AttackData.States.Crouching : curState;
       //  Debug.Log(state.ToString());
         return state;
 
@@ -164,24 +178,31 @@ public class InputReader : MonoBehaviour
 
     private void Awake()
     {
-        _player = GetComponent<PlayerController>();
+        player = GetComponent<PlayerController>();
         _bufferTime = 5;
         _bufferCap = 10;
-        _player.PlayerAttackAction += AddAttackInput;
+        player.PlayerAttackAction += AddAttackInput;
     }
 
     private void OnDestroy()
     {
-        _player.PlayerAttackAction -= AddAttackInput;
+        player.PlayerAttackAction -= AddAttackInput;
     }
 
     private void Update()
     {
         if (PauseManager.Instance && PauseManager.Instance.IsPaused)
             return;
-        curState = CheckState(_player._playerStateManager.currentState);
+        curState = CheckState(player._playerStateManager.currentState);
         CheckMovementInput();
         UpdateInputBuffers();
+  
+        if (CancelCheck(player) && !player.Animations.IsActiveFrame && !player.Animations.CancelActive )
+        {
+            player.Animations.CancelActive = true;
+            player.Animations.Animator.SetBool(CancelDectect, true);
+            Debug.Log("Cancelling Active");
+        }
     }
 
     public BufferedInput<Attack> GetBufferedAttack()
@@ -214,11 +235,11 @@ public class InputReader : MonoBehaviour
     {
         if (!newAttack.Input.Type.ToString().Contains("Super")) return newAttack;
 
-        if (_player.superMeter >= 100)
+        if (player.superMeter >= 100)
         {
             print("Super triggered");
-            _player.superMeter -= 100;
-            _player.Animations.Animator.SetBool(_player.Animations.Super, true);
+            player.superMeter -= 100;
+            player.Animations.Animator.SetBool(player.Animations.Super, true);
           
         }
         else
@@ -269,7 +290,7 @@ public class InputReader : MonoBehaviour
             CurrentAttackInput = GetBufferedAttack();
             CurrentAttackFrame = curFrame;
         }        
-        if (curFrame - LastAttackInputFrame > _bufferTime && !_player.IsAttacking)
+        if (curFrame - LastAttackInputFrame > _bufferTime && !player.IsAttacking)
         {
             LastAttackInput = new Attack();
             LastAttackInputFrame = 0;
@@ -298,14 +319,14 @@ public class InputReader : MonoBehaviour
             [(0, 0)] = MovementInputResult.None,
             [(0, 1)] = MovementInputResult.Up,
             [(0, -1)] = MovementInputResult.Down,
-            [(1, 0)] = !_player.Reversed ? MovementInputResult.Forward : MovementInputResult.Backward,
-            [(-1, 0)] = !_player.Reversed ? MovementInputResult.Backward : MovementInputResult.Forward,
+            [(1, 0)] = !player.Reversed ? MovementInputResult.Forward : MovementInputResult.Backward,
+            [(-1, 0)] = !player.Reversed ? MovementInputResult.Backward : MovementInputResult.Forward,
             [(1, 1)] = MovementInputResult.UpRight,
             [(-1, 1)] = MovementInputResult.UpLeft,
             [(1, -1)] = MovementInputResult.DownRight,
             [(-1, -1)] = MovementInputResult.DownLeft
         };
-        AddMovementInput(lookup[(_player.PlayerMove.x, _player.PlayerMove.y)]);
+        AddMovementInput(lookup[(player.PlayerMove.x, player.PlayerMove.y)]);
     }
 
     private Attack ReturnAttack(AttackType attackType, MovementInputResult movementInput)
