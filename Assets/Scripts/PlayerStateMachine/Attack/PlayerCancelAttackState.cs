@@ -6,7 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerCancelAttackState : PlayerBaseState
 {
-    private bool CancelPlaying;
     private int TempHash;
     
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
@@ -19,48 +18,21 @@ public class PlayerCancelAttackState : PlayerBaseState
         player.canCancel = false;
         Debug.Log(" cancel detected " + player.name);
         player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-        TempHash =  player.Animations.AnimationToPlay;
         Debug.Log(player.Animations.AnimationToPlay);
-        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
-        CancelPlaying   = true;
-        player.Animations.Animator.SetBool(player.Animations.Attacking, true);
+        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0.25f);
+       player. CancelPlaying  = true;
+       player.Animations.Animator.SetBool(player.Animations.Attacking, true);
 
-        player.StartCoroutine(WaitForCancelAnimation(player));
         Debug.Log("cancel attack" + player.name);
     }
 
-    private IEnumerator WaitForCancelAnimation(PlayerController player)
-    {
-        Debug.Log( $" cur hash = {player.Animations.Animator.GetCurrentAnimatorStateInfo(0).fullPathHash} temp hash = {TempHash}");
-        yield return new WaitUntil(() =>
-            player.Animations.Animator.GetCurrentAnimatorStateInfo(0).fullPathHash != TempHash);
-    }
-
-
+    
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log(player.name);
-    
+        player.Animations.Animator.SetBool(player.Animations.CancelDectect, player.CancelPlaying);
+        if(player.CancelPlaying) return;
+        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
     }
-
-   
-
-
-    
-
-    private IEnumerator EnforceCooldown(PlayerController player)
-    {
-        player.OnAttackCoolDown = true;
-        yield return new WaitUntil(() => !player.IsAttacking);
-        player.OnAttackCoolDown = false;
-    }
-
-  
-
-
-
-
-
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //applying the custom gravity when player is airborne 

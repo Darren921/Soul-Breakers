@@ -36,7 +36,6 @@ public class InputReader : MonoBehaviour
        
     };
 
-    private static readonly int CancelDectect = Animator.StringToHash("CancelDectect");
 
     #endregion
     #region Input Structs
@@ -200,7 +199,6 @@ public class InputReader : MonoBehaviour
         if (CancelCheck(player) && !player.Animations.IsActiveFrame && !player.Animations.CancelActive )
         {
             player.Animations.CancelActive = true;
-            player.Animations.Animator.SetBool(CancelDectect, true);
             Debug.Log("Cancelling Active");
         }
     }
@@ -290,7 +288,7 @@ public class InputReader : MonoBehaviour
             CurrentAttackInput = GetBufferedAttack();
             CurrentAttackFrame = curFrame;
         }        
-        if (curFrame - LastAttackInputFrame > _bufferTime && !player.IsAttacking)
+        if (curFrame - LastAttackInputFrame > _bufferTime && !player.IsAttacking && player.Animations.Animator.GetBool(player.Animations.CancelDectect )== false)
         {
             LastAttackInput = new Attack();
             LastAttackInputFrame = 0;

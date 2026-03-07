@@ -7,7 +7,7 @@ public class OnEnter : StateMachineBehaviour
      {
         var player =  animator.GetComponent<PlayerController>();
         if(player.Animations.Animator.speed == 0) player.Animations.Animator.speed = 1; 
-        //if(player.IsAttacking) player.IsAttacking = false;
+        if(player.IsAttacking) player.IsAttacking = false;
       //  player.Animations.Animator.SetBool(player.Animations.Attacking, false); 
 
      }

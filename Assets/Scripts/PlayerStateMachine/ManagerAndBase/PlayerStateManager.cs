@@ -14,6 +14,7 @@ public class PlayerStateManager : MonoBehaviour
  
     private PlayerController _player;
 
+    private bool Transitioning; 
     [Flags]
     public enum PlayerStateTypes
     {
@@ -115,11 +116,14 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (States.TryGetValue(newType, out var state))
         {
+            Transitioning = true;
+            Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.ExitState(this, _player);
             lastState = currentState;
             currentState = state;
            Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.EnterState(this, _player);
+            Transitioning = false;
         }
     }
     
@@ -131,7 +135,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void CheckForTransition(PlayerStateTypes transitionType)
     {
-       if(_player.Animations.CancelActive) return;
+       if(Transitioning || _player.CancelPlaying) return;
         if (transitionType.HasFlag(PlayerStateTypes.AirDash))
         {
             if (_player.IsDashing && _player.AtDashHeight)
@@ -160,7 +164,7 @@ public class PlayerStateManager : MonoBehaviour
                 SwitchState(PlayerStateTypes.Dash);
 
         if (transitionType.HasFlag(PlayerStateTypes.Attack))
-            if (_player.IsAttacking && !_player.OnAttackCoolDown)
+            if (_player.IsAttacking && !_player.OnAttackCoolDown && !_player.CancelPlaying)
                 SwitchState(PlayerStateTypes.Attack);
 
         if (transitionType.HasFlag(PlayerStateTypes.CrouchMove))

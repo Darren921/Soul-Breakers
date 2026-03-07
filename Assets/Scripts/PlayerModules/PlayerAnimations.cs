@@ -30,6 +30,8 @@ public class PlayerAnimations : MonoBehaviour
     public readonly int Grabbed = Animator.StringToHash("Grabbed");
     public  readonly int Super = Animator.StringToHash("Super");
     public  readonly int Hit = Animator.StringToHash("Hit");
+    public  readonly int CancelDectect = Animator.StringToHash("CancelDectect");
+
     #endregion
 
 
@@ -119,6 +121,7 @@ public class PlayerAnimations : MonoBehaviour
     public void ResetRecoveryFrame()
     {
         Animator?.SetBool(Recovery,false);
+        _player.CancelPlaying = false;
     }
 
     #endregion

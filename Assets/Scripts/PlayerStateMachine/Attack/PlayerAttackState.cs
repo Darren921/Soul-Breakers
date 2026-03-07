@@ -9,6 +9,7 @@ public class PlayerAttackState : PlayerBaseState
     private Coroutine cooldownCoroutine;
     private Coroutine cancelCoroutine;
     private InputReader.MovementInputResult lastMove;
+    private bool CancelDectected; 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
@@ -18,10 +19,7 @@ public class PlayerAttackState : PlayerBaseState
         player.Animations.Animator.SetBool(player.Animations.Attacking, true);
        
         player.InputReader.ConsumeCurrentInput();
-        if (player.Animations.CancelActive )
-        {
-            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
-        }
+    
 //        Debug.Log("Entered attack state");
 
 
@@ -33,16 +31,18 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (player.Animations.CancelActive )
-        {
-            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
-        }
-        else if (player.IsAttacking && !player.OnAttackCoolDown)
+       
+        if (player.IsAttacking && !player.OnAttackCoolDown)
         {
             if(  player.Animations.AnimationToPlay == -1)  player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
             Debug.Log("attacking" + player.name);
             PerformAttack(player);
         }
+        if (player.Animations.CancelActive  )
+        {
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.CancelAttack);
+        }
+        
       
         player.Animations.Animator.SetBool(player.Animations.airborne, !player.GravityManager.IsGrounded);
 
@@ -68,8 +68,7 @@ public class PlayerAttackState : PlayerBaseState
         
         // State swapping 
         if (!player.GravityManager.IsGrounded || player.IsAttacking ) return;
-        if (player.Animations.CancelActive ) playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.CancelAttack);
-        
+      
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
 //        Debug.Log(player.gravityManager.GetVelocity());
     }
@@ -110,6 +109,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         Debug.Log("Exit attacking" + player.name);
         player.GravityManager.ResetVelocity();
+        Debug.Log(player.Animations.AnimationToPlay);
         player.Animations.ResetAttackingTrigger();
         player.Animations.AnimationToPlay = -1;
     }

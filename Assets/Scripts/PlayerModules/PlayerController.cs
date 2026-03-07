@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     public bool PlayerConnected { get;  private set; }
     internal bool canCancel;
     internal DetectOtherPlayer _detector; 
+    internal bool CancelPlaying;
+
     #endregion
     
 
