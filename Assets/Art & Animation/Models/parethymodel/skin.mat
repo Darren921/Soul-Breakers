@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 51bb2c66316fb3e41a6324fe528bfe94, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -115,22 +115,22 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Edge: 5.42
+    - _Edge: 4.98
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LOD: 1.09
-    - _MaxBright: -0.8
+    - _LOD: 15.27
+    - _MaxBright: -0.65
     - _Metallic: 0
-    - _MinBright: -0.53
+    - _MinBright: -0.79
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.28
+    - _Shades: 0.34
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -144,7 +144,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.5397669, g: 0.39982325, b: 0.2131373, a: 1}
-    - _Color: {r: 0.29559743, g: 0.19799449, b: 0.06785723, a: 1}
+    - _Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _cutoff: {r: 0, g: 0, b: 0, a: 0}
