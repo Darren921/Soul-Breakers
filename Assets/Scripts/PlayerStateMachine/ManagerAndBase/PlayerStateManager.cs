@@ -117,11 +117,11 @@ public class PlayerStateManager : MonoBehaviour
         if (States.TryGetValue(newType, out var state))
         {
             Transitioning = true;
-            Debug.Log(currentState.GetType().Name + _player.name);
+//            Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.ExitState(this, _player);
             lastState = currentState;
             currentState = state;
-           Debug.Log(currentState.GetType().Name + _player.name);
+ //          Debug.Log(currentState.GetType().Name + _player.name);
             currentState?.EnterState(this, _player);
             Transitioning = false;
         }

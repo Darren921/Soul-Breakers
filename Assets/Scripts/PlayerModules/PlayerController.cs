@@ -131,15 +131,20 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         if (device is not null)
         {
             _playerActions = _controls.Player;
-           
         }
-
         PlayerConnected = device is not null;
         SetUpCallBacks();
         OnEnablePlayer();
         SetUpCharacterVariables();
     }
 
+    public void DisconnectPlayer()
+    {
+        PlayerConnected = false;
+        _playerActions.Disable();
+
+        _controls = null;
+    }
 
     private void SetUpCallBacks()
     {

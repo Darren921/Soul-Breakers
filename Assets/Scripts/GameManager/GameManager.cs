@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
    [SerializeField] private CharacterSODataBase characterDatabase;
    private readonly List<InputDevice> _availableDevices = new (); 
    private const float MinDistance = 0.1f;
-   public static  Action OnRefresh ; 
-
+   public static  Action OnRefresh ;
+   private bool StandardConnectDone;
+   public Dictionary<PlayerController , InputDevice> PlayersInputDevice { get; private set; } = new();
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
    [SerializeField] private GameObject GameOverScreen;
@@ -145,6 +146,11 @@ public class GameManager : MonoBehaviour
     {
         if (!_availableDevices.Contains(device)) _availableDevices.Add(device);
     }
+
+    private void OnRemove(InputDevice device)
+    {
+        if(_availableDevices.Contains(device)) _availableDevices.Remove(device);
+    }
     private void ConnectDeviceToPlayer()
     {
         // temp method to add devices to a pool in order to connect them to a player 
@@ -160,14 +166,14 @@ public class GameManager : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     OnAdd(device);
-                    OnConnect();
                     break;
                 case InputDeviceChange.Reconnected:
+                    OnAdd(device);
                     OnConnect();
                     break;
-                case InputDeviceChange.Removed:
-                    break;
                 case InputDeviceChange.Disconnected:
+                    OnRemove(device);
+                    OnDisconnect(device);
                     break;
             }
         };
@@ -178,30 +184,76 @@ public class GameManager : MonoBehaviour
         ConnectPlayer();
         OnRefresh?.Invoke();
     }
+
+    private void OnDisconnect(InputDevice device)
+    {
+        var disconnected = PlayersInputDevice.FirstOrDefault(pair => pair.Value == device).Key;
+         disconnected.DisconnectPlayer();
+        _availableDevices.Remove(device);
+        PlayersInputDevice.Remove(disconnected);
+        ConnectPlayer();
+    }
     
     private void ConnectPlayer()
     {
-      var GamepadCount = _availableDevices.FindAll(device => device.name.Contains("GamePad")).Count;
-      var Gamepads = _availableDevices.FindAll(device => device.name.Contains("Gamepad"));
-      if (GamepadCount >= 2)
-      {
-          for (var i = 0; i < GamepadCount; i++)
-          {
-             players[i].InitializePlayer(Gamepads[i]);   
-          }
-      }
-      else
-      {
-          for (var i = 0; i < players.Count; i++)
-          {
-              if (i < _availableDevices.Count)
-              {
-                  players[i].InitializePlayer(_availableDevices[i]);
-                  //          Debug.Log($"Assigned {_availableDevices[i].name} to Player {i + 1}");
-              }
-          }
-      }
         
+        if (StandardConnectDone)
+        {
+            foreach (var player in players)
+            {
+                if (player.PlayerConnected)
+                {
+                    player.DisconnectPlayer();
+                    PlayersInputDevice.Remove(player);
+                }
+            }
+        }
+        var Gamepads = _availableDevices.OfType<Gamepad>().OrderBy(pair => pair.name).ToList();
+        if (Gamepads.Count == 2)
+        {
+            foreach (var player in players)
+            {
+                if (!player.PlayerConnected && !PlayersInputDevice.ContainsKey(player))
+                {
+                    var UsableInputDevice = Gamepads.First(device => !PlayersInputDevice.ContainsValue(device));
+                    Debug.Log(UsableInputDevice);
+                    if (UsableInputDevice is not null)
+                    {
+                        PlayersInputDevice.Add(player, UsableInputDevice);
+                        player.InitializePlayer(UsableInputDevice);
+                    }
+                }
+            }
+        }
+        else
+        {
+            
+            foreach (var player in players)
+            {
+                if (!player.PlayerConnected && !PlayersInputDevice.ContainsKey(player))
+                {
+                    var UsableInputDevice = _availableDevices.First(device => !PlayersInputDevice.ContainsValue(device) && !PlayersInputDevice.ContainsKey(player));
+                    Debug.Log(UsableInputDevice);
+                    if (UsableInputDevice is not null)
+                    {
+                        PlayersInputDevice.Add(player, UsableInputDevice);
+                        player.InitializePlayer(UsableInputDevice);
+                    }
+                }
+            } 
+            StandardConnectDone = true;
+        }
+     
+    }
+
+    private void StandardConnect()
+    {
+    
+    }
+
+    private void GamePadConnect()
+    {
+   
     }
 
     #endregion
@@ -219,6 +271,7 @@ public class GameManager : MonoBehaviour
     #region ChangePlayerDirection
     private void CheckIfReversed()
     {
+        if(players.Count < 2) return;
         //depending on the distance between players, and if they are grounded, reverse (flip) the player 
         var distance = Vector3.Distance(players[0].transform.position, players[1].transform.position);
 
