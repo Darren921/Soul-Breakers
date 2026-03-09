@@ -83,7 +83,6 @@ public class PlayerSOEditor : Editor
                     element.Add(field);
                 }
 
-                element.Bind(charSo);
                 element.style.display = DisplayStyle.Flex;
             }
             else

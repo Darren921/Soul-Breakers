@@ -107,7 +107,9 @@ using UnityEngine.Serialization;
         public float HitStun;
         public float BlockStun;
         public string AnimationName; 
-        private int _animHash; 
+        private int _animHash;
+        public float SuperAttackCharge;
+        public float SuperChargeNeeded;
         public int AnimHash 
         {
             get 
@@ -120,7 +122,7 @@ using UnityEngine.Serialization;
                 return _animHash;
             }
         }
-        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" )
+        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" ,float superAttackCharge =0 , float superChargeNeeded = 0)
         {
             Attack = attack;
             Tag = tag;
@@ -131,6 +133,8 @@ using UnityEngine.Serialization;
             Knockback = knockback;
             HitStun = hitStun;
             BlockStun = blockStun;
+            SuperAttackCharge = superAttackCharge;
+            SuperChargeNeeded = superChargeNeeded;
         }
         public bool Equals(AttackData other)
         {

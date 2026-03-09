@@ -55,7 +55,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!_damageDone)
             {
               //  print("Damage taken");
-                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage, other.GetComponent<PlayerController>());
             }
         }
         if (other.gameObject.CompareTag("Wall"))
@@ -118,21 +118,21 @@ public class HitDetection : MonoBehaviour, IDamageable
     }
 
   
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, PlayerController Sender)
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {           
-            otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
-            otherPlayer.canCancel = true;
+            Sender.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(Sender.InputReader.LastAttackInput,Time.frameCount, false);
+            Sender.canCancel = true;
             
             // otherPlayer.StartCoroutine(CanCancel());
         }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
+        Sender.StartCoroutine(!_player.AtBorder ? Sender.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(Sender));
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }
