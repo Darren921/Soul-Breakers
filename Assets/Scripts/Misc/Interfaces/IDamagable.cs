@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void TakeDamage(float damage,PlayerController player);
+    void TakeDamage(float damage);
     
 }

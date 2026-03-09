@@ -55,7 +55,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!_damageDone)
             {
               //  print("Damage taken");
-                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage, other.GetComponent<PlayerController>());
+                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
             }
         }
         if (other.gameObject.CompareTag("Wall"))
@@ -118,21 +118,22 @@ public class HitDetection : MonoBehaviour, IDamageable
     }
 
   
-    public void TakeDamage(float damage, PlayerController Sender)
+    public void TakeDamage(float damage)
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {           
-            Sender.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(Sender.InputReader.LastAttackInput,Time.frameCount, false);
-            Sender.canCancel = true;
-            
+            otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
+            otherPlayer.canCancel = true;
+            otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks
+                .ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
             // otherPlayer.StartCoroutine(CanCancel());
         }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        Sender.StartCoroutine(!_player.AtBorder ? Sender.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(Sender));
+        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }

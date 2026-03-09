@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator CameraAnims;
     [SerializeField] private Animator UIAnim;
     #endregion
+
+    private bool SinglePlayer; 
     private void Awake()
     {
         AnimationCamera = CameraAnims.GetComponent<CinemachineCamera>();
@@ -187,16 +189,35 @@ public class GameManager : MonoBehaviour
 
     private void OnDisconnect(InputDevice device)
     {
-        var disconnected = PlayersInputDevice.FirstOrDefault(pair => pair.Value == device).Key;
-         disconnected.DisconnectPlayer();
-        _availableDevices.Remove(device);
-        PlayersInputDevice.Remove(disconnected);
-        ConnectPlayer();
+        if (SinglePlayer)
+        {
+            SinglePlayer = false;
+            PlayersInputDevice.Clear();
+            _availableDevices.Remove(device);
+            players[0].DisconnectPlayer();
+        }
+        else
+        {
+            var disconnected = PlayersInputDevice.FirstOrDefault(pair => pair.Value == device).Key;
+            disconnected.DisconnectPlayer();
+            _availableDevices.Remove(device);
+            PlayersInputDevice.Remove(disconnected);
+            ConnectPlayer();
+        }
+     
     }
     
     private void ConnectPlayer()
     {
-        
+        if (_availableDevices.Count == 1)
+        {
+            players[0].InitializePlayer(_availableDevices[0]);
+            if(PlayersInputDevice.ContainsKey(players[0])) return;
+            PlayersInputDevice.Add( players[0], _availableDevices[0]);
+            SinglePlayer = true;
+            Debug.Log("One Player only");
+            return;
+        }
         if (StandardConnectDone)
         {
             foreach (var player in players)

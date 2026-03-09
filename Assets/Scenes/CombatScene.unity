@@ -8565,7 +8565,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 48
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -8591,8 +8591,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.026880715, y: 0.95366853, z: -0.28592932, w: 0.08965604}
-  m_LocalPosition: {x: -122.75871, y: 4.462001, z: 243.99596}
+  m_LocalRotation: {x: -0.000000014806448, y: -0.0000000019524313, z: -7.316658e-11, w: 1}
+  m_LocalPosition: {x: 0.22391033, y: 1.0344152, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12088,7 +12088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &440485578
 Animator:
   serializedVersion: 7
@@ -18808,7 +18808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0909d86b4c68c3428b380671beadeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 179590951}
+  _healthSlider: {fileID: 179590951}
+  _superMeterSlider: {fileID: 1190881276}
 --- !u!114 &685541192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63353,7 +63354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0909d86b4c68c3428b380671beadeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 1184398537}
+  _healthSlider: {fileID: 1184398537}
+  _superMeterSlider: {fileID: 1417987631}
 --- !u!114 &2239886189421363312
 MonoBehaviour:
   m_ObjectHideFlags: 0
