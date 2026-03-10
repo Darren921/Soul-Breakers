@@ -267,15 +267,7 @@ public class GameManager : MonoBehaviour
      
     }
 
-    private void StandardConnect()
-    {
-    
-    }
-
-    private void GamePadConnect()
-    {
    
-    }
 
     #endregion
     
@@ -295,7 +287,25 @@ public class GameManager : MonoBehaviour
         if(players.Count < 2) return;
         //depending on the distance between players, and if they are grounded, reverse (flip) the player 
         var distance = Vector3.Distance(players[0].transform.position, players[1].transform.position);
+        Debug.Log(distance);
+        switch (distance)
+        {
+            case >= 19.5f:
+                players[0].AtBorder = !players[0].Reversed ? players[0].PlayerMove.x <= 0 : players[0].PlayerMove.x >= 0;
 
+                players[1].AtBorder = !players[1].Reversed ? players[1].PlayerMove.x <= 0 : players[1].PlayerMove.x >= 0;
+                break;
+            case <= 19.5f:
+            {
+                foreach (var player in players)
+                {
+                    player.AtBorder = false;
+                }
+
+                break;
+            }
+        }
+        
         if (distance < MinDistance)
             return;
 

@@ -12787,7 +12787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0909d86b4c68c3428b380671beadeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 179590951}
+  _healthSlider: {fileID: 179590951}
+  _superMeterSlider: {fileID: 1190881276}
 --- !u!114 &685541192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40580,7 +40581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0909d86b4c68c3428b380671beadeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 1184398537}
+  _healthSlider: {fileID: 1184398537}
+  _superMeterSlider: {fileID: 1417987631}
 --- !u!114 &2239886189421363312
 MonoBehaviour:
   m_ObjectHideFlags: 0
