@@ -23,6 +23,9 @@ MonoBehaviour:
     HitStun: 0.1
     BlockStun: 0
     AnimationName: lightNorm
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 1
@@ -33,6 +36,9 @@ MonoBehaviour:
     HitStun: 0.1
     BlockStun: 0
     AnimationName: lightNormC
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 1
@@ -43,6 +49,9 @@ MonoBehaviour:
     HitStun: 0.1
     BlockStun: 0
     AnimationName: lightNormA
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   DefaultMedAttacks:
   - Attack:
       Move: 0
@@ -54,6 +63,9 @@ MonoBehaviour:
     HitStun: 0.5
     BlockStun: 0
     AnimationName: medNorm
+    IsSpecial: 0
+    SuperAttackCharge: 20
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 2
@@ -64,6 +76,9 @@ MonoBehaviour:
     HitStun: 0.5
     BlockStun: 0
     AnimationName: medNormC
+    IsSpecial: 0
+    SuperAttackCharge: 20
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 2
@@ -74,10 +89,13 @@ MonoBehaviour:
     HitStun: 0.5
     BlockStun: 0
     AnimationName: medNormA
+    IsSpecial: 0
+    SuperAttackCharge: 20
+    SuperChargeNeeded: 0
   DefaultHeavyAttacks:
   - Attack:
       Move: 0
-      Type: 3
+      Type: 4
     Tag: 1
     State: 0
     Damage: 20
@@ -85,9 +103,12 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: heavyNorm
+    IsSpecial: 0
+    SuperAttackCharge: 30
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
-      Type: 3
+      Type: 4
     Tag: 0
     State: 2
     Damage: 20
@@ -95,9 +116,12 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: heavyNormC
+    IsSpecial: 0
+    SuperAttackCharge: 30
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
-      Type: 3
+      Type: 4
     Tag: 2
     State: 1
     Damage: 20
@@ -105,6 +129,9 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: heavyNormA
+    IsSpecial: 0
+    SuperAttackCharge: 30
+    SuperChargeNeeded: 0
   GrabAttacks:
   - Attack:
       Move: 4
@@ -116,6 +143,9 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: lightLeft
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 3
@@ -126,6 +156,9 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: lightNorm
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   - Attack:
       Move: 3
       Type: 3
@@ -136,38 +169,89 @@ MonoBehaviour:
     HitStun: 1
     BlockStun: 0
     AnimationName: lightRight
+    IsSpecial: 0
+    SuperAttackCharge: 10
+    SuperChargeNeeded: 0
   SpecialAttacks:
   - Attack:
       Move: 0
       Type: 8
     Tag: 1
     State: 0
-    Damage: 0
-    Knockback: {x: 0, y: 0, z: 0}
-    HitStun: 0
+    Damage: 10
+    Knockback: {x: 2, y: 4, z: 0}
+    HitStun: 1
     BlockStun: 0
-    AnimationName: 
+    AnimationName: heavyLeft
+    IsSpecial: 0
+    SuperAttackCharge: 25
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 8
-    Tag: 1
+    Tag: 0
     State: 0
-    Damage: 0
-    Knockback: {x: 0, y: 0, z: 0}
-    HitStun: 0
+    Damage: 10
+    Knockback: {x: 2, y: 4, z: 0}
+    HitStun: 1
     BlockStun: 0
-    AnimationName: 
+    AnimationName: heavyRight
+    IsSpecial: 0
+    SuperAttackCharge: 25
+    SuperChargeNeeded: 0
   - Attack:
       Move: 0
       Type: 8
-    Tag: 1
+    Tag: 2
     State: 0
-    Damage: 0
-    Knockback: {x: 0, y: 0, z: 0}
+    Damage: 10
+    Knockback: {x: 2, y: 4, z: 0}
     HitStun: 0
     BlockStun: 0
-    AnimationName: 
-  SuperAttacks: []
+    AnimationName: medLeft
+    IsSpecial: 0
+    SuperAttackCharge: 25
+    SuperChargeNeeded: 0
+  SuperAttacks:
+  - Attack:
+      Move: 0
+      Type: 10
+    Tag: 1
+    State: 0
+    Damage: 50
+    Knockback: {x: 8, y: 8, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: medRightA
+    IsSpecial: 1
+    SuperAttackCharge: 0
+    SuperChargeNeeded: 100
+  - Attack:
+      Move: 0
+      Type: 9
+    Tag: 1
+    State: 0
+    Damage: 50
+    Knockback: {x: 8, y: 8, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: medLeftA
+    IsSpecial: 1
+    SuperAttackCharge: 0
+    SuperChargeNeeded: 100
+  - Attack:
+      Move: 0
+      Type: 12
+    Tag: 1
+    State: 0
+    Damage: 50
+    Knockback: {x: 8, y: 8, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: medLeftC
+    IsSpecial: 1
+    SuperAttackCharge: 0
+    SuperChargeNeeded: 200
   CustomLightAttacks: []
   CustomMedAttacks: []
   CustomHeavyAttacks: []

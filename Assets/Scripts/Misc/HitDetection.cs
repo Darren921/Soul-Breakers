@@ -126,7 +126,8 @@ public class HitDetection : MonoBehaviour, IDamageable
         {           
             otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
             otherPlayer.canCancel = true;
-            
+            otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks
+                .ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
             // otherPlayer.StartCoroutine(CanCancel());
         }
         // deal damage and active death event to trigger end of game 

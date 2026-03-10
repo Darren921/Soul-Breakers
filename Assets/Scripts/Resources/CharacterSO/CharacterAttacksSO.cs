@@ -8,6 +8,15 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "CharacterAttacksSO", menuName = "Scriptable Objects/CharacterAttacksSO")]
     public class CharacterAttacksSo : ScriptableObject
     {
+        private void OnValidate()
+        {
+            foreach (var attackData in SuperAttacks)
+            {
+                var data = attackData;
+                data.IsSpecial = true;
+            }
+        }
+
         #region DefaultAttacks
         public AttackData[] DefaultLightAttacks = {
             new (new InputReader.Attack(InputReader.AttackType.Light)),
@@ -42,30 +51,35 @@ using UnityEngine.Serialization;
             
         };
         #endregion
-        public List<AttackData> CustomLightAttacks;
-        public List<AttackData> CustomMedAttacks;
-        public List<AttackData> CustomHeavyAttacks;
+        public AttackData[] CustomLightAttacks;
+        public AttackData[] CustomMedAttacks;
+        public AttackData[] CustomHeavyAttacks;
 
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         { 
-//            Debug.Log(attack.Type);
-//            Debug.Log(state);
+//           Debug.Log(attack.Type); 
+ //          Debug.Log(state);
             var attackUsed = attack.Type switch
             {
                 InputReader.AttackType.Light => CustomLightAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Medium => CustomMedAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Heavy => CustomHeavyAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
-                _ => new AttackData()
+                InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
+                InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
+                _ => new AttackData()  
             };
             if (attackUsed.Equals(new AttackData()))
             {
-//                Debug.Log(attackUsed.Attack.Type);
+      //         Debug.Log(attackUsed.Attack.Type);
                 attackUsed = attack.Type switch
                 {
-                    InputReader.AttackType.Light => DefaultLightAttacks.FirstOrDefault((data => data.State == state)),
-                    InputReader.AttackType.Medium => DefaultMedAttacks.FirstOrDefault((data => data.State == state)),
-                    InputReader.AttackType.Heavy => DefaultHeavyAttacks.FirstOrDefault((data => data.State == state)),
+                    InputReader.AttackType.Light => DefaultLightAttacks.FirstOrDefault(data => data.State == state),
+                    InputReader.AttackType.Medium => DefaultMedAttacks.FirstOrDefault(data => data.State == state),
+                    InputReader.AttackType.Heavy => DefaultHeavyAttacks.FirstOrDefault(data => data.State == state),
+                    InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => data.State == state),
+                    InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type &&  data.State == state),
+
                     _ => throw new ArgumentOutOfRangeException(nameof(attack),"check the following" )
                 };
             }
@@ -78,7 +92,7 @@ using UnityEngine.Serialization;
 
     
     [Serializable]
-    public struct AttackData : IEquatable<AttackData>
+    public struct AttackData : IEquatable<AttackData> 
     { 
         public enum Tags
         {
@@ -107,20 +121,27 @@ using UnityEngine.Serialization;
         public float HitStun;
         public float BlockStun;
         public string AnimationName; 
-        private int _animHash; 
+        private int _animHash;
+        public bool IsSpecial;
+
+        public float SuperAttackCharge;
+        public float SuperChargeNeeded;
+
+        
         public int AnimHash 
         {
             get 
             {
                 if (_animHash == 0 && !string.IsNullOrEmpty(AnimationName))
                 {
+                    Debug.Log(AnimationName);
                     _animHash = Animator.StringToHash(AnimationName);
                     
                 }
                 return _animHash;
             }
         }
-        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" )
+        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" ,float superAttackCharge = 10 , float superChargeNeeded = 0, bool isSpecial = false) 
         {
             Attack = attack;
             Tag = tag;
@@ -131,6 +152,9 @@ using UnityEngine.Serialization;
             Knockback = knockback;
             HitStun = hitStun;
             BlockStun = blockStun;
+            SuperAttackCharge = superAttackCharge;
+            SuperChargeNeeded = superChargeNeeded;
+            IsSpecial = isSpecial;
         }
         public bool Equals(AttackData other)
         {

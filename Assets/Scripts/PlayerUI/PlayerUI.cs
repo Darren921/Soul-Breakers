@@ -1,32 +1,45 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
     private PlayerController _playerController;
 
-    [SerializeField] private Slider _slider;
+   [SerializeField] private Slider _healthSlider;
+   [SerializeField] private Slider _superMeterSlider;
     private void Awake()
     {
         HitDetection.OnPlayerHit += UpdateHealth;
+        HitDetection.OnPlayerHit += UpdateSuperMeter;
+
         GameManager.OnRefresh += UpdateHealth;
-        
+        GameManager.OnRefresh += UpdateSuperMeter;
+
         _playerController = GetComponent<PlayerController>();
       
     }
 
+    private void UpdateSuperMeter()
+    {
+        _superMeterSlider.value = _playerController.superMeter;
+    }
+
     private void OnDestroy()
     {
-        HitDetection.OnPlayerHit -= UpdateHealth;    
+        HitDetection.OnPlayerHit -= UpdateHealth;  
+        HitDetection.OnPlayerHit -= UpdateSuperMeter;
+
     }
 
     private void Start()
     {
         if (_playerController.CharacterData != null)
         {
-            _slider.maxValue = _playerController.CharacterData.health;
-            _slider.value = _playerController.CharacterData.health;
+            _healthSlider.maxValue = _playerController.CharacterData.health;
+            _healthSlider.value = _playerController.CharacterData.health;
+            _superMeterSlider.maxValue = 100;
         }
 
         _playerController.Health = _playerController.CharacterData.health;
@@ -38,6 +51,6 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateHealth()
     {
-        _slider.value = _playerController.Health;
+        _healthSlider.value = _playerController.Health;
     }
 }

@@ -35,6 +35,7 @@ public class PlayerAttackState : PlayerBaseState
         if (player.IsAttacking && !player.OnAttackCoolDown)
         {
             if(  player.Animations.AnimationToPlay == -1)  player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
+            Debug.Log(player.Animations.AnimationToPlay);
             Debug.Log("attacking" + player.name);
             PerformAttack(player);
         }
