@@ -108,15 +108,15 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _LOD: 1.82
-    - _MaxBright: -1.72
+    - _MaxBright: -1.63
     - _Metallic: 0
-    - _MinBright: -1.17
+    - _MinBright: -1.2
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.68
+    - _Shades: 0.37
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
