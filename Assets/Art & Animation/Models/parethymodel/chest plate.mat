@@ -102,12 +102,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Edge: -0.07
+    - _Edge: 0.22
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LOD: 2.89
+    - _LOD: 5.11
     - _MaxBright: -2.2
     - _Metallic: 0
     - _MinBright: -2.91
