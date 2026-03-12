@@ -24,9 +24,9 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.46226418, g: 0.39409867, b: 0.18534178, a: 1}
   m_AmbientGroundColor: {r: 0.3962264, g: 0.12486713, b: 0, a: 1}
   m_AmbientIntensity: 1.16
-  m_AmbientMode: 1
-  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 4340d9dea69eb1244981e866fd34d6f7, type: 2}
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 3a2b9af4f4b2e9947b3bf1e2619c258a, type: 2}
   m_HaloStrength: 0.432
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -7412,7 +7412,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0.6698113, g: 0.48822987, b: 0.37597898, a: 1}
-  m_Intensity: 2
+  m_Intensity: 4.45
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7455,7 +7455,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6956
+  m_ColorTemperature: 1500
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
