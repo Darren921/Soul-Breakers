@@ -50,7 +50,7 @@ public class PlayerAnimations : MonoBehaviour
     void Start()
     {
         _player = GetComponent<PlayerController>();
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
