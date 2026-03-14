@@ -5,7 +5,7 @@ public class OnEnter : StateMachineBehaviour
      // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
      override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
      {
-        var player =  animator.GetComponent<PlayerController>();
+        var player =  animator.GetComponentInParent<PlayerController>();
         if(player.Animations.Animator.speed == 0) player.Animations.Animator.speed = 1; 
         if(player.IsAttacking) player.IsAttacking = false;
       //  player.Animations.Animator.SetBool(player.Animations.Attacking, false); 
