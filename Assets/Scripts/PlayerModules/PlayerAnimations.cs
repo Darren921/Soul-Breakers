@@ -49,8 +49,8 @@ public class PlayerAnimations : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _player = GetComponent<PlayerController>();
-        Animator = GetComponentInChildren<Animator>();
+        _player = GetComponentInParent<PlayerController>();
+        Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

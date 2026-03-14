@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     private void Awake()
     {
-        Animations = GetComponent<PlayerAnimations>();
+        Animations = GetComponentInChildren<PlayerAnimations>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
         HitDetection.OnDeath += OnPlayerDeath;
