@@ -332,7 +332,7 @@ public class GameManager : MonoBehaviour
         var rotation = player.transform.eulerAngles;
         rotation.y = targetYRotation;
         player.transform.eulerAngles = rotation;
-        player.playerModel.transform.localScale = new Vector3(!player.Reversed ? 1 : -1, player.playerModel.transform.localScale.y, player.playerModel.transform.localScale.z);
+        //player.playerModel.transform.localScale = new Vector3(!player.Reversed ? 1 : -1, player.playerModel.transform.localScale.y, player.playerModel.transform.localScale.z);
     }
     #endregion
 
