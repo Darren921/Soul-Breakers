@@ -231,7 +231,7 @@ public class InputReader : MonoBehaviour
 
     private BufferedInput<Attack> CheckForSuper(BufferedInput<Attack> newAttack)
     {
-        Debug.Log(newAttack.Input.ToString());
+//        Debug.Log(newAttack.Input.ToString());
         if (!newAttack.Input.Type.ToString().Contains("Super") && newAttack.Input.Type != AttackType.None) return newAttack;
         Debug.Log("Checking");
         Debug.Log(player.superMeter);
@@ -243,6 +243,7 @@ public class InputReader : MonoBehaviour
         {
             print("Super triggered");
             player.superMeter -= 100;
+            GameManager.OnRefresh?.Invoke();
        //     player.Animations.Animator.SetBool(player.Animations.Super, true);
           
         }

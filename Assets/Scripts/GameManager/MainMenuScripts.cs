@@ -1,10 +1,7 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 public class MainMenuScripts : MonoBehaviour
 {
     [SerializeField] Animator UIAnim;
@@ -21,6 +18,9 @@ public class MainMenuScripts : MonoBehaviour
     [SerializeField] bool Player1Ready;
     [SerializeField] bool Player2Ready;
     [SerializeField] bool snapPlayerPos;
+
+    private bool isStarting;
+    private bool isStartingChara;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -64,7 +64,7 @@ public class MainMenuScripts : MonoBehaviour
     }
     public void CharacterSelect()
     {
-        StartCoroutine(StartChar());
+       if (!isStartingChara) StartCoroutine(StartChar());
     }
     public void mainmenu()
     {
@@ -73,6 +73,9 @@ public class MainMenuScripts : MonoBehaviour
 
     public IEnumerator StartChar()
     {
+        Debug.Log("Starting Character");
+
+        isStartingChara = true;
         UIAnim.Play("ToChar");
         yield return new WaitForSeconds(0.5f);
         WorldUIanim.Play("CharSelect");
@@ -88,6 +91,8 @@ public class MainMenuScripts : MonoBehaviour
     }
     private IEnumerator StartGame()
     {
+        Debug.Log("Starting Game");
+        isStarting = true;
         CameraAnim.Play("StartGame");
         WorldUIanim.Play("StartGameSceneCanvas");
         UIAnim.Play("Ready Dissapear");
@@ -98,8 +103,7 @@ public class MainMenuScripts : MonoBehaviour
     }
     public void GameStart()
     {
-        
-        StartCoroutine(StartGame());
+        if(!isStarting) StartCoroutine(StartGame());
     }
 
     

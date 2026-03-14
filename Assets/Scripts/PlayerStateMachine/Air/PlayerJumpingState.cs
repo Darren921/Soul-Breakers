@@ -119,7 +119,7 @@ public class PlayerJumpingState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //performing jump and applying custom gravity 
-        player.rb.MovePosition(player.transform.position + new Vector3(xJumpVal , player.GravityManager.GetVelocity(), 0) * Time.fixedDeltaTime);
+        player.rb.MovePosition(player.transform.position + new Vector3( player.AtBorder ?  0 :  xJumpVal  , player.GravityManager.GetVelocity(), 0) * Time.fixedDeltaTime);
        // player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
         if (!player.GravityManager.IsGrounded  )
         {

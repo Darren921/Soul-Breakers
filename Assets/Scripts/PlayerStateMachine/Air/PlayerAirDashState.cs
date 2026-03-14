@@ -93,7 +93,7 @@ public class PlayerAirDashState : PlayerDashState
 
         }
    //    Debug.Log($"{!player.GravityManager.IsGrounded} {!DashActive} {!player._detector.intersecting}");
-        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting )
+        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting && !player.AtBorder)
         {
           player.GravityManager.ApplyGravityToPlayer(player);
         }

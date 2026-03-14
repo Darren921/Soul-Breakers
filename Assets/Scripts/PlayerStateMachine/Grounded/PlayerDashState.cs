@@ -17,6 +17,7 @@ public class PlayerDashState : PlayerMovingState
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         Debug.Log("Entering Dash State");
+       SoundManager.instance.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.SFX, "Dash"), player.transform.position);
         player.Animations. Animator?.SetTrigger(player.Animations.Dashing);
         GetDashValues(player);
         SetUpDash(player);

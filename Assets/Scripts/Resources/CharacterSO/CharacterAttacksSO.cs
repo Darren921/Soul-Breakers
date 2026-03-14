@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "CharacterAttacksSO", menuName = "Scriptable Objects/CharacterAttacksSO")]
+[Serializable]
     public class CharacterAttacksSo : ScriptableObject
     {
         private void OnValidate()
@@ -40,16 +41,8 @@ using UnityEngine.Serialization;
             new (new InputReader.Attack(InputReader.AttackType.Grab)),
             new (new InputReader.Attack(InputReader.AttackType.Grab)),
         };
-        public AttackData[] SpecialAttacks = 
-        {
-            new (new InputReader.Attack(InputReader.AttackType.Special)),
-            new (new InputReader.Attack(InputReader.AttackType.Special)),
-            new (new InputReader.Attack(InputReader.AttackType.Special))
-        };
-        public AttackData[] SuperAttacks = 
-        {
-            
-        };
+        public AttackData[] SpecialAttacks;
+        public AttackData[] SuperAttacks ;
         #endregion
         public AttackData[] CustomLightAttacks;
         public AttackData[] CustomMedAttacks;
@@ -57,33 +50,37 @@ using UnityEngine.Serialization;
 
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         { 
-//           Debug.Log(attack.Type); 
- //          Debug.Log(state);
+          Debug.Log(attack.Type); 
+          Debug.Log(state);
             var attackUsed = attack.Type switch
             {
                 InputReader.AttackType.Light => CustomLightAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Medium => CustomMedAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Heavy => CustomHeavyAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
-                InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
-                InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
+                InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move && data.State == state),
+                InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move && data.State == state),
                 InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
                 _ => new AttackData()  
             };
             if (attackUsed.Equals(new AttackData()))
             {
-      //         Debug.Log(attackUsed.Attack.Type);
+              Debug.Log(attackUsed.Attack.Type);
+              Debug.Log(state);
+              Debug.Log(attack.Type);
                 attackUsed = attack.Type switch
                 {
                     InputReader.AttackType.Light => DefaultLightAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.Medium => DefaultMedAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.Heavy => DefaultHeavyAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => data.State == state),
+                    InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type &&  data.State == state),
 
                     _ => throw new ArgumentOutOfRangeException(nameof(attack),"check the following" )
                 };
             }
-
+            Debug.Log($"{SpecialAttacks.FirstOrDefault(data => data.State == state).State} + {SpecialAttacks.FirstOrDefault(data => data.State == state ).AnimationName}") ;
+//          Debug.Log(attackUsed.Attack.Type);
             if (attackUsed.AnimationName == string.Empty) Debug.LogWarning("No animation found");
             return attackUsed; 
         }
@@ -100,6 +97,7 @@ using UnityEngine.Serialization;
             Mid,
             High,
         }
+        [Serializable]
         public enum States
         {
             Standing,

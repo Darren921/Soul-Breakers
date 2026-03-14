@@ -36,7 +36,7 @@ public class PlayerAttackState : PlayerBaseState
         {
             if(  player.Animations.AnimationToPlay == -1)  player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
             Debug.Log(player.Animations.AnimationToPlay);
-            Debug.Log("attacking" + player.name);
+//            Debug.Log("attacking" + player.name);
             PerformAttack(player);
         }
         if (player.Animations.CancelActive  )
@@ -79,7 +79,7 @@ public class PlayerAttackState : PlayerBaseState
     private void PerformAttack(PlayerController player)
     {
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
-        Debug.Log("normal attack" + player.name);
+//        Debug.Log("normal attack" + player.name);
         player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
@@ -108,7 +108,7 @@ public class PlayerAttackState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log("Exit attacking" + player.name);
+//        Debug.Log("Exit attacking" + player.name);
         player.GravityManager.ResetVelocity();
         Debug.Log(player.Animations.AnimationToPlay);
         player.Animations.ResetAttackingTrigger();

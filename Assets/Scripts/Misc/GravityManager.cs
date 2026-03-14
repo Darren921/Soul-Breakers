@@ -100,7 +100,16 @@ public class GravityManager : MonoBehaviour
         if (!IsGrounded && player.transform.localPosition.y > 0.1f)
         {
             player.GravityManager.ApplyGravity(player);
-            player.rb.MovePosition(player.transform.position + new Vector3(Mathf.Clamp(player.rb.linearVelocity.x, -10,10) , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime));
+            if (!player.AtBorder)
+            {
+                player.rb.MovePosition(player.transform.position + new Vector3(Mathf.Clamp(player.rb.linearVelocity.x, -3,3) , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime));
+            }
+            else
+            {
+                player.rb.MovePosition(player.transform.position + new Vector3(0 , player.GravityManager.GetVelocity(), 0) * (Time.fixedDeltaTime));
+
+            }
+            
         }  
         
     }

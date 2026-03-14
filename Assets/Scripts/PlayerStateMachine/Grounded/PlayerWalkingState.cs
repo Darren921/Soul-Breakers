@@ -15,6 +15,7 @@ public class PlayerWalkingState : PlayerMovingState
 
     protected override void ApplyVelocity(PlayerController player)
     {
+        if(player.PlayersColliding || player.AtBorder) return;
         player.rb.MovePosition(player.transform.position + player.PlayerMove * (Time.fixedDeltaTime * MoveSpeed));
         // var velocity = new Vector3(player.PlayerMove.x * MoveSpeed, player.rb.linearVelocity.y);
         // player.rb.linearVelocity = velocity;
