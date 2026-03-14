@@ -328,7 +328,7 @@ public class GameManager : MonoBehaviour
     private static void UpdatePlayerDirection(PlayerController player)
     {
         if (!player.GravityManager.IsGrounded) return;
-        var targetYRotation = player.Reversed ? 270 : 90f;
+        var targetYRotation = player.Reversed ? 90 : 180;
         var rotation = player.transform.eulerAngles;
         rotation.y = targetYRotation;
         player.transform.eulerAngles = rotation;
