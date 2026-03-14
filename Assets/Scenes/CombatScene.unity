@@ -24369,8 +24369,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849063786}
-  - component: {fileID: 849063787}
   - component: {fileID: 849063788}
+  - component: {fileID: 849063787}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -24402,22 +24402,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 849063783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1358315850}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
-  m_PlayerRoot: {fileID: 0}
---- !u!114 &849063788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849063783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -24440,6 +24424,21 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &849063788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849063783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 1358315850}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1 &855629695
 GameObject:
   m_ObjectHideFlags: 0
@@ -26003,6 +26002,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6418475053931931943, guid: ea096222a48080147bc8075a6de13475, type: 3}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: DeselectObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39047,9 +39058,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 687586819, guid: 0e949137848f61448bc2630796e86b2c, type: 3}
-    m_PressedSprite: {fileID: 687586819, guid: 0e949137848f61448bc2630796e86b2c, type: 3}
-    m_SelectedSprite: {fileID: 687586819, guid: 0e949137848f61448bc2630796e86b2c, type: 3}
+    m_HighlightedSprite: {fileID: 1544286711, guid: fd37a63fb2349604c95236537941eb5a, type: 3}
+    m_PressedSprite: {fileID: 1544286711, guid: fd37a63fb2349604c95236537941eb5a, type: 3}
+    m_SelectedSprite: {fileID: 1544286711, guid: fd37a63fb2349604c95236537941eb5a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -39065,6 +39076,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1476741608}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
         m_MethodName: ResumeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6418475053931931943, guid: ea096222a48080147bc8075a6de13475, type: 3}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: DeselectObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -39559,6 +39582,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6418475053931931943, guid: ea096222a48080147bc8075a6de13475, type: 3}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: DeselectObject
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

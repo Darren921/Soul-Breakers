@@ -89,13 +89,15 @@ public class UIController : MonoBehaviour
 
     public void SelectObject(Selectable selectable)
     {
-        print(selectable.name);
+        print($"{selectables} Selected and music played ");
         nextTarget = selectable.gameObject;
         instance.eventSystem.SetSelectedGameObject(nextTarget);
+        SoundManager.instance.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.Interface, "uiinteract"), transform.position);
     }
 
     public void DeselectObject()
     {
+        SoundManager.instance.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.Interface, "uiinteract"), transform.position);
         instance.eventSystem.SetSelectedGameObject(null);
     }
 }

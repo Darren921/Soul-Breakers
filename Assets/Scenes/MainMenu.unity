@@ -948,6 +948,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1948289593}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: DeselectObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &85649425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11473,6 +11485,7 @@ GameObject:
   - component: {fileID: 759714368}
   - component: {fileID: 759714371}
   - component: {fileID: 759714372}
+  - component: {fileID: 759714373}
   m_Layer: 0
   m_Name: AnimCam
   m_TagString: MainCamera
@@ -11621,6 +11634,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &759714373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759714367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!43 &770138135
 Mesh:
   m_ObjectHideFlags: 0
@@ -18314,13 +18341,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1948289593}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: DeselectObject
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1896808832}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -28221,8 +28248,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 983931978823208246, guid: ea096222a48080147bc8075a6de13475, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1948289592}
   m_SourcePrefab: {fileID: 100100000, guid: ea096222a48080147bc8075a6de13475, type: 3}
+--- !u!1 &1948289591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 983931978823208246, guid: ea096222a48080147bc8075a6de13475, type: 3}
+  m_PrefabInstance: {fileID: 1948289590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1948289592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948289591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318b513f3b6b8f649ada15667c89c130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundData: {fileID: 11400000, guid: 79f7ce0da7e82654eba16cf35362a928, type: 2}
+--- !u!114 &1948289593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6418475053931931943, guid: ea096222a48080147bc8075a6de13475, type: 3}
+  m_PrefabInstance: {fileID: 1948289590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948289591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d5d00bed93f144498d502f2fa65e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1955928208
 Mesh:
   m_ObjectHideFlags: 0

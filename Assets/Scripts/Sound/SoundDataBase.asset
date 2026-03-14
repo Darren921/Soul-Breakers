@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3326a7ea4c789d48812d46c9981d5ca, type: 3}
+  m_Name: SoundDataBase
+  m_EditorClassIdentifier: 
+  Sounds:
+  - SoundEvtRef:
+      Guid:
+        Data1: 1930259872
+        Data2: 1111063616
+        Data3: -712164202
+        Data4: -1981128112
+      Path: event:/Interface/UIInteract
+    soundType: 3
+    SoundName: uiinteract
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 993183863
+        Data2: 1087227015
+        Data3: -902679141
+        Data4: 295608566
+      Path: event:/SFX/Dash
+    soundType: 2
+    SoundName: dash
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 1931969657
+        Data2: 1192758915
+        Data3: 468895107
+        Data4: -850090334
+      Path: event:/SFX/Dash State Wind
+    soundType: 2
+    SoundName: dashstatewind
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: -73907233
+        Data2: 1275871588
+        Data3: -1917709130
+        Data4: 1528496497
+      Path: event:/SFX/Heavy Impact
+    soundType: 2
+    SoundName: heavyimpact
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 1468933384
+        Data2: 1201095199
+        Data3: 275947650
+        Data4: 826893697
+      Path: event:/SFX/Light Impact
+    soundType: 2
+    SoundName: lightimpact
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 1659656969
+        Data2: 1253574870
+        Data3: 1197681812
+        Data4: -400780467
+      Path: event:/SFX/Light Swing
+    soundType: 2
+    SoundName: lightswing
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 29373164
+        Data2: 1230577167
+        Data3: 1532052410
+        Data4: 40253419
+      Path: event:/SFX/Medium Impact
+    soundType: 2
+    SoundName: mediumimpact
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 527860561
+        Data2: 1262219228
+        Data3: -4810839
+        Data4: -1719251997
+      Path: event:/SFX/Medium Swing
+    soundType: 2
+    SoundName: mediumswing
+    IsSceneSpecific: 0
+    SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: 486996316
+        Data2: 1307219339
+        Data3: -801707896
+        Data4: -2139079343
+      Path: event:/SFX/Heavy Swing
+    soundType: 2
+    SoundName: heavyswing
+    IsSceneSpecific: 0
+    SceneBound: 0
+  SceneList:
+  - None
+  - MainMenu
+  - CombatScene

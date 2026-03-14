@@ -287,7 +287,7 @@ public class GameManager : MonoBehaviour
         if(players.Count < 2) return;
         //depending on the distance between players, and if they are grounded, reverse (flip) the player 
         var distance = Vector3.Distance(players[0].transform.position, players[1].transform.position);
-        Debug.Log(distance);
+//        Debug.Log(distance);
         switch (distance)
         {
             case >= 19.5f:

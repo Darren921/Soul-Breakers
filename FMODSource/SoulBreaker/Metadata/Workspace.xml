@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Workspace" id="{3d168359-c385-4b73-ba46-b65c17c37bdf}">
 		<property name="builtBanksOutputDirectory">
-			<value>../../Unity_ Projects/Fighting-Game-test/Assets/FModBanks</value>
+			<value>../../Assets/FModBanks</value>
 		</property>
 		<relationship name="masterEventFolder">
 			<destination>{5d2a9879-e4c1-42c1-a90c-a1c720f0d53b}</destination>

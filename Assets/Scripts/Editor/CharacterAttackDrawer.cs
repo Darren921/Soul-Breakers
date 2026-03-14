@@ -30,6 +30,7 @@ public class CharacterAttackDrawer : PropertyDrawer
         root.Add(new PropertyField(property.FindPropertyRelative("Attack"), "Attack"));
         root.Add(new PropertyField(property.FindPropertyRelative("Damage"), "Damage"));
         root.Add(new PropertyField(property.FindPropertyRelative("Tag"), "State Tag"));
+        root.Add(new PropertyField(property.FindPropertyRelative("State"), "State"));
         root.Add(new PropertyField(property.FindPropertyRelative("Knockback"), "Knockback"));
         root.Add(new PropertyField(property.FindPropertyRelative("HitStun"), "HitStun"));
         root.Add(new PropertyField(property.FindPropertyRelative("BlockStun"), "BlockStun"));
