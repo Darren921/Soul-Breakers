@@ -7,7 +7,7 @@ public class ChangeScene : MonoBehaviour
     
     public void LoadGame()
     {
-        SceneManager.LoadScene("CombatScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex );
        if(Time.timeScale == 0) Time.timeScale = 1;
     }
     public void LoadMenu()

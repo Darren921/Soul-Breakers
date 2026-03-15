@@ -9862,7 +9862,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -11550,11 +11550,11 @@ Transform:
   m_GameObject: {fileID: 559585575}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.00999999, y: 1.0020003, z: -0.01}
+  m_LocalPosition: {x: -0.00999999, y: 1.0020003, z: -0.00999999}
   m_LocalScale: {x: 0.77484584, y: 2.16319, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1184764638}
+  m_Father: {fileID: 685541194}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &559585577
 MonoBehaviour:
@@ -11604,7 +11604,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559585575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11649,7 +11649,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559585575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
   m_Name: 
@@ -11673,7 +11673,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559585575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
   m_Name: 
@@ -15334,6 +15334,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1708778640}
+  - {fileID: 559585576}
   - {fileID: 867331838}
   - {fileID: 784644650}
   - {fileID: 1184764638}
@@ -15485,7 +15487,7 @@ Transform:
   m_GameObject: {fileID: 692828754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15507,7 +15509,7 @@ Transform:
   - {fileID: 39777088}
   - {fileID: 278224104}
   - {fileID: 833347423}
-  m_Father: {fileID: 702768161}
+  m_Father: {fileID: 2128308201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &692828756
 Animator:
@@ -15573,8 +15575,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 692828755}
-  - {fileID: 1051398058}
+  - {fileID: 2128308201}
   m_Father: {fileID: 1467747089931033298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &704300240
@@ -19938,7 +19939,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadMenu
         m_Mode: 1
@@ -23998,7 +23999,7 @@ Transform:
   m_GameObject: {fileID: 1044146438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.9, y: 5.26, z: 1.3}
+  m_LocalPosition: {x: 11.9, y: 5.42, z: 1.3}
   m_LocalScale: {x: 249.75, y: 1, z: 15.553}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24221,13 +24222,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051398057}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 133851743}
-  m_Father: {fileID: 702768161}
+  m_Father: {fileID: 2128308201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1051398059
 Animator:
@@ -25380,7 +25381,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
@@ -27100,8 +27101,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 556278632}
-  - {fileID: 559585576}
-  - {fileID: 1708778640}
   - {fileID: 1939429854}
   m_Father: {fileID: 685541194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34935,7 +34934,7 @@ MonoBehaviour:
   _p1WinSprite: {fileID: 21300000, guid: 35d222757cde4734d90630f656a4e3e1, type: 3}
   _p2WinSprite: {fileID: 21300000, guid: 511491ccf84bbe14f96e8a40d32ec193, type: 3}
   _drawSprite: {fileID: 21300000, guid: cd0057efefbd50d499873e04d9e994ac, type: 3}
-  WinSplashScreen: {fileID: 894945653}
+  WinSplashScreen: {fileID: 1469645422}
   restartButton: {fileID: 488711093}
   timerText: {fileID: 1764100132}
   isLowTime: 1
@@ -36653,7 +36652,7 @@ Transform:
   m_GameObject: {fileID: 1561997791}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.034999847, y: 0.923, z: 0.076000005}
+  m_LocalPosition: {x: 0.0350008, y: 0.9229998, z: 0.075999975}
   m_LocalScale: {x: 1, y: 1.8283, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37143,7 +37142,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1476741610}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
         m_MethodName: LoadMenu
         m_Mode: 1
@@ -39531,11 +39530,11 @@ Transform:
   m_GameObject: {fileID: 1708778639}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.035000086, y: 1.0310006, z: 0.021}
-  m_LocalScale: {x: 1, y: 1.8283, z: 0.72952}
+  m_LocalPosition: {x: 0.035000086, y: 1.0310006, z: 0.021000028}
+  m_LocalScale: {x: 1, y: 1.8283, z: 0.7295199}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1184764638}
+  m_Father: {fileID: 685541194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1708778641
 BoxCollider:
@@ -41801,7 +41800,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1476741608}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -44994,8 +44993,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954500265}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 0.96, z: 0.12949997}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.18999958, y: 0.96, z: 0.12949991}
   m_LocalScale: {x: 0.77484584, y: 2.16319, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49817,6 +49816,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1799666933}
   m_LocalEulerAnglesHint: {x: 88.1969, y: -0.0041998047, z: -0.0043887645}
+--- !u!1 &2128308200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2128308201}
+  m_Layer: 3
+  m_Name: Lucy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2128308201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128308200}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 692828755}
+  - {fileID: 1051398058}
+  m_Father: {fileID: 702768161}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2128695640
 Mesh:
   m_ObjectHideFlags: 0
@@ -54668,9 +54700,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 133483873}
   - {fileID: 1954500266}
   - {fileID: 1561997792}
-  - {fileID: 133483873}
   - {fileID: 702768161}
   m_Father: {fileID: 589579464}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
