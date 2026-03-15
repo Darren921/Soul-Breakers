@@ -57,6 +57,8 @@ public class PlayerAnimations : MonoBehaviour
     {
         _player = GetComponentInParent<PlayerController>();
         Animator = GetComponent<Animator>();
+        if(GhostAnimator ) GhostAnimator.Play(GhostIdle);
+        
     }
 
     // Update is called once per frame
