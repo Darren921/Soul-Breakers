@@ -12841,6 +12841,39 @@ Transform:
   - {fileID: 293706505}
   m_Father: {fileID: 22513973}
   m_LocalEulerAnglesHint: {x: -21.594303, y: -130.12082, z: 156.40771}
+--- !u!1 &556278631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 556278632}
+  m_Layer: 3
+  m_Name: Lucy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &556278632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556278631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1943266044}
+  - {fileID: 1811933066}
+  m_Father: {fileID: 1184764638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &562104883
 GameObject:
   m_ObjectHideFlags: 0
@@ -27776,8 +27809,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1943266044}
-  - {fileID: 1811933066}
+  - {fileID: 556278632}
   - {fileID: 794952503267450929}
   m_Father: {fileID: 685541194}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41697,13 +41729,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811933065}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8879528567497279937}
-  m_Father: {fileID: 1184764638}
+  m_Father: {fileID: 556278632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1811933067
 Animator:
@@ -44916,7 +44948,7 @@ Transform:
   m_GameObject: {fileID: 1943266043}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: -0}
+  m_LocalPosition: {x: 0.029999971, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44938,7 +44970,7 @@ Transform:
   - {fileID: 4931218026904263296}
   - {fileID: 7827436291580204380}
   - {fileID: 341504901}
-  m_Father: {fileID: 1184764638}
+  m_Father: {fileID: 556278632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1943266045
 Animator:
