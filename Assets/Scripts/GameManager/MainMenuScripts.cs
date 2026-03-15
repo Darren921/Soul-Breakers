@@ -91,6 +91,7 @@ public class MainMenuScripts : MonoBehaviour
     }
     private IEnumerator StartGame()
     {
+        Cursor.visible = false;
         Debug.Log("Starting Game");
         isStarting = true;
         CameraAnim.Play("StartGame");
