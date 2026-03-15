@@ -36,11 +36,21 @@ public class PlayerAnimations : MonoBehaviour
     public  readonly int GhostIdle = Animator.StringToHash("GhostIdle");
     public  readonly int GhostCrouch = Animator.StringToHash("GhostCrouch");
     public  readonly int GhostCrouchBlock = Animator.StringToHash("GhostCrouchBlock");
-    public  readonly int GhostJM = Animator.StringToHash("GhostJM");
-    public  readonly int GhostJH = Animator.StringToHash("GhostJH");
-    public readonly int GhostJL = Animator.StringToHash("GhostJL");
+    public static readonly int GhostJM = Animator.StringToHash("GhostJM");
+    public  static readonly int GhostJH = Animator.StringToHash("GhostJH");
+    public static readonly int GhostJL = Animator.StringToHash("GhostJL");
     #endregion
 
+
+
+
+
+    public Dictionary<string, int> GhostAnimations = new()
+    {
+        {"lightNormA", GhostJL }, 
+        {"medNormA", GhostJM },
+        {"heavyNormA", GhostJH } 
+    };
     
     internal Animator Animator;
    [SerializeField] internal Animator GhostAnimator;
@@ -136,57 +146,5 @@ public class PlayerAnimations : MonoBehaviour
 
   
 
-    public void SetAttackingHash(InputReader.AttackType inputType)
-    {
-//        print(inputType);
-        if(inputType.ToString().Contains("Super") && _player.superMeter < 100) return;
-        switch (inputType)
-        {
-            
-            case InputReader.AttackType.Light:
-                Animator?.SetBool(Light,true);
-                break;
-            case InputReader.AttackType.Grab:
-                Animator?.SetBool(Light,true);
-                Animator?.SetBool(Medium,true);
-                break;
-            case InputReader.AttackType.Heavy:
-                Animator?.SetBool(Heavy,true);
-                break;
-            case InputReader.AttackType.Medium:
-                Animator?.SetBool(Medium,true);
-                break;
-            case InputReader.AttackType.SuperLight:
-                Animator?.SetBool(Super,true);
-                Animator?.SetBool(Light,true);
-                break;
-            case InputReader.AttackType.SuperMedium:
-                Animator?.SetBool(Super,true);
-                Animator?.SetBool(Medium,true);
-                break;
-            case InputReader.AttackType.SuperHeavy:
-                Animator?.SetBool(Super,true);
-                Animator?.SetBool(Heavy,true);
-                break;
-            case InputReader.AttackType.Special:
-                Animator?.SetBool(Special,true);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(inputType), inputType, null);
-        }
-
-        if (Animator )
-        {
-            if(Animator.GetBool(Super)) return;
-            if (Animator.GetBool(Heavy) && Animator.GetBool(Light))
-            {
-                Animator.SetBool(Light,false);
-            }
-            else if (Animator.GetBool(Medium) && Animator.GetBool(Heavy))
-            {
-                Animator.SetBool(Medium,false);
-            }
-            Animator?.SetBool(Attacking,true);
-        }
-    }
+   
 }

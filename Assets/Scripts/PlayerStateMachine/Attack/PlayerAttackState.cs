@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -86,16 +87,13 @@ public class PlayerAttackState : PlayerBaseState
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
 //        Debug.Log("normal attack" + player.name);  
         Debug.Log(animationName);
-        if (animationName.Contains("Ghost"))
-        {
-            player.Animations.GhostAnimator?.Play(player.Animations.AnimationToPlay, 0, 0f);
-            player.Animations.Animator.Play(player.Animations.Idle);
-        }
-        else
-        {
-            player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
 
+        if (player.Animations.GhostAnimations.ContainsKey(animationName)  )
+        {
+            player.Animations.GhostAnimator?.Play(player.Animations.GhostAnimations[animationName], 0, 0f);
         }
+        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
+        
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
 
