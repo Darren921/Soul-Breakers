@@ -121,16 +121,16 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LOD: 15.27
-    - _MaxBright: -0.65
+    - _MaxBright: -0.74
     - _Metallic: 0
-    - _MinBright: -0.79
+    - _MinBright: -0.4
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.34
+    - _Shades: 0.51
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -139,12 +139,13 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
+    - _WorldLightingSat: 0
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.5397669, g: 0.39982325, b: 0.2131373, a: 1}
-    - _Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+    - _Color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _cutoff: {r: 0, g: 0, b: 0, a: 0}

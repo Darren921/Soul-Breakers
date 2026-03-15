@@ -131,7 +131,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 0.90000165, g: 0.37805796, b: 0, a: 1}
-    - _Color: {r: 0.90000165, g: 0.37805793, b: 0, a: 1}
+    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _cutoff: {r: 0, g: 0, b: 0, a: 0}

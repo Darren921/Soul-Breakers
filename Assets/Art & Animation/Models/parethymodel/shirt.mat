@@ -121,16 +121,16 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LOD: 3.98
-    - _MaxBright: 1.79
+    - _MaxBright: -0.88
     - _Metallic: 0
-    - _MinBright: -0.3
+    - _MinBright: 1.14
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.45
+    - _Shades: 0.51
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -139,6 +139,7 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
+    - _WorldLightingSat: 0
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
