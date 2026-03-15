@@ -7,7 +7,7 @@ public class PlayerCrouchingState : PlayerBaseState
     {
         Debug.Log("Entering PlayerCrouchingState");
    //  player.rb.linearVelocity = Vector3.zero;
-      player.Animations.GhostAnimator.Play(player.Animations.GhostCrouch);
+      if(player.Animations.GhostAnimator)      player.Animations.GhostAnimator?.Play(player.Animations.GhostCrouch, 0 , 0.1f);
     }
 
     internal override void UpdateState(PlayerStateManager playerStateManager,PlayerController player)

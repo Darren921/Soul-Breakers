@@ -9,7 +9,8 @@ public class PlayerAttackState : PlayerBaseState
     private Coroutine cooldownCoroutine;
     private Coroutine cancelCoroutine;
     private InputReader.MovementInputResult lastMove;
-    private bool CancelDectected; 
+    private bool CancelDectected;
+    private string animationName; 
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         if (player.Animations.Animator.GetBool(player.Animations.Idle))
@@ -34,8 +35,12 @@ public class PlayerAttackState : PlayerBaseState
        
         if (player.IsAttacking && !player.OnAttackCoolDown)
         {
-            if(  player.Animations.AnimationToPlay == -1)  player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-            Debug.Log(player.Animations.AnimationToPlay);
+            if (player.Animations.AnimationToPlay == -1)
+            {
+                player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
+                animationName = player.CharacterData.characterAttacks
+                    .ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimationName;
+            }
 //            Debug.Log("attacking" + player.name);
             PerformAttack(player);
         }
@@ -80,10 +85,10 @@ public class PlayerAttackState : PlayerBaseState
     {
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
 //        Debug.Log("normal attack" + player.name);  
-        Debug.Log(player.Animations.AnimationToPlay.ToString());
-        if (player.Animations.AnimationToPlay.ToString().Contains("Ghost"))
+        Debug.Log(animationName);
+        if (animationName.Contains("Ghost"))
         {
-            player.Animations.GhostAnimator.Play(player.Animations.AnimationToPlay, 0, 0f);
+            player.Animations.GhostAnimator?.Play(player.Animations.AnimationToPlay, 0, 0f);
             player.Animations.Animator.Play(player.Animations.Idle);
         }
         else
