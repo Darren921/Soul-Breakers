@@ -48,7 +48,7 @@ MonoBehaviour:
     Knockback: {x: 4, y: 0, z: 0}
     HitStun: 0.1
     BlockStun: 0
-    AnimationName: lightNormA
+    AnimationName: GhostJL
     IsSpecial: 0
     SuperAttackCharge: 10
     SuperChargeNeeded: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 0, z: 0}
     HitStun: 0.5
     BlockStun: 0
-    AnimationName: medNormA
+    AnimationName: GhostJM
     IsSpecial: 0
     SuperAttackCharge: 20
     SuperChargeNeeded: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
     Knockback: {x: 5, y: 10, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: heavyNormA
+    AnimationName: GhostJH
     IsSpecial: 0
     SuperAttackCharge: 30
     SuperChargeNeeded: 0

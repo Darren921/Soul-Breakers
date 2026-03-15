@@ -79,8 +79,18 @@ public class PlayerAttackState : PlayerBaseState
     private void PerformAttack(PlayerController player)
     {
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
-//        Debug.Log("normal attack" + player.name);
-        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
+//        Debug.Log("normal attack" + player.name);  
+        Debug.Log(player.Animations.AnimationToPlay.ToString());
+        if (player.Animations.AnimationToPlay.ToString().Contains("Ghost"))
+        {
+            player.Animations.GhostAnimator.Play(player.Animations.AnimationToPlay, 0, 0f);
+            player.Animations.Animator.Play(player.Animations.Idle);
+        }
+        else
+        {
+            player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0f);
+
+        }
         cooldownCoroutine = player.StartCoroutine(EnforceCooldown(player));
     }
 

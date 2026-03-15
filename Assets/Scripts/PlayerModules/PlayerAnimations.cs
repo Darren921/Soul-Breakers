@@ -31,13 +31,19 @@ public class PlayerAnimations : MonoBehaviour
     public  readonly int Super = Animator.StringToHash("Super");
     public  readonly int Hit = Animator.StringToHash("Hit");
     public  readonly int CancelDectect = Animator.StringToHash("CancelDectect");
-
     #endregion
-
+    #region Ghost Animator Hashed variables
+    public  readonly int GhostIdle = Animator.StringToHash("GhostIdle");
+    public  readonly int GhostCrouch = Animator.StringToHash("GhostCrouch");
+    public  readonly int GhostCrouchBlock = Animator.StringToHash("GhostCrouchBlock");
+    public  readonly int GhostJM = Animator.StringToHash("GhostJM");
+    public  readonly int GhostJH = Animator.StringToHash("GhostJH");
+    public readonly int GhostJL = Animator.StringToHash("GhostJL");
+    #endregion
 
     
     internal Animator Animator;
-
+   [SerializeField] internal Animator GhostAnimator;
     private PlayerController _player;
    
     internal int AnimationToPlay = -1;

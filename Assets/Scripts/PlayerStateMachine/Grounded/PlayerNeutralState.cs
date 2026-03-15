@@ -12,7 +12,8 @@ public class PlayerNeutralState : PlayerBaseState
     {
         if(player is  null) return;
         if(player.Animations.IsRecoveryFrame) player.Animations.ResetRecoveryFrame();
-        
+       player.Animations.GhostAnimator?.Play( player.Animations.GhostIdle);
+
         _idleCoroutine = player?.StartCoroutine(CheckIfIdle(player));
 //        Debug.Log("Entered PlayerNeutralState");
     }
