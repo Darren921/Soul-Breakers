@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FireAnimTree
+  m_Controller: {fileID: 9100000, guid: 47186d9368cd76149b1839b236a2b4e0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a134789376d15f94190c2efde160da4d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4c7f4377c33108d43a263e80887895d4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 30e866e175a1a7f489f9f6d8f57e8b59, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 56ae40917ed657d478ef9916f717f656, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b12cf714237bb73459a5690e095d574f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 22822bc8a53efbb4abf41002379303aa, type: 2}
