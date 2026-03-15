@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     public HitDetection HitDetection;
     internal PlayerKnockBack PlayerKnockBack;
     public PlayerStateManager _playerStateManager;
-
+    internal PlayerVFX playerVFX;
     #endregion
     
     #region Crouching and Dashing variables
@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     private void Awake()
     {
         Animations = GetComponentInChildren<PlayerAnimations>();
+        playerVFX = GetComponentInChildren<PlayerVFX>();
         GetOnObjectComponents();
         MinDashHeight = 1.487012f;
         HitDetection.OnDeath += OnPlayerDeath;

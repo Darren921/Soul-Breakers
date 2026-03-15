@@ -327,8 +327,7 @@ public class GameManager : MonoBehaviour
     }
     private static void UpdatePlayerDirection(PlayerController player)
     {
-        // if (!player.GravityManager.IsGrounded) return;
-   
+        if (!player.GravityManager.IsGrounded) return;
         player.playerModel.transform.localScale = new Vector3(!player.Reversed ? 1 : -1, player.playerModel.transform.localScale.y,player.playerModel.transform.localScale.z );
     }
     #endregion

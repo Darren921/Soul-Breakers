@@ -37,10 +37,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 48
-    y: 46
-    width: 696
-    height: 2447
+    x: 78
+    y: 30
+    width: 666
+    height: 2463
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: Jumpcloud_fx
+  m_Name: Jumpcloud_fx 1
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614756}
   - {fileID: 8926484042661614775}
   - {fileID: 8926484042661615052}
-  - {fileID: 8926484042661615137}
+  - {fileID: 8926484042661615141}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -95,7 +95,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jumpcloud_fx
+  m_Name: Jumpcloud_fx 1
   m_Graph: {fileID: 114350483966674976}
   m_Infos:
     m_RendererSettings:
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Data: {fileID: 8926484042661614702}
   m_InputFlowSlot:
   - link:
-    - context: {fileID: 8926484042661615137}
+    - context: {fileID: 8926484042661615141}
       slotIndex: 0
   - link: []
   m_OutputFlowSlot:
@@ -2777,7 +2777,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661615137
+--- !u!114 &8926484042661615141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2792,21 +2792,21 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 48, y: 46}
+  m_UIPosition: {x: 190, y: 30}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots: []
   m_Label: 
-  m_Data: {fileID: 8926484042661615138}
+  m_Data: {fileID: 8926484042661615142}
   m_InputFlowSlot:
   - link: []
   m_OutputFlowSlot:
   - link:
     - context: {fileID: 8926484042661614700}
       slotIndex: 0
-  eventName: PlayJumpEffectP1
---- !u!114 &8926484042661615138
+  eventName: PlayJumpEffectP2
+--- !u!114 &8926484042661615142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2826,4 +2826,4 @@ MonoBehaviour:
   m_UISuperCollapsed: 0
   title: 
   m_Owners:
-  - {fileID: 8926484042661615137}
+  - {fileID: 8926484042661615141}

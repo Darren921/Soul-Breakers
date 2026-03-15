@@ -20,11 +20,14 @@ public class PlayerJumpingState : PlayerBaseState
     private bool atAirDashHeight;
     
     private Coroutine jumpCoroutine;
+    
+    
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.JumpCharges = player.CharacterData.jumpCharges;
         //apply jump immediately when entering state to prevent update glitches   
         collider = player.GetComponent<Collider>();
+        player.playerVFX.PlayJumpEffect(player);
         player.Animations.Animator.SetBool(player.Animations.Jump, true);
         TryJump(player);       
         player.JumpCharges--;
@@ -67,6 +70,7 @@ public class PlayerJumpingState : PlayerBaseState
             if (player.JumpCharges > 0 && doubleJumpReady && jumpTriggered)
             {
                 Debug.Log("Double Jumpped");
+                player.playerVFX.PlayJumpEffect(player);
                 player.Animations.Animator.SetBool(player.Animations.Jump, true);
                 doubleJumpReady = false;
                 player.JumpCharges--;

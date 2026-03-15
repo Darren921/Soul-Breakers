@@ -58,7 +58,7 @@ public class PlayerAnimations : MonoBehaviour
     internal Animator Animator;
    [SerializeField] internal Animator GhostAnimator;
     private PlayerController _player;
-   
+    internal PlayerVFX _playerVFX;
     internal int AnimationToPlay = -1;
     internal bool CancelActive;
 
@@ -69,10 +69,11 @@ public class PlayerAnimations : MonoBehaviour
     void Start()
     {
         _player = GetComponentInParent<PlayerController>();
+        _playerVFX = _player.GetComponent<PlayerVFX>();
         Animator = GetComponent<Animator>();
         if(GhostAnimator ) GhostAnimator.Play(GhostIdle);
-        
     }
+    
 
     // Update is called once per frame
     void Update()

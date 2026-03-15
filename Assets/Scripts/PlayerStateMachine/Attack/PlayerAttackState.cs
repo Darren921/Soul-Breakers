@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -87,8 +88,8 @@ public class PlayerAttackState : PlayerBaseState
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
 //        Debug.Log("normal attack" + player.name);  
         Debug.Log(animationName);
-
-        if (player.Animations.GhostAnimations.ContainsKey(animationName)  )
+Debug.Log(player.Animations.GhostAnimator);
+        if (player.Animations.GhostAnimations.ContainsKey(animationName) && player.Animations.GhostAnimator )
         {
             player.Animations.GhostAnimator?.Play(player.Animations.GhostAnimations[animationName], 0, 0f);
         }
