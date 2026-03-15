@@ -1,4 +1,4 @@
-using System;
+ using System;
 using UnityEngine;
 
 public class DetectOtherPlayer : MonoBehaviour
@@ -27,19 +27,22 @@ public class DetectOtherPlayer : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.max.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), (BoxCollider.transform.right) * rayDistance , Color.red);
-        Debug.DrawRay(player.Reversed ? new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.max.z) : new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), -BoxCollider.transform.right * rayDistance, Color.black);
+        Debug.DrawRay(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), (BoxCollider.transform.right) * rayDistance , Color.red);
+    //    Debug.DrawRay(player.Reversed ? new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), -BoxCollider.transform.right * rayDistance, Color.black);
 
     }
 
     private void FixedUpdate()
     {
-        if(Physics.Raycast(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.max.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
-               ,  BoxCollider.transform.right , out  Hit, rayDistance, LayerMask.GetMask("PushBox"),QueryTriggerInteraction.Collide ))
+        if(Physics.Raycast(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
+               ,  !player.Reversed ? BoxCollider.transform.right : -BoxCollider.transform.right, out  Hit, rayDistance, LayerMask.GetMask("PushBox"),QueryTriggerInteraction.Collide ))
         {
            
 //                Debug.Log($" Rounding hit = {Mathf.Round((Hit.point - transform.position).normalized.x)}, Raw hit {(Hit.point - transform.position).normalized.x} player move {(!player.Reversed ? player.PlayerMove.x : -player.PlayerMove.x)}");
-            player.PlayersColliding =  Mathf.Approximately(player.PlayerMove.x  , Mathf.Round( (Hit.point - transform.position).normalized.x)) ;
+            if (Hit.collider != BoxCollider)
+            {
+                player.PlayersColliding =  Mathf.Approximately(player.PlayerMove.x  , Mathf.Round( (Hit.point - transform.position).normalized.x)) ;
+            }
         }
         else
         {
