@@ -7,12 +7,11 @@ using UnityEngine;
 public class PlayerHitStunState : PlayerBaseState
 {
 
-    [Obsolete("Obsolete")]
+  
     internal override void EnterState(PlayerStateManager playerStateManager, PlayerController player)
     {
         
         player.Animations.ResetAttackingTrigger();
-        //player.CharacterData.
       player.Animations.Animator.Play("Hit", 0,0 );
       if(player.GravityManager.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
       else player.StartCoroutine(WaitForHitStunAirborne(player));

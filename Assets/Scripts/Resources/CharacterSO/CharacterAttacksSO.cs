@@ -50,8 +50,8 @@ using UnityEngine.Serialization;
 
         public AttackData ReturnAttackData(InputReader.Attack attack, AttackData.States state)
         { 
-          Debug.Log(attack.Type); 
-          Debug.Log(state);
+ //         Debug.Log(attack.Type); 
+//          Debug.Log(state);
             var attackUsed = attack.Type switch
             {
                 InputReader.AttackType.Light => CustomLightAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
@@ -64,9 +64,9 @@ using UnityEngine.Serialization;
             };
             if (attackUsed.Equals(new AttackData()))
             {
-              Debug.Log(attackUsed.Attack.Type);
-              Debug.Log(state);
-              Debug.Log(attack.Type);
+//              Debug.Log(attackUsed.Attack.Type);
+ //             Debug.Log(state);
+   //           Debug.Log(attack.Type);
                 attackUsed = attack.Type switch
                 {
                     InputReader.AttackType.Light => DefaultLightAttacks.FirstOrDefault(data => data.State == state),

@@ -10,14 +10,12 @@ public class CameraDistance : MonoBehaviour
     [SerializeField] Vector3 playerView1;
     [SerializeField] GameObject wall;
     [SerializeField] GameObject wall2;
-    [SerializeField] GameObject wall3;
-    [SerializeField] GameObject wall4;
+   
     
     [SerializeField] Vector3 playerView2;
     [SerializeField] Transform P1wallR;
     [SerializeField] Transform P1wallL;
-    [SerializeField] Transform P2wallR;
-    [SerializeField] Transform P2wallL;
+
 
     [SerializeField] Transform WallStartPos;
     [SerializeField] GameObject Tracker1;

@@ -14,14 +14,14 @@ public class PlayerRunningState : PlayerMovingState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward || player.IsAttacking )
+        if (player.PlayerMove == Vector3.zero || player.PlayerMove == Vector3.left || player.InputReader.CurrentMoveInput == InputReader.MovementInputResult.Backward || player.IsAttacking || player.PlayerMove.x > 0)
         {
             // if (!player.Decelerating)
             // {
-            //     
+                          playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking| PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
+
             //     player.StartCoroutine(player.OnDeceleration(player));
             // }
-            playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Jumping| PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Walking| PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Jumping);
           
         }  
         

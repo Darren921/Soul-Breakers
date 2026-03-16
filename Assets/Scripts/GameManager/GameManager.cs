@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         _currentRoundTimer = _roundTimer;
         UpdateRoundTimer();
-        StartGameDebug();
+       // StartGameDebug();
 
         // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
         foreach (var player in players)
@@ -74,16 +74,16 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        // StartCoroutine(IntroAnim());
+        StartCoroutine(IntroAnim());
     }
 
     //This is purely for Debug Mode, skips cutscene 
-    public void StartGameDebug()
-    {
-        AnimationCamera.enabled = false;
-        UIAnim.Play("slide in");
-        StartCoroutine(StartTimer());
-    }
+    // public void StartGameDebug()
+    // {
+    //     AnimationCamera.enabled = false;
+    //     UIAnim.Play("slide in");
+    //     StartCoroutine(StartTimer());
+    // }
 
     #region RoundTimer
 
@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
         player.playerModel.transform.localScale = new Vector3(!player.Reversed ? 1 : -1, player.playerModel.transform.localScale.y,player.playerModel.transform.localScale.z );
     }
     #endregion
-
+    
 
 
     #region Animation
@@ -351,14 +351,14 @@ public class GameManager : MonoBehaviour
         {
             foreach (var player in players )
             {
-                player.rb.isKinematic = true;
+                player.OnDisablePlayer();
             }
         }
         private void UnFreezePlayer()
         {
             foreach (var player in players )
             {
-                player.rb.isKinematic = false;
+                player.OnEnablePlayer();
             }
       
         }
