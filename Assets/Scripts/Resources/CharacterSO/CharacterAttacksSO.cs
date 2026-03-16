@@ -59,7 +59,7 @@ using UnityEngine.Serialization;
                 InputReader.AttackType.Heavy => CustomHeavyAttacks.FirstOrDefault(data => data.Attack.Move == attack.Move && (attack.Type & data.Attack.Type) == attack.Type && data.State == state),
                 InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move && data.State == state),
                 InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move && data.State == state),
-                InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
+                 InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type && data.Attack.Move == attack.Move),
                 _ => new AttackData()  
             };
             if (attackUsed.Equals(new AttackData()))
@@ -74,8 +74,8 @@ using UnityEngine.Serialization;
                     InputReader.AttackType.Heavy => DefaultHeavyAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.Special => SpecialAttacks.FirstOrDefault(data => data.State == state),
                     InputReader.AttackType.Grab => GrabAttacks.FirstOrDefault(data => data.State == state),
-                    InputReader.AttackType.SuperLight or InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type &&  data.State == state),
-
+                     InputReader.AttackType.SuperMedium or InputReader.AttackType.SuperHeavy => SuperAttacks.FirstOrDefault(data => (attack.Type & data.Attack.Type) == attack.Type &&  data.State == state),
+                    
                     _ => throw new ArgumentOutOfRangeException(nameof(attack),"check the following" )
                 };
             }

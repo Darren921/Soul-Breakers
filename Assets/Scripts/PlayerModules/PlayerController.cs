@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     internal bool canCancel;
     internal DetectOtherPlayer _detector; 
     internal bool CancelPlaying;
-
+   [SerializeField] internal Transform ProjectilePos; 
     #endregion
     
 

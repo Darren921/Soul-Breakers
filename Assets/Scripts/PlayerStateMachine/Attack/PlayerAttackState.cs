@@ -87,7 +87,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
 //        Debug.Log("normal attack" + player.name);  
-//        Debug.Log(animationName);
+      Debug.Log(animationName);
 //Debug.Log(player.Animations.GhostAnimator);
         if (player.Animations.GhostAnimations.ContainsKey(animationName) && player.Animations.GhostAnimator )
         {

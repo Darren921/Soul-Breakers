@@ -16,7 +16,6 @@ public class InputReader : MonoBehaviour
         Heavy = 1 << 2,
         Special = 1 << 3,
         Grab = Light | Medium ,
-        SuperLight = Light | Special,  
         SuperMedium = Medium | Special,
         SuperHeavy = Heavy | Special,
     }
@@ -25,7 +24,6 @@ public class InputReader : MonoBehaviour
     {
         [AttackType.SuperHeavy] = 6,
         [AttackType.SuperMedium] = 6,
-        [AttackType.SuperLight] = 6,
         [AttackType.Grab] = 5,
         [AttackType.Special] = 4, 
         [AttackType.Heavy] = 3,      
@@ -111,6 +109,7 @@ public class InputReader : MonoBehaviour
     private PlayerController player;
     public MovementInputResult CurrentMoveInput { get; private set; }
     public BufferedInput<Attack> CurrentAttackInput;
+    public AttackData  SpecialData; 
     public int CurrentAttackFrame { get; private set; }
     public Attack LastAttackInput { get; private set; }
     private int LastAttackInputFrame { get; set; }
@@ -225,6 +224,10 @@ public class InputReader : MonoBehaviour
         {
             LastAttackInput = newAttack.Input;
             LastAttackInputFrame = curFrame;
+            if (newAttack.Input.Type is AttackType.Special )
+            {
+                SpecialData.Attack = newAttack.Input;
+            }
         }
         return newAttack;
     }

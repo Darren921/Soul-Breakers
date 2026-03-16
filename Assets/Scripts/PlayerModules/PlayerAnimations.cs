@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour 
@@ -44,6 +45,8 @@ public class PlayerAnimations : MonoBehaviour
     public static readonly int GhostBackSpecial = Animator.StringToHash("GhostBackSpecial");
     public static readonly int GhostDownSpeciatl = Animator.StringToHash("GhostDownSpeciatl");
     public static readonly int ForwardSpecialGhost = Animator.StringToHash("ForwardSpecialGhost");
+    public static readonly int GhostSuper1 = Animator.StringToHash("GhostSuper1");
+    public static readonly int GhostSuper2 = Animator.StringToHash("GhostSuper2");
 
     #endregion
 
@@ -60,7 +63,9 @@ public class PlayerAnimations : MonoBehaviour
         {"NeutralSpecial",GhostNeutralSpecial },
         {"DownSpecial",GhostDownSpeciatl },
         {"FowardSpecial",ForwardSpecialGhost },
-        {"BackwardSpecial",GhostBackSpecial },
+        {"MediumSuper",GhostSuper1 },
+        {"HeavySuper",GhostSuper2 },
+     
 
     };
     
@@ -155,9 +160,27 @@ public class PlayerAnimations : MonoBehaviour
         _player.CancelPlaying = false;
     }
 
+    public void SetActiveHitBox()
+    {
+        _player.hitBox.gameObject.SetActive(true);
+    }
+
+    public void DisableHitBox()
+    {
+        _player.hitBox.gameObject.SetActive(false);
+    }
+
     #endregion
 
-  
+    public void SpawnProjectile(GameObject projectile)
+    {
+        var data = _player.CharacterData.characterAttacks.ReturnAttackData(_player.InputReader.SpecialData.Attack, _player.HitDetection.otherPlayer.InputReader.curState);
+        var Direction = new Vector3(!_player.Reversed ? 1f : -1f , 0, 0f);
+        Debug.Log("Spawned projectile");
+        Instantiate(projectile, _player.ProjectilePos.position, quaternion.identity);
+        projectile.GetComponent<PlayerProjectile>().Direction = Direction;
+        projectile.GetComponent<PlayerProjectile>()._data = data;
+    }
 
    
 }

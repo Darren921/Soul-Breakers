@@ -9,6 +9,7 @@ TagManager:
   - HitBox
   - Ground
   - Wall
+  - Projectile
   layers:
   - Default
   - TransparentFX

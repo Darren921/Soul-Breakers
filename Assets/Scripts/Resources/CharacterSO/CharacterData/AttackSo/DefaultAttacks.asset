@@ -261,20 +261,7 @@ MonoBehaviour:
     Knockback: {x: 8, y: 8, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: medRightA
-    IsSpecial: 1
-    SuperAttackCharge: 0
-    SuperChargeNeeded: 100
-  - Attack:
-      Move: 0
-      Type: 9
-    Tag: 1
-    State: 0
-    Damage: 50
-    Knockback: {x: 8, y: 8, z: 0}
-    HitStun: 1
-    BlockStun: 0
-    AnimationName: medLeftA
+    AnimationName: MediumSuper
     IsSpecial: 1
     SuperAttackCharge: 0
     SuperChargeNeeded: 100
@@ -287,10 +274,10 @@ MonoBehaviour:
     Knockback: {x: 8, y: 8, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: medLeftC
+    AnimationName: HeavySuper
     IsSpecial: 1
     SuperAttackCharge: 0
-    SuperChargeNeeded: 200
+    SuperChargeNeeded: 100
   CustomLightAttacks: []
   CustomMedAttacks: []
   CustomHeavyAttacks: []

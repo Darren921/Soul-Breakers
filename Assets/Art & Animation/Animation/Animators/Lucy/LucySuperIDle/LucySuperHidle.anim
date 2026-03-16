@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LucyIdleNS
+  m_Name: LucySuperHidle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -14334,8 +14334,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.5
-        value: {x: -1.387, y: 0.631, z: 0.018}
+        time: 0.20833333
+        value: {x: -1.3453, y: 2.5028, z: -0.03}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -21434,8 +21434,8 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.5
-        value: {x: 0.6154636, y: 0.77146256, z: 1.9819826}
+        time: 0.20833333
+        value: {x: 0.6154636, y: 0.950372, z: 1.860565}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -21461,7 +21461,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.20833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -21470,7 +21470,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.6666667
+        time: 0.33333334
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -29083,7 +29083,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 1
+    m_LoopTime: 0
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -114482,7 +114482,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.20833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -114491,7 +114491,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.6666667
+        time: 0.33333334
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -114521,8 +114521,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
-        value: -1.387
+        time: 0.20833333
+        value: -1.3453
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -114551,8 +114551,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
-        value: 0.631
+        time: 0.20833333
+        value: 2.5028
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -114581,8 +114581,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
-        value: 0.018
+        time: 0.20833333
+        value: -0.03
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -114611,7 +114611,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.20833333
         value: 0.6154636
         inSlope: 0
         outSlope: 0
@@ -114641,8 +114641,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
-        value: 0.77146256
+        time: 0.20833333
+        value: 0.950372
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -114671,8 +114671,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
-        value: 1.9819826
+        time: 0.20833333
+        value: 1.860565
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -140681,35 +140681,28 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 1
     functionName: SetUpActiveFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6666667
+  - time: 1.6666666
     functionName: SetUpRecoveryFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8333333
-    functionName: SpawnProjectile
-    data: 
-    objectReferenceParameter: {fileID: 7915931509490480327, guid: 353e4158e7a3c3142879e55be200cd94, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.625
+  - time: 2.5
     functionName: ResetRecoveryFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.625
+  - time: 2.5
     functionName: ResetAttackingTrigger
     data: 
     objectReferenceParameter: {fileID: 0}

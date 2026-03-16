@@ -16,7 +16,9 @@ public class HitDetection : MonoBehaviour, IDamageable
     internal bool _hit;
     internal  bool _damageDone;
     
+    public AttackData projectileData;
     internal bool Blocking;
+    
     private Bounds _bounds;
     private void Awake()
     {
@@ -55,13 +57,20 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!_damageDone)
             {
               //  print("Damage taken");
-                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
+                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage, false);
             }
         }
         if (other.gameObject.CompareTag("Wall"))
         {
             _player.AtBorder = true;
             _bounds = other.bounds;
+        }
+
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            projectileData = other.GetComponent<PlayerProjectile>()._data;
+            
+            TakeDamage(projectileData.Damage, true);
         }
     }
 
@@ -118,32 +127,42 @@ public class HitDetection : MonoBehaviour, IDamageable
     }
 
   
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool isProjectile )
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
-        {           
-            otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
-            otherPlayer.canCancel = true;
-            otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks
-                .ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
-            // otherPlayer.StartCoroutine(CanCancel());
+        {
+            if (!isProjectile)
+            {
+                otherPlayer.Animations.DisableHitBox();
+                otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
+                otherPlayer.canCancel = true;
+                otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
+            }
+            else
+            {
+                otherPlayer.superMeter += projectileData.SuperAttackCharge;
+            }
         }
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer));
+
+        if (isProjectile)
+        {
+            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player, true) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer,true));
+
+        }
+        else
+        {
+            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player, false) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer,false));
+
+        }
+            
         if (_player.Health <= 0) OnDeath?.Invoke();
         
     }
 
-    // private IEnumerator CanCancel()
-    // {
-    //     otherPlayer.canCancel = true;
-    //     Debug.Log(otherPlayer.canCancel);
-    //     yield return new WaitUntil(() => !otherPlayer.canCancel, TimeSpan.FromSeconds(3),
-    //         () => otherPlayer.canCancel = false);
-    //
-    // }
+   
 }
