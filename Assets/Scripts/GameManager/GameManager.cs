@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private bool SinglePlayer; 
     private void Awake()
     {
+        Cursor.visible = true;
         AnimationCamera = CameraAnims.GetComponent<CinemachineCamera>();
 
         Application.targetFrameRate = 60;
@@ -132,7 +133,8 @@ public class GameManager : MonoBehaviour
 
     private void DisplayEndScreen()
     {
-        _winner = players.Where(controller => controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
+        _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
+        Debug.Log(_winner);
         if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
         WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite; 
         GameOverScreen.gameObject.SetActive(true);
