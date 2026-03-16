@@ -34,6 +34,14 @@ public class PlayerCancelAttackState : PlayerBaseState
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         player.Animations.Animator.SetBool(player.Animations.CancelDectect, player.CancelPlaying);
+        if (player.IsAttacking && player.GravityManager.IsGrounded &&
+            player.InputReader.curState == AttackData.States.Airborne)
+        {
+            Debug.Log("Switch to Grounded");
+            player.Animations.Animator.Play("Neutral", 0, 0f);
+            playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
+            player.HitDetection.otherPlayer.HitDetection.resetHit();
+        }
         if(player.CancelPlaying) return;
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking | PlayerStateManager.PlayerStateTypes.Crouching | PlayerStateManager.PlayerStateTypes.Jumping | PlayerStateManager.PlayerStateTypes.Running);
     }
