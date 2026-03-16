@@ -74,15 +74,15 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        // StartCoroutine(IntroAnim());
+        StartCoroutine(IntroAnim());
     }
 
    // This is purely for Debug Mode, skips cutscene 
      public void StartGameDebug()
      {
-         AnimationCamera.enabled = false;
-         UIAnim.Play("slide in");
-         StartCoroutine(StartTimer());
+         //imationCamera.enabled = false;
+         //Anim.Play("slide in");
+         //artCoroutine(StartTimer());
      }
 
     #region RoundTimer
