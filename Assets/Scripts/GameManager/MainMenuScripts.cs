@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuScripts : MonoBehaviour
 {
@@ -19,11 +21,14 @@ public class MainMenuScripts : MonoBehaviour
     [SerializeField] bool Player2Ready;
     [SerializeField] bool snapPlayerPos;
 
+    [SerializeField] GameObject EventSystems;
+
     private bool isStarting;
     private bool isStartingChara;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Cursor.visible = true;
         Character1.SetActive(true);
         Character2.SetActive(true);
         UIAnim = GameObject.Find("Canvas").GetComponent<Animator>();
@@ -91,13 +96,18 @@ public class MainMenuScripts : MonoBehaviour
     }
     private IEnumerator StartGame()
     {
+        
         Cursor.visible = false;
+        
         Debug.Log("Starting Game");
         isStarting = true;
         CameraAnim.Play("StartGame");
         WorldUIanim.Play("StartGameSceneCanvas");
         UIAnim.Play("Ready Dissapear");
+       
         yield return new WaitForSeconds(1f);
+        
+        
         UIAnim.Play("Start");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("CombatScene");
