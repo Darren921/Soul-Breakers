@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         _currentRoundTimer = _roundTimer;
         UpdateRoundTimer();
-       // StartGameDebug();
+        StartGameDebug();
 
         // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
         foreach (var player in players)
@@ -74,16 +74,16 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(IntroAnim());
+        // StartCoroutine(IntroAnim());
     }
 
-    //This is purely for Debug Mode, skips cutscene 
-    // public void StartGameDebug()
-    // {
-    //     AnimationCamera.enabled = false;
-    //     UIAnim.Play("slide in");
-    //     StartCoroutine(StartTimer());
-    // }
+   // This is purely for Debug Mode, skips cutscene 
+     public void StartGameDebug()
+     {
+         AnimationCamera.enabled = false;
+         UIAnim.Play("slide in");
+         StartCoroutine(StartTimer());
+     }
 
     #region RoundTimer
 
@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     private void DisplayEndScreen()
     {
-        _winner = players.FirstOrDefault(player => !player.isDead);
+        _winner = players.Where(controller => controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
         if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
         WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite; 
         GameOverScreen.gameObject.SetActive(true);

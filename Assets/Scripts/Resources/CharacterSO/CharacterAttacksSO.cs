@@ -79,7 +79,7 @@ using UnityEngine.Serialization;
                     _ => throw new ArgumentOutOfRangeException(nameof(attack),"check the following" )
                 };
             }
-            Debug.Log($"{SpecialAttacks.FirstOrDefault(data => data.State == state).State} + {SpecialAttacks.FirstOrDefault(data => data.State == state ).AnimationName}") ;
+//            Debug.Log($"{SpecialAttacks.FirstOrDefault(data => data.State == state).State} + {SpecialAttacks.FirstOrDefault(data => data.State == state ).AnimationName}") ;
 //          Debug.Log(attackUsed.Attack.Type);
             if (attackUsed.AnimationName == string.Empty) Debug.LogWarning("No animation found");
             return attackUsed; 

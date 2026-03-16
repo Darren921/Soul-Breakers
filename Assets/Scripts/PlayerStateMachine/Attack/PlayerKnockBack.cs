@@ -14,6 +14,13 @@ public class PlayerKnockBack : MonoBehaviour
     {
     }
 
+    public void PushPlayer(PlayerController player, Vector3 hitDirection)
+    {
+        _playerController = player;
+        var hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
+        
+        
+    }
     public IEnumerator KnockBackOtherPlayer(PlayerController player)
     {
         _playerController = player;
@@ -52,7 +59,11 @@ public class PlayerKnockBack : MonoBehaviour
         _isBeingKnockedBack = false;
         isOther = false;
     }
-
+    
+    public void  SetOtherPlayer(PlayerController player)
+    {
+        
+    }
 
     private Vector3 ReturnHitForce(PlayerController player)
     {

@@ -189,18 +189,31 @@ MonoBehaviour:
   - Attack:
       Move: 0
       Type: 8
-    Tag: 2
-    State: 1
+    Tag: 1
+    State: 0
     Damage: 10
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: medLeftC
+    AnimationName: NeutralSpecial
     IsSpecial: 0
     SuperAttackCharge: 25
     SuperChargeNeeded: 0
   - Attack:
-      Move: 0
+      Move: 2
+      Type: 8
+    Tag: 1
+    State: 2
+    Damage: 10
+    Knockback: {x: 2, y: 4, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: DownSpecial
+    IsSpecial: 0
+    SuperAttackCharge: 25
+    SuperChargeNeeded: 0
+  - Attack:
+      Move: 3
       Type: 8
     Tag: 1
     State: 0
@@ -208,20 +221,33 @@ MonoBehaviour:
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: heavyLeft
+    AnimationName: FowardSpecial
     IsSpecial: 0
     SuperAttackCharge: 25
     SuperChargeNeeded: 0
   - Attack:
-      Move: 0
+      Move: 4
       Type: 8
-    Tag: 0
-    State: 2
+    Tag: 1
+    State: 0
     Damage: 10
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
-    AnimationName: heavyRight
+    AnimationName: BackwardSpecial
+    IsSpecial: 0
+    SuperAttackCharge: 25
+    SuperChargeNeeded: 0
+  - Attack:
+      Move: 1
+      Type: 8
+    Tag: 1
+    State: 1
+    Damage: 10
+    Knockback: {x: 2, y: 4, z: 0}
+    HitStun: 1
+    BlockStun: 0
+    AnimationName: NeutralSpecial
     IsSpecial: 0
     SuperAttackCharge: 25
     SuperChargeNeeded: 0

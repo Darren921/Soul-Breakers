@@ -40,6 +40,10 @@ public class PlayerAnimations : MonoBehaviour
     public  static readonly int GhostJH = Animator.StringToHash("GhostJH");
     public static readonly int GhostJL = Animator.StringToHash("GhostJL");
     public static readonly int Ghost2H = Animator.StringToHash("Ghost2H");
+    public static readonly int GhostNeutralSpecial = Animator.StringToHash("GhostNeutralSpecial");
+    public static readonly int GhostBackSpecial = Animator.StringToHash("GhostBackSpecial");
+    public static readonly int GhostDownSpeciatl = Animator.StringToHash("GhostDownSpeciatl");
+    public static readonly int ForwardSpecialGhost = Animator.StringToHash("ForwardSpecialGhost");
 
     #endregion
 
@@ -52,7 +56,12 @@ public class PlayerAnimations : MonoBehaviour
         {"lightNormA", GhostJL }, 
         {"medNormA", GhostJM },
         {"heavyNormA", GhostJH },
-        {"heavyNormC",Ghost2H }
+        {"heavyNormC",Ghost2H },
+        {"NeutralSpecial",GhostNeutralSpecial },
+        {"DownSpecial",GhostDownSpeciatl },
+        {"FowardSpecial",ForwardSpecialGhost },
+        {"BackwardSpecial",GhostBackSpecial },
+
     };
     
     internal Animator Animator;
