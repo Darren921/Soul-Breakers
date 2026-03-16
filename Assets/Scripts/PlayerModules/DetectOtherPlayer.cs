@@ -27,7 +27,7 @@ public class DetectOtherPlayer : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), !player.Reversed ? BoxCollider.transform.right : - BoxCollider.transform.right * rayDistance , Color.red);
+        Debug.DrawRay(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z),  !player.Reversed ? Vector3.right * rayDistance : Vector3.left * rayDistance , Color.red);
     //    Debug.DrawRay(player.Reversed ? new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), -BoxCollider.transform.right * rayDistance, Color.black);
 
     }
@@ -35,7 +35,7 @@ public class DetectOtherPlayer : MonoBehaviour
     private void FixedUpdate()
     {
         if(Physics.Raycast(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
-               ,  !player.Reversed ? BoxCollider.transform.right :  BoxCollider.transform.right, out  Hit, rayDistance, LayerMask.GetMask("PushBox"),QueryTriggerInteraction.Collide ))
+               ,  !player.Reversed ? Vector3.right : Vector3.left, out  Hit, rayDistance, LayerMask.GetMask("PushBox"),QueryTriggerInteraction.Collide ))
         {
            
 //                Debug.Log($" Rounding hit = {Mathf.Round((Hit.point - transform.position).normalized.x)}, Raw hit {(Hit.point - transform.position).normalized.x} player move {(!player.Reversed ? player.PlayerMove.x : -player.PlayerMove.x)}");

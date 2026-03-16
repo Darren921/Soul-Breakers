@@ -22,8 +22,8 @@ public class PlayerCancelAttackState : PlayerBaseState
         player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
         Debug.Log(player.Animations.AnimationToPlay);
         
-        if (player.Animations.GhostAnimations.ContainsKey(animationName)  ) player.Animations.GhostAnimator?.Play(player.Animations.GhostAnimations[animationName], 0, 0f);
-        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0.3f);
+        if (player.Animations.GhostAnimations.ContainsKey(animationName) && player.Animations.GhostAnimator ) player.Animations.GhostAnimator?.Play(player.Animations.GhostAnimations[animationName], 0, 0f);
+        player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0.25f);
        player. CancelPlaying  = true;
        player.Animations.Animator.SetBool(player.Animations.Attacking, true);
 
