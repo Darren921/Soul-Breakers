@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
 {
+    public PlayerController owner; 
     public AttackData _data;
     public Vector3 Direction;
-    public float Speed;
+    [SerializeField] private float Speed;
     private void Start()
     {
-        Speed = 10;
+        Speed = 30;
+        Direction = !owner.Reversed ? Vector3.right :  Vector3.left;
     }
 
     private void Update()

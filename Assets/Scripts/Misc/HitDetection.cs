@@ -138,11 +138,25 @@ public class HitDetection : MonoBehaviour, IDamageable
                 otherPlayer.Animations.DisableHitBox();
                 otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
                 otherPlayer.canCancel = true;
-                otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
+                if (otherPlayer.superMeter <= 300)
+                {
+                    otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
+                }
+                else
+                {
+                    otherPlayer.superMeter = 300;
+                }
             }
             else
             {
-                otherPlayer.superMeter += projectileData.SuperAttackCharge;
+                if (otherPlayer.superMeter <= 300)
+                {
+                    otherPlayer.superMeter += projectileData.SuperAttackCharge;
+                }
+                else
+                {
+                    otherPlayer.superMeter = 300;
+                }
             }
         }
         // deal damage and active death event to trigger end of game 

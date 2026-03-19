@@ -65,6 +65,8 @@ public class PlayerAnimations : MonoBehaviour
         {"FowardSpecial",ForwardSpecialGhost },
         {"MediumSuper",GhostSuper1 },
         {"HeavySuper",GhostSuper2 },
+        {"BackwardSpecial",GhostBackSpecial },
+
      
 
     };
@@ -172,14 +174,14 @@ public class PlayerAnimations : MonoBehaviour
 
     #endregion
 
-    public void SpawnProjectile(GameObject projectile)
+    public void SpawnProjectile(PlayerProjectile projectile)
     {
         var data = _player.CharacterData.characterAttacks.ReturnAttackData(_player.InputReader.SpecialData.Attack, _player.HitDetection.otherPlayer.InputReader.curState);
-        var Direction = new Vector3(!_player.Reversed ? 1f : -1f , 0, 0f);
         Debug.Log("Spawned projectile");
+        projectile._data = data;
+        projectile.owner = _player;
         Instantiate(projectile, _player.ProjectilePos.position, quaternion.identity);
-        projectile.GetComponent<PlayerProjectile>().Direction = Direction;
-        projectile.GetComponent<PlayerProjectile>()._data = data;
+        
     }
 
    
