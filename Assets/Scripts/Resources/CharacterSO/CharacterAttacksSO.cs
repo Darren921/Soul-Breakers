@@ -132,7 +132,7 @@ using UnityEngine.Serialization;
             {
                 if (_animHash == 0 && !string.IsNullOrEmpty(AnimationName))
                 {
-                    Debug.Log(AnimationName);
+//                    Debug.Log(AnimationName);
                     _animHash = Animator.StringToHash(AnimationName);
                     
                 }
