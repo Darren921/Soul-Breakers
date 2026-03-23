@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     OnAdd(device);
+                    OnConnect();
                     break;
                 case InputDeviceChange.Reconnected:
                     OnAdd(device);
@@ -228,6 +229,7 @@ public class GameManager : MonoBehaviour
                 {
                     player.DisconnectPlayer();
                     PlayersInputDevice.Remove(player);
+                    Debug.Log("ResetStandardConnect");
                 }
             }
         }
@@ -247,6 +249,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
+            Debug.Log("2Gamepad Connect");
         }
         else
         {
@@ -255,6 +258,7 @@ public class GameManager : MonoBehaviour
             {
                 if (!player.PlayerConnected && !PlayersInputDevice.ContainsKey(player))
                 {
+                    Debug.Log("Player not connected");
                     var UsableInputDevice = _availableDevices.First(device => !PlayersInputDevice.ContainsValue(device) && !PlayersInputDevice.ContainsKey(player));
                     Debug.Log(UsableInputDevice);
                     if (UsableInputDevice is not null)
@@ -263,6 +267,7 @@ public class GameManager : MonoBehaviour
                         player.InitializePlayer(UsableInputDevice);
                     }
                 }
+                
             } 
             StandardConnectDone = true;
         }

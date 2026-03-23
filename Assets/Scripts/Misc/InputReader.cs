@@ -150,11 +150,11 @@ public class InputReader : MonoBehaviour
 
     private bool CancelCheck(PlayerController player)
     {
-        if (player.InputReader.currentAttackCached.Input.Priority != -1 &&
-            player.InputReader.CurrentAttackInput.Input.Priority != -1)
-        {
-//            Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
-        }
+        // if (player.InputReader.currentAttackCached.Input.Priority != -1 &&
+        //     player.InputReader.CurrentAttackInput.Input.Priority != -1)
+        // {
+        //   Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
+        // }
         if (player.canCancel && player.InputReader.LastAttackInput.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
         {
             return true;

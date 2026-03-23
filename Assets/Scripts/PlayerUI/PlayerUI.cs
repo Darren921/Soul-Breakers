@@ -33,40 +33,48 @@ public class PlayerUI : MonoBehaviour
         switch (_playerController.superMeter)
         {
             case <= 100:
-                Layer2Super.gameObject.SetActive(false);
-                Layer3Super.gameObject.SetActive(false);
+                SetActiveBar(false, false);
+                SetSuperSprites(0);
                 _superMeterSlider.value = _playerController.superMeter;
-                SuperNumber.sprite = NumberSprites[0];
-                SuperLights.sprite = lightSprites[0];
+                SetSuperSprites(0);
                 break;
             case <= 200:
-                Layer2Super.gameObject.SetActive(true);
-                Layer3Super.gameObject.SetActive(false);
+                SetActiveBar(true, false);
                 _superMeterSlider.value = _superMeterSlider.maxValue;
                 Layer2Super.fillAmount = (_playerController.superMeter - 100) / 100f ;
-                SuperNumber.sprite = NumberSprites[1];
-                SuperLights.sprite = lightSprites[1];
+                SetSuperSprites(1);
                 break;
             case <= 300:
                 Layer2Super.fillAmount = 1; 
-                Layer2Super.gameObject.SetActive(true);
-                Layer3Super.gameObject.SetActive(true);
+                SetActiveBar(true, true);
                 Layer3Super.fillAmount = (_playerController.superMeter - 200) / 100f;
-                SuperNumber.sprite = NumberSprites[2];
-                SuperLights.sprite = lightSprites[2];
+                SetSuperSprites(2);
                 break;
             case >= 300:
                 Layer3Super.fillAmount = 1;
-                SuperNumber.sprite = NumberSprites[3];
-                SuperLights.sprite = lightSprites[3];
+                SetSuperSprites(3);
                 break;
         }
+    }
+
+    private void SetSuperSprites(int spriteIndex)
+    {
+        SuperNumber.sprite = NumberSprites[spriteIndex];
+        SuperLights.sprite = lightSprites[spriteIndex];
+    }
+
+    private void SetActiveBar(bool layer2, bool layer3)
+    {
+        Layer2Super?.gameObject?.SetActive(layer2);
+        Layer3Super?.gameObject?.SetActive(layer3);
     }
 
     private void OnDestroy()
     {
         HitDetection.OnPlayerHit -= UpdateHealth;  
         HitDetection.OnPlayerHit -= UpdateSuperMeter;
+        GameManager.OnRefresh -= UpdateSuperMeter;
+
 
     }
 
