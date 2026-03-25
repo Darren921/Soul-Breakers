@@ -9882,8 +9882,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 849063786}
-  - component: {fileID: 849063787}
   - component: {fileID: 849063788}
+  - component: {fileID: 849063787}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -9915,22 +9915,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 849063783}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
-  m_PlayerRoot: {fileID: 0}
---- !u!114 &849063788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849063783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -9953,6 +9937,21 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &849063788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849063783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 1837359524}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1 &867331837
 GameObject:
   m_ObjectHideFlags: 0
@@ -10214,7 +10213,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 1078777404}
+    m_SelectOnLeft: {fileID: 874114582}
     m_SelectOnRight: {fileID: 1078777404}
   m_Transition: 2
   m_Colors:
@@ -13424,7 +13423,7 @@ GameObject:
   - component: {fileID: 1078777405}
   - component: {fileID: 1078777404}
   m_Layer: 5
-  m_Name: Restart
+  m_Name: RestartOnWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13447,7 +13446,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 874114582}
+    m_SelectOnLeft: {fileID: 1078777404}
     m_SelectOnRight: {fileID: 874114582}
   m_Transition: 2
   m_Colors:
@@ -17447,7 +17446,7 @@ MonoBehaviour:
   _p2WinSprite: {fileID: 21300000, guid: 511491ccf84bbe14f96e8a40d32ec193, type: 3}
   _drawSprite: {fileID: -688974860, guid: cd0057efefbd50d499873e04d9e994ac, type: 3}
   WinSplashScreen: {fileID: 1469645422}
-  restartButton: {fileID: 488711093}
+  restartButton: {fileID: 1078777404}
   timerText: {fileID: 1764100132}
   isLowTime: 0
   _roundTimer: 99

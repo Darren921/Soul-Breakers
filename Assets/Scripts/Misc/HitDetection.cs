@@ -136,6 +136,8 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!isProjectile)
             {
                 otherPlayer.Animations.DisableHitBox();
+                _player.Animations.Animator.Play("Hit", 0,0 );
+                
                 otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
                 otherPlayer.canCancel = true;
                 if (otherPlayer.superMeter <= 300)

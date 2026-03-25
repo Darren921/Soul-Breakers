@@ -12,7 +12,6 @@ public class PlayerHitStunState : PlayerBaseState
     {
         
         player.Animations.ResetAttackingTrigger();
-      player.Animations.Animator.Play("Hit", 0,0 );
       if(player.GravityManager.IsGrounded)  player.StartCoroutine(WaitForHitStun(player));
       else player.StartCoroutine(WaitForHitStunAirborne(player));
     }
@@ -97,14 +96,12 @@ public class PlayerHitStunState : PlayerBaseState
         var originalSpeed = player.Animations.Animator.speed;
         player.OnDisablePlayer();
         player.HitStun = true;
-        player.Animations.Animator.speed = 0;
         return originalSpeed;
     }
 
     private static void DisableHitStun(PlayerController player, float originalSpeed)
     {
         player.OnEnablePlayer();
-        player.Animations.Animator.speed = originalSpeed;
         player.HitStun = false;
     }
 

@@ -198,6 +198,7 @@ public class GameManager : MonoBehaviour
             PlayersInputDevice.Clear();
             _availableDevices.Remove(device);
             players[0].DisconnectPlayer();
+            Debug.Log("Switching to multi ");
         }
         else
         {
@@ -205,9 +206,11 @@ public class GameManager : MonoBehaviour
             disconnected.DisconnectPlayer();
             _availableDevices.Remove(device);
             PlayersInputDevice.Remove(disconnected);
-            ConnectPlayer();
+            Debug.Log("Disconnecting  device");
+
         }
-     
+        ConnectPlayer();
+
     }
     
     private void ConnectPlayer()
@@ -270,6 +273,7 @@ public class GameManager : MonoBehaviour
                 
             } 
             StandardConnectDone = true;
+            Debug.Log("Standard Connect");
         }
      
     }

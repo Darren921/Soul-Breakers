@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    Selectable[] selectables;
     GameObject LastselectedObject;
     GameObject nextTarget;
 
@@ -64,12 +63,17 @@ public class UIController : MonoBehaviour
         var nullCheck = CheckForNextTarget();
         if (!nullCheck && LastselectedObject) 
         {
-//                print("Other target found");
+            print("Other target found");
 
             nextTarget = CheckForNextTarget();
             Debug.Log(nextTarget);
         }
-        if (nextTarget) eventSystem.SetSelectedGameObject(nextTarget);
+
+        if (nextTarget)
+        {
+            eventSystem.SetSelectedGameObject(nextTarget);
+            Debug.Log("Other target selected");
+        }
     }
 
     private GameObject CheckForNextTarget()
@@ -89,8 +93,9 @@ public class UIController : MonoBehaviour
 
     public void SelectObject(Selectable selectable)
     {
-        print($"{selectables} Selected and music played ");
+        print($" {selectable} Selected and music played ");
         nextTarget = selectable.gameObject;
+        LastselectedObject = selectable.gameObject;
         instance.eventSystem.SetSelectedGameObject(nextTarget);
         SoundManager.instance.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.Interface, "uiinteract"), transform.position);
     }
