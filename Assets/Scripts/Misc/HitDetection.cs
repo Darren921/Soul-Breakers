@@ -57,7 +57,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!_damageDone)
             {
               //  print("Damage taken");
-                TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage, false);
+                TakeDamage(otherPlayer.InputReader.LastAttackInput, false);
             }
         }
         if (other.gameObject.CompareTag("Wall"))
@@ -70,7 +70,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         {
             projectileData = other.GetComponent<PlayerProjectile>()._data;
             
-            TakeDamage(projectileData.Damage, true);
+            TakeDamage(projectileData.Attack, true);
         }
     }
 
@@ -126,41 +126,38 @@ public class HitDetection : MonoBehaviour, IDamageable
         _player.AtBorder = false;
     }
 
+
   
-    public void TakeDamage(float damage, bool isProjectile )
+    public void TakeDamage(InputReader.Attack cachedAttack,bool isProjectile )
     {
         _damageDone = true;
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {
+            var otherPlayerSuperMeterCharge = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).SuperAttackCharge;
             if (!isProjectile)
             {
                 otherPlayer.Animations.DisableHitBox();
                 _player.Animations.Animator.Play("Hit", 0,0 );
                 
-                otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(otherPlayer.InputReader.LastAttackInput,Time.frameCount, false);
+                otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(cachedAttack,Time.frameCount, false);
                 otherPlayer.canCancel = true;
-                if (otherPlayer.superMeter <= 300)
-                {
-                    otherPlayer.superMeter += otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput, otherPlayer.InputReader.curState).SuperAttackCharge;
-                }
-                else
-                {
-                    otherPlayer.superMeter = 300;
-                }
+                
+                otherPlayer.superMeter =    Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
+            
             }
             else
             {
-                if (otherPlayer.superMeter <= 300)
-                {
-                    otherPlayer.superMeter += projectileData.SuperAttackCharge;
-                }
-                else
-                {
-                    otherPlayer.superMeter = 300;
-                }
+                otherPlayer.superMeter =    Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
+
             }
         }
+        else
+        {
+            _player.Animations.Animator.Play("Blocking", 0,0 );
+            _player.Animations.Animator.SetBool(_player.Animations.blocking, true);
+        }
+        var damage = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).Damage;
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
@@ -180,5 +177,6 @@ public class HitDetection : MonoBehaviour, IDamageable
         
     }
 
-   
+
+  
 }

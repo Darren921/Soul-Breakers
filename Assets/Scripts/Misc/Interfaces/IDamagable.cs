@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    void TakeDamage(float damage,bool isbullet);
+    void TakeDamage(InputReader.Attack cachedAttack,bool isProjectile);
     
 }

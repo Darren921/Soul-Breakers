@@ -44,20 +44,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool RoundTimer;
     #endregion
     
-    
-    
     #region Animation 
     private CinemachineCamera AnimationCamera; 
     [SerializeField] private Animator CameraAnims;
     [SerializeField] private Animator UIAnim;
     #endregion
 
+  private (float, float) MapBorderLocationX;
+ [SerializeField] private float MapBorderLocationX1, MapBorderLocationX2;
     private bool SinglePlayer; 
     private void Awake()
     {
+        MapBorderLocationX = (MapBorderLocationX1, MapBorderLocationX2);
         Cursor.visible = true;
         AnimationCamera = CameraAnims.GetComponent<CinemachineCamera>();
-
         Application.targetFrameRate = 60;
         _currentRoundTimer = _roundTimer;
         UpdateRoundTimer();
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 1;
         HitDetection.OnDeath += OnRoundEnd;
-        LowTimeAction += SwapColor; 
+        LowTimeAction += SwapTextColor; 
         ConnectDeviceToPlayer();
     }
     private void Start()
@@ -109,10 +109,10 @@ public class GameManager : MonoBehaviour
             LowTimeAction?.Invoke();
         }
     }
-    private void SwapColor()
+    private void SwapTextColor()
     {
         timerText.colorGradientPreset = lowTime;
-        LowTimeAction -= SwapColor;
+        LowTimeAction -= SwapTextColor;
     }
     #endregion
 
@@ -299,23 +299,27 @@ public class GameManager : MonoBehaviour
         //depending on the distance between players, and if they are grounded, reverse (flip) the player 
         var distance = Vector3.Distance(players[0].transform.position, players[1].transform.position);
 //        Debug.Log(distance);
-        switch (distance)
+        foreach (var player in players)
         {
-            case >= 19.5f:
-                players[0].AtBorder = !players[0].Reversed ? players[0].PlayerMove.x <= 0 : players[0].PlayerMove.x >= 0;
-
-                players[1].AtBorder = !players[1].Reversed ? players[1].PlayerMove.x <= 0 : players[1].PlayerMove.x >= 0;
-                break;
-            case <= 19.5f:
+//            Debug.Log(player.transform.position.x);
+ //           Debug.Log(MapBorderLocationX.Item1);
+            if (player.transform.position.x <= MapBorderLocationX.Item1 || player.transform.position.x >= MapBorderLocationX.Item2)
             {
-                foreach (var player in players)
-                {
+                Debug.Log("Check Passed");
+                player.AtBorder = !player.Reversed ? player.PlayerMove.x <= 0 : player.PlayerMove.x >= 0;
+                return;
+            }
+            switch (distance)
+            {
+                case >= 19.5f:
+                    player.AtBorder = !player.Reversed ? player.PlayerMove.x <= 0 : player.PlayerMove.x >= 0;
+                    break;
+                case <= 19.5f:
                     player.AtBorder = false;
-                }
-
-                break;
+                    break;
             }
         }
+     
         
         if (distance < MinDistance)
             return;

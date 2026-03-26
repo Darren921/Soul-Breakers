@@ -33,6 +33,7 @@ public class CameraDistance : MonoBehaviour
             Tracker1.transform.position = Player1.transform.position + new Vector3(0,2,0);
             Tracker2.transform.position = Player2.transform.position + new Vector3(0,2,0);
             
+            /*
             playerView1 = cam.WorldToViewportPoint(Player1.transform.position);
             playerView2 = cam.WorldToViewportPoint(Player2.transform.position);
             distance = Vector3.Distance(Player1.transform.position, Player2.transform.position);
@@ -52,6 +53,7 @@ public class CameraDistance : MonoBehaviour
             {
                 wall2.transform.position = WallStartPos.transform.position;
             }   
+            */
 
     }
         

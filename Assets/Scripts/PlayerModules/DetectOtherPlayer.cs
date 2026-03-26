@@ -58,6 +58,7 @@ public class DetectOtherPlayer : MonoBehaviour
     private void PushPlayer(PlayerController otherPlayer)
     {
         otherPlayersCollider = player.HitDetection.otherPlayer.GetComponentInChildren<DetectOtherPlayer>().BoxCollider;
+        
         if (player.PlayersColliding && player.PlayerMove.y <= 0 && !intersecting)
         {
            // Debug.Log("Pushing player via raycast");
@@ -111,10 +112,14 @@ public class DetectOtherPlayer : MonoBehaviour
         if (!curPlayerMoving && targetPlayerMoving || curPlayerMoving && !targetPlayerMoving )
         {
             PushForce = 0.75f;
-        } 
+        }
+
+        if (player.AtBorder || OtherPlayer.AtBorder)
+        {
+            PushForce = 0;
+        }
         if (BoxCollider.bounds.Intersects(otherPlayersCollider.bounds))
         {
-            
             intersecting = true;
             intersectionBounds.SetMinMax(Vector3.Max(BoxCollider.bounds.min, otherPlayersCollider.bounds.min), Vector3.Min(BoxCollider.bounds.max, otherPlayersCollider.bounds.max));
 //            Debug.Log(intersectionBounds.size);
