@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         _currentRoundTimer = _roundTimer;
         UpdateRoundTimer();
-        StartGameDebug();
+       // StartGameDebug();
         ToggleUIAction += ToggleUIGlobal;
         // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
         // foreach (var player in players)
@@ -86,16 +86,16 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-      //  StartCoroutine(IntroAnim());
+       StartCoroutine(IntroAnim());
     }
 
    // This is purely for Debug Mode, skips cutscene 
-     public void StartGameDebug()
-     {
-         AnimationCamera.enabled = false;
-         UIAnim.Play("slide in");
-         StartCoroutine(StartTimer());
-     }
+     // public void StartGameDebug()
+     // {
+     //     AnimationCamera.enabled = false;
+     //     UIAnim.Play("slide in");
+     //     StartCoroutine(StartTimer());
+     // }
 
     #region RoundTimer
 
