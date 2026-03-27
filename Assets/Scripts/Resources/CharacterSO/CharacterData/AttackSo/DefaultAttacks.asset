@@ -191,7 +191,7 @@ MonoBehaviour:
       Type: 8
     Tag: 1
     State: 0
-    Damage: 10
+    Damage: 25
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
       Type: 8
     Tag: 1
     State: 2
-    Damage: 10
+    Damage: 18
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
@@ -217,7 +217,7 @@ MonoBehaviour:
       Type: 8
     Tag: 1
     State: 0
-    Damage: 10
+    Damage: 14
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
       Type: 8
     Tag: 1
     State: 0
-    Damage: 10
+    Damage: 17
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
