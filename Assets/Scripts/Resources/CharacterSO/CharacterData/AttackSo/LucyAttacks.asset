@@ -218,7 +218,7 @@ MonoBehaviour:
     Tag: 1
     State: 0
     Damage: 16
-    Knockback: {x: 2, y: 4, z: 0}
+    Knockback: {x: 12, y: 15, z: 0}
     HitStun: 1
     BlockStun: 0
     AnimationName: FowardSpecial
