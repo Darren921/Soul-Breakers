@@ -101,6 +101,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -123,7 +124,7 @@ Material:
     - _LOD: 2.3
     - _MaxBright: 1.56
     - _Metallic: 0
-    - _MinBright: -1.34
+    - _MinBright: -1.43
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
