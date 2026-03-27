@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     #region Class references
     public  PlayerAnimations Animations { get; private set; }
-    private Controls _controls;
+    internal Controls _controls;
     private Controls.PlayerActions _playerActions;
     internal InputReader InputReader;
    [SerializeField] internal CharacterSO CharacterData;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     internal PlayerKnockBack PlayerKnockBack;
     public PlayerStateManager _playerStateManager;
     internal PlayerVFX playerVFX;
+    internal PlayerUI playerUI;
     #endregion
     
     #region Crouching and Dashing variables
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     private void GetOnObjectComponents()
     {
+        playerUI = GetComponent<PlayerUI>();
         FrictionBox = GetComponent<BoxCollider>();
         PlayerKnockBack = GetComponent<PlayerKnockBack>();
         HitDetection = GetComponentInChildren<HitDetection>();
@@ -136,6 +138,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         PlayerConnected = device is not null;
         SetUpCallBacks();
         OnEnablePlayer();
+        EnablePlayerUI();
         SetUpCharacterVariables();
     }
 

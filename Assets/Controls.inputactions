@@ -666,11 +666,11 @@
             "actions": [
                 {
                     "name": "Navigate",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "c95b2375-e6d9-4b88-9c4c-c5e76515df4b",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": true
                 },
                 {
@@ -758,6 +758,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "ef237ae0-d14c-4af3-80e2-fcccddf3d909",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleUI",
+                    "type": "Button",
+                    "id": "0c426a43-6a87-4f2a-be58-f09203f6a0a8",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1202,6 +1211,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85a133bf-e1fb-4fb9-9f4f-4843d3e9df01",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

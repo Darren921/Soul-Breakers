@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class PlayerUI : MonoBehaviour
    [SerializeField] private Image SuperNumber;
    [SerializeField] private Sprite[] NumberSprites;
 
+   private bool isUIOn = true;
     private void Awake()
     {
         HitDetection.OnPlayerHit += UpdateHealth;
@@ -25,7 +27,31 @@ public class PlayerUI : MonoBehaviour
         GameManager.OnRefresh += UpdateSuperMeter;
 
         _playerController = GetComponent<PlayerController>();
-      
+    }
+
+ 
+
+    private void ToggleUIOnperformed(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("UI On performed");
+        if (ctx.phase == InputActionPhase.Performed)
+        {
+            isUIOn = !isUIOn;
+//            Debug.Log(isUIOn);
+            GameManager.ToggleUIAction?.Invoke(isUIOn);
+        }
+
+        
+    }
+
+    private void UpdateUIVisibility(bool isOn)
+    {
+        _healthSlider.gameObject.SetActive(isOn);
+        _superMeterSlider.gameObject.SetActive(isOn);
+        Layer2Super.gameObject.SetActive(isOn);
+        Layer3Super.gameObject.SetActive(isOn);
+        SuperLights.gameObject.SetActive(isOn);
+        SuperNumber.gameObject.SetActive(isOn);
     }
 
     private void UpdateSuperMeter()
@@ -74,6 +100,7 @@ public class PlayerUI : MonoBehaviour
         HitDetection.OnPlayerHit -= UpdateHealth;  
         HitDetection.OnPlayerHit -= UpdateSuperMeter;
         GameManager.OnRefresh -= UpdateSuperMeter;
+        _playerController._controls.UI.ToggleUI.performed -= ToggleUIOnperformed; 
 
 
     }
@@ -86,12 +113,34 @@ public class PlayerUI : MonoBehaviour
             _healthSlider.value = _playerController.CharacterData.health;
             _superMeterSlider.maxValue = 100;
         }
+        _playerController._controls.UI.ToggleUI.performed += ToggleUIOnperformed; 
+        GameManager.ToggleUIAction += ToggleUIAction;
 
         _playerController.Health = _playerController.CharacterData.health;
        
         UpdateHealth();
     }
 
+    public void ToggleUIAction(bool obj)
+    {
+        Debug.Log(obj);
+        UpdateUIVisibility(obj);
+        if (isUIOn)
+        {
+            HitDetection.OnPlayerHit += UpdateHealth;
+            HitDetection.OnPlayerHit += UpdateSuperMeter;
+            GameManager.OnRefresh += UpdateHealth;
+            GameManager.OnRefresh += UpdateSuperMeter;
+            UpdateHealth();
+            UpdateSuperMeter();
+        }
+        else
+        {
+            HitDetection.OnPlayerHit -= UpdateHealth;  
+            HitDetection.OnPlayerHit -= UpdateSuperMeter;
+            GameManager.OnRefresh -= UpdateSuperMeter;
+            GameManager.OnRefresh -= UpdateHealth;
+        }    }
 
 
     private void UpdateHealth()

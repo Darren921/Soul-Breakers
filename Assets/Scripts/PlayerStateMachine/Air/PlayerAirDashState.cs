@@ -74,7 +74,7 @@ public class PlayerAirDashState : PlayerDashState
             player.GravityManager.ResetVelocity();
             player.StartCoroutine(AirDash(player));
         }
-
+        playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Attack);
         if (player.GravityManager.IsGrounded)
         {
             playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Walking);

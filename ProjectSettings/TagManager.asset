@@ -22,7 +22,7 @@ TagManager:
   - PlayerBody
   - GroundRaycast
   - Wall
-  - 
+  - HitBox
   - 
   - 
   - 

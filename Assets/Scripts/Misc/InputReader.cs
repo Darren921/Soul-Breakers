@@ -125,6 +125,7 @@ public class InputReader : MonoBehaviour
     private int _bufferCap;
     private int _bufferTime;
 
+    public bool superPerformed;
    // private AttackType _currentFrameAttackInputs; 
 
 
@@ -246,6 +247,8 @@ public class InputReader : MonoBehaviour
         {
             print("Super triggered");
             player.superMeter -= 100;
+            superPerformed = true;
+            player.canCancel = false;
             GameManager.OnRefresh?.Invoke();
        //     player.Animations.Animator.SetBool(player.Animations.Super, true);
           

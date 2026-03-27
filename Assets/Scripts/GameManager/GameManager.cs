@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
    private readonly List<InputDevice> _availableDevices = new (); 
    private const float MinDistance = 0.1f;
    public static  Action OnRefresh ;
+   public static  Action<bool> ToggleUIAction ;
    private bool StandardConnectDone;
    public Dictionary<PlayerController , InputDevice> PlayersInputDevice { get; private set; } = new();
     #region Win Screen Setting
@@ -62,7 +63,7 @@ public class GameManager : MonoBehaviour
         _currentRoundTimer = _roundTimer;
         UpdateRoundTimer();
         StartGameDebug();
-
+        ToggleUIAction += ToggleUIGlobal;
         // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
         // foreach (var player in players)
         // {
@@ -73,6 +74,16 @@ public class GameManager : MonoBehaviour
         LowTimeAction += SwapTextColor; 
         ConnectDeviceToPlayer();
     }
+
+    private void ToggleUIGlobal(bool toggle)
+    {
+        foreach (var player in players)
+        {
+            player.playerUI.ToggleUIAction(toggle);
+        }
+        timerText.gameObject.SetActive(toggle);
+    }
+
     private void Start()
     {
       //  StartCoroutine(IntroAnim());

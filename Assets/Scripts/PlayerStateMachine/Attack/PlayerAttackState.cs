@@ -46,7 +46,7 @@ public class PlayerAttackState : PlayerBaseState
 //            Debug.Log("attacking" + player.name);
             PerformAttack(player);
         }
-        if (player.Animations.CancelActive  )
+        if (player.Animations.CancelActive && !player.InputReader.superPerformed )
         {
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.CancelAttack);
         }

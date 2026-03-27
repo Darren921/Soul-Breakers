@@ -133,6 +133,7 @@ public class PlayerAnimations : MonoBehaviour
         Animator?.SetBool(Active,false);
         Animator?.SetBool(Super,false);
         Animator?.SetBool(Special,false);
+        _player.InputReader.superPerformed = false;
         _player.InputReader.CurrentAttackInput.IsBeingUsed = false;
     }
 
@@ -175,13 +176,14 @@ public class PlayerAnimations : MonoBehaviour
 
     #endregion
 
-    public void SpawnProjectile(PlayerProjectile projectile)
+    public void SpawnProjectile(GameObject projectileObj)
     {
         var data = _player.CharacterData.characterAttacks.ReturnAttackData(_player.InputReader.SpecialData.Attack, _player.HitDetection.otherPlayer.InputReader.curState);
+        var projectile = projectileObj.GetComponent<PlayerProjectile>();
         Debug.Log("Spawned projectile");
         projectile._data = data;
         projectile.owner = _player;
-        Instantiate(projectile, _player.ProjectilePos.position, quaternion.identity);
+        Instantiate(projectileObj, _player.ProjectilePos.position, quaternion.identity);
         
     }
 
