@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LucySO
   m_EditorClassIdentifier: 
   characterAttacks: {fileID: 11400000, guid: 2c68147f26449b144a8ee7be57d0794b, type: 2}
-  normGravScale: 5
+  normGravScale: 3
   FallingGravScale: 5.05
   health: 175
   characterName: Test2
