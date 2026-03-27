@@ -9,7 +9,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private float Speed;
     private void Start()
     {
-        Speed = 30;
+        Speed = 15;
         Direction = !owner.Reversed ? Vector3.right :  Vector3.left;
     }
 

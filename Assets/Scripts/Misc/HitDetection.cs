@@ -143,7 +143,7 @@ public class HitDetection : MonoBehaviour, IDamageable
                 otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(cachedAttack,Time.frameCount, false);
                 otherPlayer.canCancel = true;
                 
-                otherPlayer.superMeter =    Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
+                otherPlayer.superMeter =   Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
             
             }
             else
@@ -157,7 +157,9 @@ public class HitDetection : MonoBehaviour, IDamageable
             _player.Animations.Animator.Play("Blocking", 0,0 );
             _player.Animations.Animator.SetBool(_player.Animations.blocking, true);
         }
-        var damage = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).Damage;
+        var damage = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).Damage; 
+        var soundname =  _player.InputReader.ImpactSoundNames[cachedAttack.Type];
+        SoundManager.instance?.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.SFX, soundname), transform.position);
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();

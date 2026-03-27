@@ -87,13 +87,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3643731a5a7d95d4f9000d9d4fbfc23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: {fileID: 0}
   _data:
     Attack:
       Move: 0
       Type: 8
     Tag: 1
     State: 0
-    Damage: 10
+    Damage: 15
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0

@@ -129,8 +129,16 @@ public class InputReader : MonoBehaviour
    // private AttackType _currentFrameAttackInputs; 
 
 
-  
-   
+   public Dictionary<AttackType, string> ImpactSoundNames = new()
+   {
+       { AttackType.Light, "lightimpact" },
+       { AttackType.Medium, "mediumimpact" },
+       { AttackType.Heavy, "heavyimpact" },
+       { AttackType.Special, "heavyimpact" },
+       { AttackType.SuperHeavy, "heavyimpact" },
+       { AttackType.SuperMedium, "mediumimpact" },
+
+   };
     private void AddMovementInput(MovementInputResult result)
     {
         if (_movementBuffer.Count >= _bufferCap)

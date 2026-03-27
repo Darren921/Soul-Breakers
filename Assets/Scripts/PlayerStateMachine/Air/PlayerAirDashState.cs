@@ -47,7 +47,7 @@ public class PlayerAirDashState : PlayerDashState
         // Debug.Log(DashDir);
             NewDashVelo = DashDir *   (DashDistance / DashTime);
        
-     
+        SoundManager.instance?.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.SFX, "Dash"), player.transform.position);
     }
     
     private IEnumerator AirDash(PlayerController player)

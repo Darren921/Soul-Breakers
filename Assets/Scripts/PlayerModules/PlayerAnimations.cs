@@ -67,9 +67,6 @@ public class PlayerAnimations : MonoBehaviour
         {"MediumSuper",GhostSuper1 },
         {"HeavySuper",GhostSuper2 },
         {"BackwardSpecial",GhostBackSpecial },
-
-     
-
     };
     
     internal Animator Animator;
