@@ -7864,7 +7864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1743014679bc0499174aa45e187372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterData: {fileID: 0}
+  CharacterData: {fileID: 11400000, guid: 56c510574c45cff42bccd06bc0328275, type: 2}
   HitDetection: {fileID: 0}
   _playerStateManager: {fileID: 0}
   IsCrouching: 0
@@ -32208,7 +32208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1743014679bc0499174aa45e187372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterData: {fileID: 0}
+  CharacterData: {fileID: 11400000, guid: 28b0b532bdd76744db2584cf70cda34a, type: 2}
   HitDetection: {fileID: 0}
   _playerStateManager: {fileID: 0}
   IsCrouching: 0

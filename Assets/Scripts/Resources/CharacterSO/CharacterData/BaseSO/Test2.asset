@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed73eb88df98634596fd1f5bc2439b7, type: 3}
   m_Name: Test2
   m_EditorClassIdentifier: 
-  characterAttacks: {fileID: 0}
+  characterAttacks: {fileID: 11400000, guid: 2c68147f26449b144a8ee7be57d0794b, type: 2}
   normGravScale: 0
   FallingGravScale: 0
   health: 175

@@ -64,10 +64,10 @@ public class GameManager : MonoBehaviour
         StartGameDebug();
 
         // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
-        foreach (var player in players)
-        {
-            player.CharacterData = characterDatabase.defaultCharacterSo;
-        }
+        // foreach (var player in players)
+        // {
+        //     player.CharacterData = characterDatabase.defaultCharacterSo;
+        // }
         Time.timeScale = 1;
         HitDetection.OnDeath += OnRoundEnd;
         LowTimeAction += SwapTextColor; 

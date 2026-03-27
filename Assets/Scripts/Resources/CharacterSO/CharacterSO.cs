@@ -33,6 +33,6 @@ public class CharacterSO : ScriptableObject
     
     private void OnValidate()
     {
-         characterAttacks = Resources.FindObjectsOfTypeAll<CharacterAttacksSo>().ToList().Find(so =>   so.name.Contains(characterName));
+       //  characterAttacks = Resources.FindObjectsOfTypeAll<CharacterAttacksSo>().ToList().Find(so =>   so.name.Contains(characterName));
     }
 }
