@@ -113,7 +113,7 @@ public class PlayerUI : MonoBehaviour
             _healthSlider.value = _playerController.CharacterData.health;
             _superMeterSlider.maxValue = 100;
         }
-        _playerController._controls.UI.ToggleUI.performed += ToggleUIOnperformed; 
+        if(_playerController._controls != null) _playerController._controls.UI.ToggleUI.performed += ToggleUIOnperformed; 
         GameManager.ToggleUIAction += ToggleUIAction;
 
         _playerController.Health = _playerController.CharacterData.health;
