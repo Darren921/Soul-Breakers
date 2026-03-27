@@ -18,10 +18,10 @@ MonoBehaviour:
       Type: 1
     Tag: 1
     State: 0
-    Damage: 5
+    Damage: 3
     Knockback: {x: 4, y: 0, z: 0}
-    HitStun: 0.1
-    BlockStun: 0
+    HitStun: 0.9
+    BlockStun: 0.5
     AnimationName: lightNorm
     IsSpecial: 0
     SuperAttackCharge: 10
@@ -31,10 +31,10 @@ MonoBehaviour:
       Type: 1
     Tag: 0
     State: 2
-    Damage: 5
+    Damage: 3
     Knockback: {x: 3, y: 0, z: 0}
-    HitStun: 0.1
-    BlockStun: 0
+    HitStun: 0.9
+    BlockStun: 0.5
     AnimationName: lightNormC
     IsSpecial: 0
     SuperAttackCharge: 10
@@ -44,9 +44,9 @@ MonoBehaviour:
       Type: 1
     Tag: 2
     State: 1
-    Damage: 5
+    Damage: 3
     Knockback: {x: 4, y: 0, z: 0}
-    HitStun: 0.1
+    HitStun: 0.5
     BlockStun: 0
     AnimationName: lightNormA
     IsSpecial: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
     State: 0
     Damage: 10
     Knockback: {x: 5, y: 0, z: 0}
-    HitStun: 0.5
+    HitStun: 1.1
     BlockStun: 0
     AnimationName: medNorm
     IsSpecial: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
       Type: 2
     Tag: 0
     State: 2
-    Damage: 10
+    Damage: 9
     Knockback: {x: 5, y: 0, z: 0}
-    HitStun: 0.5
+    HitStun: 1.1
     BlockStun: 0
     AnimationName: medNormC
     IsSpecial: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
     State: 1
     Damage: 10
     Knockback: {x: 5, y: 0, z: 0}
-    HitStun: 0.5
+    HitStun: 0.6
     BlockStun: 0
     AnimationName: medNormA
     IsSpecial: 0
@@ -98,9 +98,9 @@ MonoBehaviour:
       Type: 4
     Tag: 1
     State: 0
-    Damage: 20
+    Damage: 18
     Knockback: {x: 5, y: 10, z: 0}
-    HitStun: 1
+    HitStun: 1.3
     BlockStun: 0
     AnimationName: heavyNorm
     IsSpecial: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
     State: 2
     Damage: 20
     Knockback: {x: 5, y: 10, z: 0}
-    HitStun: 1
+    HitStun: 1.3
     BlockStun: 0
     AnimationName: heavyNormC
     IsSpecial: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
       Type: 4
     Tag: 2
     State: 1
-    Damage: 20
+    Damage: 15
     Knockback: {x: 5, y: 10, z: 0}
     HitStun: 1
     BlockStun: 0

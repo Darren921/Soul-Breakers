@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Test2
   m_EditorClassIdentifier: 
   characterAttacks: {fileID: 0}
-  gravScale: 1.5
-  health: 100
+  normGravScale: 0
+  FallingGravScale: 0
+  health: 175
   characterName: Test2
-  walkSpeed: 5
+  walkSpeed: 0
   runSpeed: 12
   jumpHeight: 3.75
   airDashCharges: 1
   jumpCharges: 0
-  damage: 0
-  lightKnockback: 1
-  medKnockback: 10
-  heavyKnockback: 13
+  dashDistance: 0
+  dashTime: 0
+  dashVertHeight: 0
