@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: gloves
+  m_Name: pillar
   m_Shader: {fileID: -6465566751694194690, guid: 6fbcb01fe014543449ed152e3b1bcc98, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -102,9 +102,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Edge: 3.42
+    - _Edge: 5.93
     - _EnvironmentReflections: 1
-    - _FresPower: 1.99
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -118,7 +117,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.45
+    - _Shades: -0.69
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -130,14 +129,13 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
-    - _speed: 0.1
+    - _speed: 8.14
     m_Colors:
     - _BaseColor: {r: 0.90000165, g: 0.37805796, b: 0, a: 1}
     - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _cutoff: {r: 0, g: 0, b: 0, a: 0}
-    - _fresMultiply: {r: 3.36, g: 1.78, b: -1.86, a: -24.28}
     - _ref: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
