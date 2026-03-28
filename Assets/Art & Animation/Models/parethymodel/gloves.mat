@@ -109,16 +109,16 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LOD: 3.8
-    - _MaxBright: -0.69
+    - _MaxBright: -0.98
     - _Metallic: 0
-    - _MinBright: -0.2
+    - _MinBright: -0.18
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Shades: 0.45
+    - _Shades: 0.28
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -133,11 +133,11 @@ Material:
     - _speed: 0.1
     m_Colors:
     - _BaseColor: {r: 0.90000165, g: 0.37805796, b: 0, a: 1}
-    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _cutoff: {r: 0, g: 0, b: 0, a: 0}
-    - _fresMultiply: {r: 3.36, g: 1.78, b: -1.86, a: -24.28}
+    - _fresMultiply: {r: -7.44, g: -2.68, b: -1.86, a: -24.28}
     - _ref: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
