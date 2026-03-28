@@ -38,6 +38,9 @@
         },
         {
             "m_Id": "06161495eee3482fb7750be5478d681d"
+        },
+        {
+            "m_Id": "c75201950e684cc8a29d76af56379bad"
         }
     ],
     "m_Keywords": [],
@@ -209,6 +212,9 @@
         },
         {
             "m_Id": "dcdb90b7a7c74913aaa7aa49bd0b7053"
+        },
+        {
+            "m_Id": "88d8f880ad1d4b548585572aeea171e1"
         }
     ],
     "m_GroupDatas": [],
@@ -532,6 +538,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "db0f9317c31f4b13a31cac0b598096c6"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "88d8f880ad1d4b548585572aeea171e1"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "634edace4c9e4d8fa3d5c54006668467"
                 },
                 "m_SlotId": 1
             }
@@ -1594,6 +1614,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "2bdd18c240c54c5ca6220a40cfba8b6b",
+    "m_Id": 0,
+    "m_DisplayName": "scale",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.CameraNode",
     "m_ObjectId": "3090391c49314888bd8ef30795ccd3ff",
     "m_Group": {
@@ -2242,8 +2277,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1323.0,
-            "y": 1794.0,
+            "x": -1409.0,
+            "y": 1803.0,
             "width": 108.0,
             "height": 34.0
         }
@@ -2909,10 +2944,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -938.0,
-            "y": 1502.0,
-            "width": 208.00006103515626,
-            "height": 325.9998779296875
+            "x": -1077.0,
+            "y": 1408.0,
+            "width": 208.0,
+            "height": 326.0
         }
     },
     "m_Slots": [
@@ -3406,6 +3441,9 @@
         },
         {
             "m_Id": "06161495eee3482fb7750be5478d681d"
+        },
+        {
+            "m_Id": "c75201950e684cc8a29d76af56379bad"
         }
     ]
 }
@@ -3799,6 +3837,42 @@
     "m_PreviewMode": 2,
     "m_CustomColors": {
         "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "88d8f880ad1d4b548585572aeea171e1",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1019.0457763671875,
+            "y": 1853.4033203125,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "2bdd18c240c54c5ca6220a40cfba8b6b"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "c75201950e684cc8a29d76af56379bad"
     }
 }
 
@@ -5399,8 +5473,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1172.0,
-            "y": 1651.0,
+            "x": -1227.0,
+            "y": 1773.0,
             "width": 208.0,
             "height": 302.0
         }
@@ -5466,6 +5540,34 @@
         "z": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "c75201950e684cc8a29d76af56379bad",
+    "m_Guid": {
+        "m_GuidSerialized": "1dc2328c-bca8-45b9-9982-ad38c20ba849"
+    },
+    "m_Name": "scale",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "scale",
+    "m_DefaultReferenceName": "_scale",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 500.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
 }
 
 {

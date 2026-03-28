@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
    public static  Action OnRefresh ;
    public static  Action<bool> ToggleUIAction ;
    private bool StandardConnectDone;
+   private bool Intro; 
    public Dictionary<PlayerController , InputDevice> PlayersInputDevice { get; private set; } = new();
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
@@ -86,6 +87,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Intro = true;
+       AnimationCamera.enabled = true;
        StartCoroutine(IntroAnim());
     }
 
@@ -297,6 +300,14 @@ public class GameManager : MonoBehaviour
     private void Update()
     { 
         CheckIfReversed();
+        if (Input.anyKey && Intro)
+        {
+            Intro = false;
+            StopCoroutine(IntroAnim());
+            AnimationCamera.enabled = false;
+            StartCoroutine(Starting());
+
+        }
     }
     private void OnDestroy()
     {
@@ -363,8 +374,16 @@ public class GameManager : MonoBehaviour
     #region Animation
         private IEnumerator IntroAnim()
         {
-            FreezePlayer();
-            yield return new WaitForSeconds(18);
+                Intro = true;
+                FreezePlayer();
+                yield return new WaitForSeconds(18);
+                Intro = false;
+                StartCoroutine(Starting());
+            
+            
+        }
+        private IEnumerator Starting()
+        {
             UIAnim.Play("slide in");
             yield return new WaitForSeconds(1);
             UIAnim.Play("Countdown");
