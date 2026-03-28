@@ -303,8 +303,10 @@ public class GameManager : MonoBehaviour
         if (Input.anyKey && Intro)
         {
             Intro = false;
-            StopCoroutine(IntroAnim());
             AnimationCamera.enabled = false;
+            StopCoroutine(IntroAnim());
+
+           
             StartCoroutine(Starting());
 
         }
@@ -377,9 +379,16 @@ public class GameManager : MonoBehaviour
                 Intro = true;
                 FreezePlayer();
                 yield return new WaitForSeconds(18);
+                
+                if (Intro == true)
+                {
+                    StartCoroutine(Starting());
+                    Intro = false;
+                    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                }
                 Intro = false;
-                StartCoroutine(Starting());
-            
+
+                
             
         }
         private IEnumerator Starting()

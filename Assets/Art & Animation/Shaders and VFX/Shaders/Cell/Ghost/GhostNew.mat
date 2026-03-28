@@ -45,6 +45,7 @@ Material:
     - _speed: 1
     m_Colors:
     - _Vector4: {r: 2.1, g: 3.56, b: 9.87, a: 21.64}
+    - _Vector4_1: {r: 3, g: 0.17, b: 0.58, a: 1.21}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5102575424023835999

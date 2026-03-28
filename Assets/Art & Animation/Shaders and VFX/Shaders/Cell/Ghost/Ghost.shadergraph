@@ -14,6 +14,9 @@
         },
         {
             "m_Id": "540b22cd63df4b64ba8f890b56138e07"
+        },
+        {
+            "m_Id": "6d51ff9861804f54a265bff5fa27aab7"
         }
     ],
     "m_Keywords": [],
@@ -314,10 +317,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1756.0,
-            "y": 900.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": -2070.000244140625,
+            "y": 690.0,
+            "width": 124.0001220703125,
+            "height": 173.00006103515626
         }
     },
     "m_Slots": [
@@ -429,10 +432,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1810.5302734375,
-            "y": 475.46966552734377,
-            "width": 208.0,
-            "height": 360.0
+            "x": -2130.000244140625,
+            "y": 269.0,
+            "width": 208.0001220703125,
+            "height": 360.00006103515627
         }
     },
     "m_Slots": [
@@ -705,6 +708,34 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector4ShaderProperty",
+    "m_ObjectId": "6d51ff9861804f54a265bff5fa27aab7",
+    "m_Guid": {
+        "m_GuidSerialized": "b3329197-4d95-4f20-82d0-c96b6e48bd5b"
+    },
+    "m_Name": "Vector4 (1)",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Vector4 (1)",
+    "m_DefaultReferenceName": "_Vector4_1",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    }
 }
 
 {
@@ -1177,10 +1208,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1844.0,
-            "y": 831.0,
-            "width": 0.0,
-            "height": 0.0
+            "x": -2097.000244140625,
+            "y": 612.0000610351563,
+            "width": 108.0001220703125,
+            "height": 33.99993896484375
         }
     },
     "m_Slots": [
@@ -1408,6 +1439,9 @@
         },
         {
             "m_Id": "540b22cd63df4b64ba8f890b56138e07"
+        },
+        {
+            "m_Id": "6d51ff9861804f54a265bff5fa27aab7"
         }
     ]
 }
