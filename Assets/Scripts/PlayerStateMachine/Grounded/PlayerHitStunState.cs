@@ -24,7 +24,6 @@ public class PlayerHitStunState : PlayerBaseState
     {
         SetHitStun(player);
         Debug.Log("HitStun");
-        Debug.Log(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
         yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
         Debug.Log("HitStun complete"); 
         DisableHitStun(player);
@@ -35,6 +34,7 @@ public class PlayerHitStunState : PlayerBaseState
         var orginSpeed = player.Animations.Animator.speed; 
         Time.timeScale = 0;
         player.Animations.Animator.speed = 0;
+        Debug.Log(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStop);
         yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStop);
         player.Animations.Animator.Play("Hit", 0,0f );
         Time.timeScale = 1;
