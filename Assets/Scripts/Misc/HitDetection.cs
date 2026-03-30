@@ -129,7 +129,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {
-            _player.Animations.Animator.Play("Hit", 0,0f );
+         //   _player.Animations.Animator.Play("Hit", 0,0f );
             var otherPlayerSuperMeterCharge = otherPlayer.InputReader.CurAttackData.SuperAttackCharge;
             if (!isProjectile)
             {
