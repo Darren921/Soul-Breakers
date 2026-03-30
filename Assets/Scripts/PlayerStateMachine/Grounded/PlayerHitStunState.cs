@@ -22,23 +22,35 @@ public class PlayerHitStunState : PlayerBaseState
 
     private IEnumerator WaitForHitStun(PlayerController player)
     {
-        var originalSpeed = SetHitStun(player);
+        SetHitStun(player);
         Debug.Log("HitStun");
-        Time.timeScale = 0;
         Debug.Log(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
         yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
-        Time.timeScale = 1;
         Debug.Log("HitStun complete"); 
-        DisableHitStun(player, originalSpeed);
+        DisableHitStun(player);
     }
+
+    private IEnumerator SetHitStop(PlayerController player)
+    {
+        var orginSpeed = player.Animations.Animator.speed; 
+        Time.timeScale = 0;
+        player.Animations.Animator.speed = 0;
+        yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStop);
+        player.Animations.Animator.Play("Hit", 0,0f );
+        Time.timeScale = 1;
+        player.Animations.Animator.speed = orginSpeed;
+    }
+
+ 
+
     private IEnumerator WaitForHitStunAirborne(PlayerController player)
     {
         Debug.Log("HitStunAirborne");
-        var originalSpeed = SetHitStun(player);
+        SetHitStun(player);
         //      Debug.Log("HitStun");
         yield return new WaitUntil(() => player.GravityManager.IsGrounded);
 //        Debug.Log("HitStun complete");
-        DisableHitStun(player, originalSpeed);
+        DisableHitStun(player);
     } 
 
 
@@ -90,19 +102,16 @@ public class PlayerHitStunState : PlayerBaseState
 
         public override bool keepWaiting => Time.frameCount < _targetFrameCount;
     }
-    private static float SetHitStun(PlayerController player)
+    private  void SetHitStun(PlayerController player)
     {
-        var originalSpeed = player.Animations.Animator.speed;
+        player.StartCoroutine(SetHitStop(player));
         player.OnDisablePlayer();
-        player.Animations.Animator.speed = 0;
         player.HitStun = true;
-        return originalSpeed;
     }
 
-    private static void DisableHitStun(PlayerController player, float originalSpeed)
+    private static void DisableHitStun(PlayerController player)
     {
         player.OnEnablePlayer();
-        player.Animations.Animator.speed = originalSpeed;
         player.HitStun = false;
     }
 

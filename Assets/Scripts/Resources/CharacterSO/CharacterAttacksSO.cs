@@ -118,10 +118,11 @@ using UnityEngine.Serialization;
         public Vector3 Knockback;
         public float HitStun;
         public float BlockStun;
-        public string AnimationName; 
+        public float HitStop;
+        public string AnimationName;
         private int _animHash;
         public bool IsSpecial;
-
+        
         public float SuperAttackCharge;
         public float SuperChargeNeeded;
 
@@ -139,7 +140,8 @@ using UnityEngine.Serialization;
                 return _animHash;
             }
         }
-        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "" ,float superAttackCharge = 10 , float superChargeNeeded = 0, bool isSpecial = false) 
+        public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "",
+            float superAttackCharge = 10 , float superChargeNeeded = 0, bool isSpecial = false, float hitStop = 0 ) 
         {
             Attack = attack;
             Tag = tag;
@@ -153,6 +155,7 @@ using UnityEngine.Serialization;
             SuperAttackCharge = superAttackCharge;
             SuperChargeNeeded = superChargeNeeded;
             IsSpecial = isSpecial;
+            HitStop = hitStop;
         }
         public bool Equals(AttackData other)
         {
