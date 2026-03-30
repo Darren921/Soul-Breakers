@@ -402,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &39777088
 Transform:
   m_ObjectHideFlags: 0
@@ -1574,7 +1574,7 @@ Transform:
   m_GameObject: {fileID: 133483872}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.136, y: -0.095, z: 0.024500012}
+  m_LocalPosition: {x: 0.136, y: -0.006, z: 0.024500012}
   m_LocalScale: {x: 0.61, y: 0.2, z: 0.94}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7877,6 +7877,7 @@ MonoBehaviour:
     Knockback: {x: 0, y: 0, z: 0}
     HitStun: 0
     BlockStun: 0
+    HitStop: 0
     AnimationName: 
     IsSpecial: 0
     SuperAttackCharge: 0
@@ -18529,6 +18530,7 @@ MonoBehaviour:
     Knockback: {x: 0, y: 0, z: 0}
     HitStun: 0
     BlockStun: 0
+    HitStop: 0
     AnimationName: 
     IsSpecial: 0
     SuperAttackCharge: 0
@@ -20362,6 +20364,7 @@ MonoBehaviour:
     Knockback: {x: 0, y: 0, z: 0}
     HitStun: 0
     BlockStun: 0
+    HitStop: 0
     AnimationName: 
     IsSpecial: 0
     SuperAttackCharge: 0
@@ -29659,6 +29662,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5113046984842478063, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_DrawInstanced
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113046984842478063, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_DrawTreesAndFoliage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113046984842478063, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_EnableHeightmapRayTracing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113046984842478063, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_HeightmapMinimumLODSimplification
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7144084810739643184, guid: 81d671ea48b696641a460774701dd792, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -32974,6 +32993,7 @@ MonoBehaviour:
     Knockback: {x: 0, y: 0, z: 0}
     HitStun: 0
     BlockStun: 0
+    HitStop: 0
     AnimationName: 
     IsSpecial: 0
     SuperAttackCharge: 0
