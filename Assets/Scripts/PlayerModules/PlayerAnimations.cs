@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerAnimations : MonoBehaviour 
 {
@@ -179,6 +180,16 @@ public class PlayerAnimations : MonoBehaviour
     public void resetAnimtorSpeed()
     {
         Animator.speed = 1;
+    }
+
+    public void ActivateVFX(VisualEffect vfx)
+    {
+        vfx.gameObject.SetActive(true);
+    }
+
+    public void DeactivateVFX(VisualEffect vfx)
+    {
+        vfx.gameObject.SetActive(false);
     }
     #endregion
 
