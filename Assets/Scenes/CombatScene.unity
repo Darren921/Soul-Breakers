@@ -402,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &39777088
 Transform:
   m_ObjectHideFlags: 0
@@ -8600,7 +8600,42 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0.15003784
+            outSlope: 0.15003784
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.3542682
+            value: 1.0531536
+            inSlope: 0.48514944
+            outSlope: 0.48514944
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.3749303
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.7810211
+            value: 1.4851646
+            inSlope: 1.0123211
+            outSlope: 1.0123211
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: DissolveCurve
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
@@ -29614,6 +29649,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 993160645129540900, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_DrawHeightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 993160645129540900, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_ShadowCastingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 993160645129540900, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_DrawTreesAndFoliage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1351230445485292502, guid: 81d671ea48b696641a460774701dd792, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -29622,6 +29669,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 774b499e033665648a29f87a6c47980e, type: 2}
+    - target: {fileID: 3751212528632899893, guid: 81d671ea48b696641a460774701dd792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4805637528061664868, guid: 81d671ea48b696641a460774701dd792, type: 3}
       propertyPath: m_LocalPosition.x
       value: -194.3

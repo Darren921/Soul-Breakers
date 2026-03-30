@@ -2550,7 +2550,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.058162763714790347,"value":6.952637195587158,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.8883719444274902,"value":6.830766677856445,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.058162763714790347,"value":14.9708251953125,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.9536643028259277,"value":14.848955154418946,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_y
@@ -4447,7 +4447,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.046917036175727847,"value":7.115219593048096,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.8995261192321777,"value":6.974565505981445,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.06829459965229035,"value":14.945266723632813,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.8924002647399902,"value":14.997941970825196,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_y
@@ -7331,7 +7331,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.11343009769916535,"value":7.172745227813721,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.8654990196228027,"value":7.11021614074707,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.002593994140625,"inTangent":0.9717853665351868,"outTangent":0.9717853665351868,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.12632377445697785,"value":14.952774047851563,"inTangent":1.279755711555481,"outTangent":1.279755711555481,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.9492850303649902,"value":14.89024543762207,"inTangent":2.237363815307617,"outTangent":2.237363815307617,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Scale_y
