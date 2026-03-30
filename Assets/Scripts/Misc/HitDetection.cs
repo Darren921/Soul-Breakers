@@ -24,12 +24,7 @@ public class HitDetection : MonoBehaviour, IDamageable
     {
         _player = gameObject.GetComponentInParent<PlayerController>();
     }
-
-    private void CheckHit(Collider hitCollider)
-    {
-        
-    }
-
+    
     private void Update()
     {
         if (_player.AtBorder)
@@ -134,11 +129,11 @@ public class HitDetection : MonoBehaviour, IDamageable
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {
+            _player.Animations.Animator.Play("Hit", 0,0f );
             var otherPlayerSuperMeterCharge = otherPlayer.InputReader.CurAttackData.SuperAttackCharge;
             if (!isProjectile)
             {
                 otherPlayer.Animations.DisableHitBox();
-                _player.Animations.Animator.Play("Hit", 0,0 );
                 
                 otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(cachedAttack,Time.frameCount, false);
                 otherPlayer.canCancel = true;

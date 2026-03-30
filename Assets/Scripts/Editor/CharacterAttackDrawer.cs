@@ -34,9 +34,11 @@ public class CharacterAttackDrawer : PropertyDrawer
         root.Add(new PropertyField(property.FindPropertyRelative("Knockback"), "Knockback"));
         root.Add(new PropertyField(property.FindPropertyRelative("HitStun"), "HitStun"));
         root.Add(new PropertyField(property.FindPropertyRelative("BlockStun"), "BlockStun"));
+        root.Add(new PropertyField(property.FindPropertyRelative("HitStop"), "HitStop"));
         root.Add(new PropertyField(property.FindPropertyRelative("AnimationName"), "AnimationName"));
         root.Add(new PropertyField(property.FindPropertyRelative("_animHash"), "_animHash"));
    //     popup.Add(new PropertyField(property.FindPropertyRelative("isSpecial"), "isSpecial"));
+   Debug.Log(property.FindPropertyRelative("IsSpecial"));
         if (property.FindPropertyRelative("IsSpecial").boolValue)
         {
             root.Add(new PropertyField(property.FindPropertyRelative("SuperChargeNeeded"), "SuperChargeNeeded"));
