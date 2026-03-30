@@ -15,19 +15,23 @@ public class PlayerCancelAttackState : PlayerBaseState
         {
             player.Animations.Animator.SetBool(player.Animations.Idle, false);
         }
+
+        player.IsAttacking = true;
+      //  Debug.Log(player.InputReader.CurrentAttackInput.Input);
         player.Animations.CancelActive = false;
         player.canCancel = false;
-        Debug.Log(" cancel detected " + player.name);
-        animationName = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimationName;
-        player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-        Debug.Log(player.Animations.AnimationToPlay);
+        player.InputReader.StartCoroutine(player.InputReader.holdCurrentInput());
+//        Debug.Log(" cancel detected " + player.name);
+        animationName = player.InputReader.CurAttackData.AnimationName;
+        player.Animations.AnimationToPlay = player.InputReader.CurAttackData.AnimHash;
+      //  Debug.Log(player.Animations.AnimationToPlay);
         
         if (player.Animations.GhostAnimations.ContainsKey(animationName) && player.Animations.GhostAnimator ) player.Animations.GhostAnimator?.Play(player.Animations.GhostAnimations[animationName], 0, 0f);
         player.Animations.Animator.Play(  player.Animations.AnimationToPlay, 0, 0.25f);
        player. CancelPlaying  = true;
        player.Animations.Animator.SetBool(player.Animations.Attacking, true);
 
-        Debug.Log("cancel attack" + player.name);
+      //  Debug.Log("cancel attack" + player.name);
     }
 
     
@@ -54,10 +58,11 @@ public class PlayerCancelAttackState : PlayerBaseState
 
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        Debug.Log("Exit Cancel attacking" +  player.name);
+   //     Debug.Log("Exit Cancel attacking" +  player.name);
         player.GravityManager.ResetVelocity();
         player.Animations.ResetAttackingTrigger();
         player.Animations.AnimationToPlay = -1;
+        player.IsAttacking = false;
         player.CancelPlaying = false;
     }
 }

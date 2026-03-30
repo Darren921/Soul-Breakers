@@ -57,7 +57,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             if (!_damageDone)
             {
               //  print("Damage taken");
-                TakeDamage(otherPlayer.InputReader.LastAttackInput, false);
+                TakeDamage(otherPlayer.InputReader.CurrentAttackInput.Input, false);
             }
         }
         if (other.gameObject.CompareTag("Wall"))
@@ -134,7 +134,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         _player.Animations.Animator.SetBool(_player.Animations.Hit, true);
         if (!Blocking )
         {
-            var otherPlayerSuperMeterCharge = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).SuperAttackCharge;
+            var otherPlayerSuperMeterCharge = otherPlayer.InputReader.CurAttackData.SuperAttackCharge;
             if (!isProjectile)
             {
                 otherPlayer.Animations.DisableHitBox();
@@ -157,7 +157,7 @@ public class HitDetection : MonoBehaviour, IDamageable
             _player.Animations.Animator.Play("Blocking", 0,0 );
             _player.Animations.Animator.SetBool(_player.Animations.blocking, true);
         }
-        var damage = otherPlayer.CharacterData.characterAttacks.ReturnAttackData(cachedAttack, otherPlayer.InputReader.curState).Damage; 
+        var damage = otherPlayer.InputReader.CurAttackData.Damage; 
         var soundname =  _player.InputReader.ImpactSoundNames[cachedAttack.Type];
         SoundManager.instance?.PlayOneShot(SoundManager.instance.soundData.ReturnEventReference(SoundData.SoundType.SFX, soundname), transform.position);
         // deal damage and active death event to trigger end of game 

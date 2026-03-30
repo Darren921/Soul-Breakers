@@ -76,7 +76,7 @@ public class PlayerKnockBack : MonoBehaviour
         }
         else
         {
-             hitForceTemp = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput,player.InputReader.curState).Knockback;
+             hitForceTemp = player.InputReader.CurAttackData.Knockback;
 
         }
 //        print(hitForceTemp);

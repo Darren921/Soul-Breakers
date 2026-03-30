@@ -23,13 +23,12 @@ public class PlayerHitStunState : PlayerBaseState
     private IEnumerator WaitForHitStun(PlayerController player)
     {
         var originalSpeed = SetHitStun(player);
-
-//              Debug.Log("HitStun");
-      //  Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.CharacterData.characterAttacks.ReturnAttackData(player.HitDetection.otherPlayer.InputReader.LastAttackInput,player.HitDetection.otherPlayer.InputReader.curState).HitStun);
-     //   Time.timeScale = 1;
-
-//        Debug.Log("HitStun complete");
+        Debug.Log("HitStun");
+        Time.timeScale = 0;
+        Debug.Log(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
+        yield return new WaitForSecondsRealtime(player.HitDetection.otherPlayer.InputReader.CurAttackData.HitStun);
+        Time.timeScale = 1;
+        Debug.Log("HitStun complete"); 
         DisableHitStun(player, originalSpeed);
     }
     private IEnumerator WaitForHitStunAirborne(PlayerController player)
@@ -95,6 +94,7 @@ public class PlayerHitStunState : PlayerBaseState
     {
         var originalSpeed = player.Animations.Animator.speed;
         player.OnDisablePlayer();
+        player.Animations.Animator.speed = 0;
         player.HitStun = true;
         return originalSpeed;
     }
@@ -102,6 +102,7 @@ public class PlayerHitStunState : PlayerBaseState
     private static void DisableHitStun(PlayerController player, float originalSpeed)
     {
         player.OnEnablePlayer();
+        player.Animations.Animator.speed = originalSpeed;
         player.HitStun = false;
     }
 

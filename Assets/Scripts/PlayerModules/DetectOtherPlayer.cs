@@ -1,4 +1,4 @@
- using System;
+using System;
 using UnityEngine;
 
 public class DetectOtherPlayer : MonoBehaviour
@@ -13,6 +13,7 @@ public class DetectOtherPlayer : MonoBehaviour
     private Bounds intersectionBounds;
     private BoxCollider otherPlayersCollider;
     private float rayDistance;
+
     private void Awake()
     {
         player = GetComponentInParent<PlayerController>();
@@ -22,33 +23,38 @@ public class DetectOtherPlayer : MonoBehaviour
     private void Start()
     {
         rayDistance = 0.3f;
-
     }
 
     private void Update()
     {
-        Debug.DrawRay(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z),  !player.Reversed ? Vector3.right * rayDistance : Vector3.left * rayDistance , Color.red);
-    //    Debug.DrawRay(player.Reversed ? new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), -BoxCollider.transform.right * rayDistance, Color.black);
-
+        Debug.DrawRay(
+            !player.Reversed
+                ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
+                : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z),
+            !player.Reversed ? Vector3.right * rayDistance : Vector3.left * rayDistance, Color.red);
+        //    Debug.DrawRay(player.Reversed ? new Vector3(BoxCollider.bounds.center.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z), -BoxCollider.transform.right * rayDistance, Color.black);
     }
 
     private void FixedUpdate()
     {
-        if(Physics.Raycast(!player.Reversed ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z) : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
-               ,  !player.Reversed ? Vector3.right : Vector3.left, out  Hit, rayDistance, LayerMask.GetMask("PushBox"),QueryTriggerInteraction.Collide ))
+        if (Physics.Raycast(!player.Reversed
+                    ? new Vector3(BoxCollider.bounds.max.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
+                    : new Vector3(BoxCollider.bounds.min.x, BoxCollider.bounds.center.y, BoxCollider.bounds.center.z)
+                , !player.Reversed ? Vector3.right : Vector3.left, out Hit, rayDistance, LayerMask.GetMask("PushBox"),
+                QueryTriggerInteraction.Collide))
         {
-           
 //                Debug.Log($" Rounding hit = {Mathf.Round((Hit.point - transform.position).normalized.x)}, Raw hit {(Hit.point - transform.position).normalized.x} player move {(!player.Reversed ? player.PlayerMove.x : -player.PlayerMove.x)}");
             if (Hit.collider != BoxCollider)
             {
-                player.PlayersColliding =  Mathf.Approximately(player.PlayerMove.x  , Mathf.Round( (Hit.point - transform.position).normalized.x)) ;
+                player.PlayersColliding = Mathf.Approximately(player.PlayerMove.x,
+                    Mathf.Round((Hit.point - transform.position).normalized.x));
             }
         }
         else
         {
             player.PlayersColliding = false;
         }
-     
+
 
         if (player.IsAttacking) return;
         CheckCollision(player.HitDetection.otherPlayer);
@@ -58,58 +64,58 @@ public class DetectOtherPlayer : MonoBehaviour
     private void PushPlayer(PlayerController otherPlayer)
     {
         otherPlayersCollider = player.HitDetection.otherPlayer.GetComponentInChildren<DetectOtherPlayer>().BoxCollider;
-        
-        if (player.PlayersColliding && player.PlayerMove.y <= 0 && !intersecting)
+
+        if (player.PlayersColliding && player.PlayerMove.y == 0 && !intersecting)
         {
-           // Debug.Log("Pushing player via raycast");
-            player.rb.MovePosition(player.transform.position + (!player.Reversed ? Vector3.right: Vector3.left * PushForce ) *  Time.fixedDeltaTime);
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position + (!player.Reversed ? Vector3.right: Vector3.left * PushForce) * Time.fixedDeltaTime);
+//             Debug.Log("Pushing player via raycast");
+            player.rb.MovePosition(player.transform.position +
+                                   (!player.Reversed ? Vector3.right : Vector3.left * PushForce) * Time.fixedDeltaTime);
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position +
+                                        (!player.Reversed ? Vector3.right : Vector3.left * PushForce) *
+                                        Time.fixedDeltaTime);
         }
 
-        if (intersecting && !player.GravityManager.IsGrounded && !otherPlayer.GravityManager.IsGrounded)
+        else if (intersecting && !player.GravityManager.IsGrounded && !otherPlayer.GravityManager.IsGrounded)
         {
-          //  Debug.Log("both player airborne && intersecting");
-            player.rb.MovePosition(player.transform.position + Vector3.zero * Time.fixedDeltaTime ); ;
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position + Vector3.zero * Time.fixedDeltaTime );
-            return;
+       //     Debug.Log("both player airborne && intersecting");
+            player.rb.MovePosition(player.transform.position + Vector3.zero * Time.fixedDeltaTime);
+            ;
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position + Vector3.zero * Time.fixedDeltaTime);
         }
 
-        if (intersecting && !otherPlayer.GravityManager.IsGrounded && player.GravityManager.IsGrounded || intersecting && otherPlayer.GravityManager.IsGrounded && !player.GravityManager.IsGrounded)
+        else if (intersecting && !otherPlayer.GravityManager.IsGrounded && player.GravityManager.IsGrounded ||
+                 intersecting && otherPlayer.GravityManager.IsGrounded && !player.GravityManager.IsGrounded)
         {
-         //   Debug.Log("one player moving && intersecting");
-            intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.2f,0,0);
-            player.rb.MovePosition(player.transform.position +  (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position + (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size) );
+     //       Debug.Log("one player moving && intersecting");
+            intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.2f, 0, 0);
+            player.rb.MovePosition(player.transform.position +
+                                   (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position +
+                                        (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size));
         }
-        if (intersecting && !targetPlayerMoving && !curPlayerMoving)
+        else if (intersecting && !targetPlayerMoving && !curPlayerMoving)
         {
-        //    Debug.Log("no player moving && intersecting");
-            intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.1f,0,0);
-            player.rb.MovePosition(player.transform.position +  (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position + (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size) );
+    //        Debug.Log("no player moving && intersecting");
+            intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.1f, 0, 0);
+            player.rb.MovePosition(player.transform.position +
+                                   (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position +
+                                        (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size));
         }
-        //   if (intersecting && !targetPlayerMoving && !curPlayerMoving)
-        // {
-        //     intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.1f,0,0);
-        //     player.rb.MovePosition(player.transform.position +  (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
-        //     OtherPlayer.rb.MovePosition(OtherPlayer.transform.position + (!OtherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size) );
-        // }
-        
-        
     }
 
-    private void CheckCollision( PlayerController OtherPlayer)
+    private void CheckCollision(PlayerController OtherPlayer)
     {
         otherPlayersCollider = player.HitDetection.otherPlayer.GetComponentInChildren<DetectOtherPlayer>().BoxCollider;
-        curPlayerMoving = player.PlayerMove.magnitude > 0;
-        targetPlayerMoving = OtherPlayer.PlayerMove.magnitude > 0;
+        curPlayerMoving = player.PlayerMove.magnitude > 0 && !player.IsCrouching;
+        targetPlayerMoving = OtherPlayer.PlayerMove.magnitude > 0 && !player.IsCrouching;
 
         PushForce = curPlayerMoving switch
         {
             true when targetPlayerMoving => 0.5f,
             _ => PushForce
         };
-        if (!curPlayerMoving && targetPlayerMoving || curPlayerMoving && !targetPlayerMoving )
+        if (!curPlayerMoving && targetPlayerMoving || curPlayerMoving && !targetPlayerMoving)
         {
             PushForce = 0.75f;
         }
@@ -118,22 +124,21 @@ public class DetectOtherPlayer : MonoBehaviour
         {
             PushForce = 0;
         }
+
         if (BoxCollider.bounds.Intersects(otherPlayersCollider.bounds))
         {
             intersecting = true;
-            intersectionBounds.SetMinMax(Vector3.Max(BoxCollider.bounds.min, otherPlayersCollider.bounds.min), Vector3.Min(BoxCollider.bounds.max, otherPlayersCollider.bounds.max));
+            intersectionBounds.SetMinMax(Vector3.Max(BoxCollider.bounds.min, otherPlayersCollider.bounds.min),
+                Vector3.Min(BoxCollider.bounds.max, otherPlayersCollider.bounds.max));
 //            Debug.Log(intersectionBounds.size);
- //           Debug.Log("Intersecting");
+            //           Debug.Log("Intersecting");
         }
         else
         {
             intersecting = false;
         }
-     
     }
 
-
-    
 
     private void OnTriggerExit(Collider other)
     {

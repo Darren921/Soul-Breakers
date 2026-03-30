@@ -33,7 +33,8 @@ public class PlayerUI : MonoBehaviour
 
     private void ToggleUIOnperformed(InputAction.CallbackContext ctx)
     {
-        Debug.Log("UI On performed");
+        Debug.Log("UI On performed" + _playerController.name);
+        Debug.Log(ctx.phase);
         if (ctx.phase == InputActionPhase.Performed)
         {
             isUIOn = !isUIOn;
@@ -46,12 +47,14 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateUIVisibility(bool isOn)
     {
-        _healthSlider.gameObject.SetActive(isOn);
-        _superMeterSlider.gameObject.SetActive(isOn);
-        Layer2Super.gameObject.SetActive(isOn);
-        Layer3Super.gameObject.SetActive(isOn);
-        SuperLights.gameObject.SetActive(isOn);
-        SuperNumber.gameObject.SetActive(isOn);
+        // if (!_healthSlider || !_superMeterSlider || !Layer2Super || !Layer3Super || !SuperLights ||
+        //     !SuperNumber) return;
+        _healthSlider?.gameObject.SetActive(isOn);
+        _superMeterSlider?.gameObject.SetActive(isOn);
+        Layer2Super?.gameObject.SetActive(isOn);
+        Layer3Super?.gameObject.SetActive(isOn);
+        SuperLights?.gameObject.SetActive(isOn);
+        SuperNumber?.gameObject.SetActive(isOn);
     }
 
     private void UpdateSuperMeter()
@@ -91,16 +94,18 @@ public class PlayerUI : MonoBehaviour
 
     private void SetActiveBar(bool layer2, bool layer3)
     {
-        Layer2Super?.gameObject?.SetActive(layer2);
-        Layer3Super?.gameObject?.SetActive(layer3);
+        if (Layer2Super) Layer2Super?.gameObject?.SetActive(layer2);
+        if (Layer3Super) Layer3Super?.gameObject?.SetActive(layer3);
     }
 
     private void OnDestroy()
     {
+if(_playerController._controls != null)        _playerController._controls.UI.ToggleUI.performed -= ToggleUIOnperformed; 
         HitDetection.OnPlayerHit -= UpdateHealth;  
         HitDetection.OnPlayerHit -= UpdateSuperMeter;
         GameManager.OnRefresh -= UpdateSuperMeter;
-        _playerController._controls.UI.ToggleUI.performed -= ToggleUIOnperformed; 
+        GameManager.OnRefresh -= UpdateHealth;
+        GameManager.ToggleUIAction -= ToggleUIAction;
 
 
     }
@@ -123,7 +128,7 @@ public class PlayerUI : MonoBehaviour
 
     public void ToggleUIAction(bool obj)
     {
-        Debug.Log(obj);
+        Debug.Log(obj + _playerController.name);
         UpdateUIVisibility(obj);
         if (isUIOn)
         {

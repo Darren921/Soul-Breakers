@@ -106912,6 +106912,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: setAnimtorSpeed
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0.4
+    intParameter: 0
+    messageOptions: 0
   - time: 1.6666666
     functionName: SetUpActiveFrame
     data: 
@@ -106935,6 +106942,13 @@ AnimationClip:
     messageOptions: 0
   - time: 2.4583333
     functionName: ResetRecoveryFrame
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.4583333
+    functionName: resetAnimtorSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

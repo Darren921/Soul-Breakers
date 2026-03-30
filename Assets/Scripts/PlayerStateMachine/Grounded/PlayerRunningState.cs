@@ -57,7 +57,7 @@ public class PlayerRunningState : PlayerMovingState
     internal override void ExitState(PlayerStateManager playerStateManager, PlayerController player)
     {
       player.IsRunning = false;
-       Debug.Log(player.rb.linearVelocity);
+//       Debug.Log(player.rb.linearVelocity);
 
     }
     

@@ -21,7 +21,7 @@ public class PlayerAttackState : PlayerBaseState
         }
         player.Animations.Animator.SetBool(player.Animations.Attacking, true);
        
-        player.InputReader.ConsumeCurrentInput();
+        player.InputReader.StartCoroutine(player.InputReader.holdCurrentInput());
     
 //        Debug.Log("Entered attack state");
 
@@ -37,11 +37,11 @@ public class PlayerAttackState : PlayerBaseState
        
         if (player.IsAttacking && !player.OnAttackCoolDown)
         {
+//            Debug.Log(player.InputReader.CurrentAttackInput.Input.Type);
             if (player.Animations.AnimationToPlay == -1)
             {
-                player.Animations.AnimationToPlay = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimHash;
-                animationName = player.CharacterData.characterAttacks
-                    .ReturnAttackData(player.InputReader.LastAttackInput, player.InputReader.curState).AnimationName;
+                player.Animations.AnimationToPlay = player.InputReader.CurAttackData.AnimHash;
+                animationName = player.InputReader.CurAttackData.AnimationName;
             }
 //            Debug.Log("attacking" + player.name);
             PerformAttack(player);
@@ -86,8 +86,9 @@ public class PlayerAttackState : PlayerBaseState
     private void PerformAttack(PlayerController player)
     {
         if (!player.IsAttacking || player.OnAttackCoolDown ) return;
+//        Debug.Log(player.InputReader.CurrentAttackInput.Input.Type);
 //        Debug.Log("normal attack" + player.name);  
-      Debug.Log(animationName);
+//      Debug.Log(animationName);
 //Debug.Log(player.Animations.GhostAnimator);
         if (player.Animations.GhostAnimations.ContainsKey(animationName) && player.Animations.GhostAnimator )
         {
@@ -124,7 +125,7 @@ public class PlayerAttackState : PlayerBaseState
     {
 //        Debug.Log("Exit attacking" + player.name);
         player.GravityManager.ResetVelocity();
-        Debug.Log(player.Animations.AnimationToPlay);
+//        Debug.Log(player.Animations.AnimationToPlay);
         player.Animations.ResetAttackingTrigger();
         player.Animations.AnimationToPlay = -1;
     }

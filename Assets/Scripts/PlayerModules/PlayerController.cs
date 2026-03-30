@@ -169,12 +169,12 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
 
     public void DisablePlayerUI()
     {
-        _controls.UI.Disable();
+        if(PlayerConnected)  _controls.UI.Disable();
     }
 
     public void EnablePlayerUI()
     {
-        _controls.UI.Enable();
+        if(PlayerConnected) _controls.UI.Enable();
     }
 
     public void OnEnablePlayer()
@@ -207,6 +207,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
     {
         HitDetection.OnDeath -= OnPlayerDeath;
         OnDisablePlayer();
+        DisablePlayerUI();
         PauseManager.Instance?.UnregisterPlayer(this);
 
     }

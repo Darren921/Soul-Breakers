@@ -65,11 +65,7 @@ public class GameManager : MonoBehaviour
         UpdateRoundTimer();
        // StartGameDebug();
         ToggleUIAction += ToggleUIGlobal;
-        // CHANGE THIS TO ACCEPT INPUT FROM CHARACTER SELECTION, THIS HURTS TO LEAVE
-        // foreach (var player in players)
-        // {
-        //     player.CharacterData = characterDatabase.defaultCharacterSo;
-        // }
+ 
         Time.timeScale = 1;
         HitDetection.OnDeath += OnRoundEnd;
         LowTimeAction += SwapTextColor; 
@@ -78,11 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void ToggleUIGlobal(bool toggle)
     {
-        foreach (var player in players)
-        {
-            player.playerUI.ToggleUIAction(toggle);
-        }
-        timerText.gameObject.SetActive(toggle);
+        players[0].playerUI.ToggleUIAction(toggle);
+        timerText?.gameObject.SetActive(toggle);
     }
 
     private void Start()
@@ -314,6 +307,8 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         HitDetection.OnDeath -= OnRoundEnd;
+        ToggleUIAction -= ToggleUIGlobal;
+
     }
 
     #region ChangePlayerDirection
@@ -329,7 +324,7 @@ public class GameManager : MonoBehaviour
  //           Debug.Log(MapBorderLocationX.Item1);
             if (player.transform.position.x <= MapBorderLocationX.Item1 || player.transform.position.x >= MapBorderLocationX.Item2)
             {
-                Debug.Log("Check Passed");
+//                Debug.Log("Check Passed");
                 player.AtBorder = !player.Reversed ? player.PlayerMove.x <= 0 : player.PlayerMove.x >= 0;
                 return;
             }
@@ -380,7 +375,7 @@ public class GameManager : MonoBehaviour
                 FreezePlayer();
                 yield return new WaitForSeconds(18);
                 
-                if (Intro == true)
+                if (Intro)
                 {
                     StartCoroutine(Starting());
                     Intro = false;

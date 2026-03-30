@@ -171,6 +171,15 @@ public class PlayerAnimations : MonoBehaviour
         _player.hitBox.gameObject.SetActive(false);
     }
 
+    public void setAnimtorSpeed(float speed)
+    {
+        Animator.speed = speed;
+    }
+
+    public void resetAnimtorSpeed()
+    {
+        Animator.speed = 1;
+    }
     #endregion
 
     public void SpawnProjectile(GameObject projectileObj)

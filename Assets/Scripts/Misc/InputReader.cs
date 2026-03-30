@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -112,15 +113,19 @@ public class InputReader : MonoBehaviour
     public AttackData  SpecialData; 
     public int CurrentAttackFrame { get; private set; }
     public Attack LastAttackInput { get; private set; }
+
+    private AttackData curAttackData;
+    public AttackData CurAttackData => curAttackData;
     private int LastAttackInputFrame { get; set; }
     internal BufferedInput<Attack> currentAttackCached;
 
     public AttackData.States curState { get; private set; } 
+  
     private readonly List<BufferedInput<MovementInputResult>> _movementBuffer = new();
     private readonly List<BufferedInput<Attack>> _attackBuffer = new();
     
-    [SerializeField] internal List<string> movementInputsVisual = new();
-    [SerializeField] internal List<string> attackInputsVisual = new();
+    // [SerializeField] internal List<string> movementInputsVisual = new();
+    // [SerializeField] internal List<string> attackInputsVisual = new();
 
     private int _bufferCap;
     private int _bufferTime;
@@ -216,6 +221,9 @@ public class InputReader : MonoBehaviour
         var curFrame = Time.frameCount;
         var newAttack = new BufferedInput<Attack> ();
 
+        
+        
+        
         for (var i = _attackBuffer.Count - 1; i >= 0; i--)
         {
             var input = _attackBuffer[i];
@@ -223,7 +231,7 @@ public class InputReader : MonoBehaviour
             if (_attackBuffer[^1].CurFrame - input.CurFrame > 5)
                 break;
             newAttack.Input.Type |= input.Input.Type;
-            newAttack = CheckForSuper(newAttack);
+            newAttack =  CheckForSuper(newAttack);
             if (  newAttack.Input.Type  != AttackType.None)   newAttack.Input.Type  = GetAttackPriority( newAttack.Input.Type );
             if (newAttack.Input.Move == MovementInputResult.None) newAttack.Input.Move = input.Input.Move;
             newAttack.IsBeingUsed = true;
@@ -238,6 +246,7 @@ public class InputReader : MonoBehaviour
                 SpecialData.Attack = newAttack.Input;
             }
         }
+        Debug.Log(newAttack.Input);
         return newAttack;
     }
 
@@ -245,16 +254,18 @@ public class InputReader : MonoBehaviour
     {
 //        Debug.Log(newAttack.Input.ToString());
         if (!newAttack.Input.Type.ToString().Contains("Super") && newAttack.Input.Type != AttackType.None) return newAttack;
-        Debug.Log("Checking");
-        Debug.Log(player.superMeter);
-        var superChargeNeeded = player.CharacterData.characterAttacks.ReturnAttackData(newAttack.Input, player.InputReader.curState).SuperChargeNeeded;
+         Debug.Log("Checking");
+         Debug.Log(player.superMeter);
+         curAttackData = player.CharacterData.characterAttacks.ReturnAttackData(newAttack.Input, player.InputReader.curState);
+        var superChargeNeeded = curAttackData.SuperChargeNeeded;
+        if (superChargeNeeded == 0) superChargeNeeded = curAttackData.SuperChargeNeeded;
         Debug.Log(superChargeNeeded);
 
        
         if (player.superMeter >= superChargeNeeded )
         {
             print("Super triggered");
-            player.superMeter -= 100;
+            player.superMeter -= superChargeNeeded;
             superPerformed = true;
             player.canCancel = false;
             GameManager.OnRefresh?.Invoke();
@@ -315,17 +326,17 @@ public class InputReader : MonoBehaviour
             LastAttackInputFrame = 0;
         }
 
-        movementInputsVisual.Clear();
-        foreach (var input in _movementBuffer)
-        {
-            movementInputsVisual.Add($"{input.Input} (F{input.CurFrame})");
-        }
-
-        attackInputsVisual.Clear();
-        foreach (var input in _attackBuffer)
-        {
-            attackInputsVisual.Add($"{input.Input.ToString()} (F{input.CurFrame})");
-        }
+        // movementInputsVisual.Clear();
+        // foreach (var input in _movementBuffer)
+        // {
+        //     movementInputsVisual.Add($"{input.Input} (F{input.CurFrame})");
+        // }
+        //
+        // attackInputsVisual.Clear();
+        // foreach (var input in _attackBuffer)
+        // {
+        //     attackInputsVisual.Add($"{input.Input.ToString()} (F{input.CurFrame})");
+        // }
     }
 
 
@@ -365,10 +376,13 @@ public class InputReader : MonoBehaviour
         return validInput.Input;
 
     }
-    public void ConsumeCurrentInput()
+    public IEnumerator holdCurrentInput()
     {
         CurrentAttackInput.IsBeingUsed = true;
+        curAttackData = player.CharacterData.characterAttacks.ReturnAttackData(player.InputReader.CurrentAttackInput.Input, player.InputReader.curState);
+        yield return new WaitUntil(() => !player.IsAttacking );
         CurrentAttackInput = new BufferedInput<Attack>();
+        
     }
 
 }
