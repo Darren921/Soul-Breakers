@@ -130,6 +130,7 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
+    - _scale: 500
     - _speed: 0.1
     m_Colors:
     - _BaseColor: {r: 0.90000165, g: 0.37805796, b: 0, a: 1}
