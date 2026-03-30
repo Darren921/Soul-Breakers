@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _alpha: 0.14
+    - _alpha: 0.1
     - _edge: -0.46
     - _edge_1: 0.94
     - _opacityValue: 1
