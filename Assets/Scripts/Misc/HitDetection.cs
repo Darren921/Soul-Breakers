@@ -16,7 +16,7 @@ public class HitDetection : MonoBehaviour, IDamageable
     internal bool _hit;
     internal  bool _damageDone;
     
-    public AttackData projectileData;
+    internal AttackData projectileData;
     internal bool Blocking;
     
     private Bounds _bounds;
@@ -64,7 +64,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         if (other.gameObject.CompareTag("Projectile"))
         {
             projectileData = other.GetComponent<PlayerProjectile>()._data;
-            
+            Debug.Log(projectileData.Knockback);
             TakeDamage(projectileData.Attack, true);
         }
     }
@@ -158,7 +158,7 @@ public class HitDetection : MonoBehaviour, IDamageable
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-
+        Debug.Log($"{projectileData.Knockback} knock away" );
         if (isProjectile)
         {
             otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player, true) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer,true));

@@ -8156,7 +8156,7 @@ Transform:
   m_GameObject: {fileID: 692828754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.297, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18555,21 +18555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPlayer: {fileID: 685541192}
-  projectileData:
-    Attack:
-      Move: 0
-      Type: 0
-    Tag: 0
-    State: 0
-    Damage: 0
-    Knockback: {x: 0, y: 0, z: 0}
-    HitStun: 0
-    BlockStun: 0
-    HitStop: 0
-    AnimationName: 
-    IsSpecial: 0
-    SuperAttackCharge: 0
-    SuperChargeNeeded: 0
 --- !u!65 &1561997795
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20389,21 +20374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPlayer: {fileID: 2239886189421363312}
-  projectileData:
-    Attack:
-      Move: 0
-      Type: 0
-    Tag: 0
-    State: 0
-    Damage: 0
-    Knockback: {x: 0, y: 0, z: 0}
-    HitStun: 0
-    BlockStun: 0
-    HitStop: 0
-    AnimationName: 
-    IsSpecial: 0
-    SuperAttackCharge: 0
-    SuperChargeNeeded: 0
 --- !u!1 &1711991532
 GameObject:
   m_ObjectHideFlags: 0
@@ -26072,7 +26042,7 @@ Transform:
   m_GameObject: {fileID: 2128308200}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.417}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

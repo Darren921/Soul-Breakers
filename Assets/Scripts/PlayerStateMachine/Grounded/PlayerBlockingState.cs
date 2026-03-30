@@ -22,6 +22,7 @@ public class PlayerBlockingState : PlayerBaseState
 
     internal override void UpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
+        if(!player.GravityManager.IsGrounded)return;
         if (player.HitDetection.Blocking == false)
         {
             playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Neutral);
@@ -32,7 +33,7 @@ public class PlayerBlockingState : PlayerBaseState
     {
         yield return new WaitForSeconds(0.2f);
         player.HitDetection.Blocking = false;
-        playerStateManager.SwitchToLastState();
+        //playerStateManager.SwitchToLastState();
     }
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)

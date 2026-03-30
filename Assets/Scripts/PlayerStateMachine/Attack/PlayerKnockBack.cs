@@ -7,25 +7,21 @@ public class PlayerKnockBack : MonoBehaviour
     internal bool _isBeingKnockedBack;
     private const float KnockBackTime = 0.1f;
     private Vector3 _hitDirectionForce;
-    private PlayerController _playerController;
+    internal PlayerController _playerController;
     private bool isOther;
 
-    private void Start()
-    {
-    }
+    private Vector3 hitDir;
+    private Vector3 hitForce;
 
-    public void PushPlayer(PlayerController player, Vector3 hitDirection)
-    {
-        _playerController = player;
-        var hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
-        
-        
-    }
+   
+    
     public IEnumerator KnockBackOtherPlayer(PlayerController player, bool b)
     {
         _playerController = player;
-        var hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
-         var hitForce = ReturnHitForce(player.HitDetection.otherPlayer,b);
+      
+        hitForce = !b ? ReturnHitForce(player.HitDetection.otherPlayer,b) : ReturnHitForce(player, b);
+        hitDir = ReturnHitDir(player.HitDetection.otherPlayer);
+
         _hitDirectionForce = new Vector3(hitDir.x * hitForce.x, hitForce.y, 0);
         //Use this to knock back the other player 
         _isBeingKnockedBack = true;
@@ -67,19 +63,15 @@ public class PlayerKnockBack : MonoBehaviour
 
     private Vector3 ReturnHitForce(PlayerController player, bool b)
     {
+        Debug.Log(player.HitDetection.projectileData.Knockback + player.name);
         //Depending on the attack type return a knockback force value  (note mod this to add directional values later)
-        var hitForceTemp = Vector3.zero;
         if (b)
         {
-            hitForceTemp =player.HitDetection.projectileData.Knockback;
+           return  player.HitDetection.projectileData.Knockback;
 
         }
-        else
-        {
-             hitForceTemp = player.InputReader.CurAttackData.Knockback;
 
-        }
-//        print(hitForceTemp);
-        return hitForceTemp;
+        return player.InputReader.CurAttackData.Knockback;
+
     }
 }

@@ -57,8 +57,9 @@ public class GravityManager : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             if (Velocity <= 0) ResetVelocity(); 
-//            Debug.Log(other.gameObject.name);
+      //      Debug.Log(other.gameObject.name);
             groundPoint = other.GetComponent<Collider>().bounds.max;
+//            Debug.Log(groundPoint.y + _player.name);
             if (_player.transform.position.y < groundPoint.y)
             {
                 _player.transform.position = new Vector3(_player.transform.position.x, groundPoint.y, _player.transform.position.z);

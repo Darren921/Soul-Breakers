@@ -110,6 +110,7 @@ MonoBehaviour:
     Knockback: {x: 2, y: 4, z: 0}
     HitStun: 1
     BlockStun: 0
+    HitStop: 0
     AnimationName: NeutralSpecial
     IsSpecial: 0
     SuperAttackCharge: 25
