@@ -46,7 +46,7 @@ Material:
     - _opacityValue: 1
     - _power: 0.47
     m_Colors:
-    - _Colour: {r: 0, g: 4.8671436, b: 4.4084597, a: 0}
+    - _Colour: {r: 0.9672098, g: 5.803262, b: 5.347508, a: 0}
     - _Vector4: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
