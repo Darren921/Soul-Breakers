@@ -86701,6 +86701,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.5
+    functionName: PlayFireEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5416667
     functionName: SetUpActiveFrame
     data: 
@@ -86710,6 +86717,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.75
     functionName: SetUpRecoveryFrame
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: StopFireEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

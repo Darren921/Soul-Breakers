@@ -182,12 +182,12 @@ public class PlayerAnimations : MonoBehaviour
         Animator.speed = 1;
     }
 
-    public void ActivateVFX(VisualEffect vfx)
+    public void ActivateVFX(GameObject vfx)
     {
         vfx.gameObject.SetActive(true);
     }
 
-    public void DeactivateVFX(VisualEffect vfx)
+    public void DeactivateVFX(GameObject vfx)
     {
         vfx.gameObject.SetActive(false);
     }
