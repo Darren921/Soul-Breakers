@@ -71,8 +71,8 @@ public class HitDetection : MonoBehaviour, IDamageable
 
     private void SwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
-//        Debug.Log(otherPlayer.InputReader.LastAttackInput.Type);
-        if (otherPlayer.InputReader.LastAttackInput.Type != InputReader.AttackType.Grab)
+        Debug.Log(otherPlayer.InputReader.CurrentAttackInput.Input.Type);
+        if (otherPlayer.InputReader.CurrentAttackInput.Input.Type != InputReader.AttackType.Grab)
         {
             _player._playerStateManager.SwitchState(newState);
         }

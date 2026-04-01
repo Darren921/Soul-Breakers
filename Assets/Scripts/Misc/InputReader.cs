@@ -112,7 +112,6 @@ public class InputReader : MonoBehaviour
     public BufferedInput<Attack> CurrentAttackInput;
     public AttackData  SpecialData; 
     public int CurrentAttackFrame { get; private set; }
-    public Attack LastAttackInput { get; private set; }
 
     private AttackData curAttackData;
     public AttackData CurAttackData => curAttackData;
@@ -169,7 +168,7 @@ public class InputReader : MonoBehaviour
         // {
         //   Debug.Log($"Cancel check {player.canCancel} and input priority = {player.InputReader.LastAttackInput.Priority} vs last hit {player.InputReader.currentAttackCached.Input.Priority} and cur input != none {player.InputReader.currentAttackCached.Input.Priority != -1}  ");
         // }
-        if (player.canCancel && player.InputReader.LastAttackInput.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
+        if (player.canCancel && player.InputReader.curAttackData.Attack.Priority > player.InputReader.currentAttackCached.Input.Priority  &&  player.InputReader.currentAttackCached.Input.Priority != -1 &&  player.InputReader.CurrentAttackInput.Input.Priority != -1)
         {
             return true;
         }
@@ -239,7 +238,6 @@ public class InputReader : MonoBehaviour
         }
         if (newAttack.Input.Type != AttackType.None)
         {
-            LastAttackInput = newAttack.Input;
             LastAttackInputFrame = curFrame;
             if (newAttack.Input.Type is AttackType.Special )
             {
@@ -320,12 +318,7 @@ public class InputReader : MonoBehaviour
             CurrentAttackInput = GetBufferedAttack();
             CurrentAttackFrame = curFrame;
         }        
-        if (curFrame - LastAttackInputFrame > _bufferTime && !player.IsAttacking && player.Animations.Animator.GetBool(player.Animations.CancelDectect )== false)
-        {
-            LastAttackInput = new Attack();
-            LastAttackInputFrame = 0;
-        }
-
+     
         // movementInputsVisual.Clear();
         // foreach (var input in _movementBuffer)
         // {

@@ -8232,6 +8232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpEffect: {fileID: 595611850}
+  FireEffect: {fileID: 0}
 --- !u!1 &702768160
 GameObject:
   m_ObjectHideFlags: 0
@@ -23387,6 +23388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpEffect: {fileID: 786855197}
+  FireEffect: {fileID: 0}
 --- !u!1 &1943514861
 GameObject:
   m_ObjectHideFlags: 0
@@ -28258,6 +28260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpEffect: {fileID: 786855197}
+  FireEffect: {fileID: 0}
 --- !u!4 &795849212237005772
 Transform:
   m_ObjectHideFlags: 0

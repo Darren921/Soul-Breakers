@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         GravScale = CharacterData.normGravScale;
         WalkSpeed = CharacterData.walkSpeed;
         RunSpeed = CharacterData.runSpeed;
+        if(Health < 100) return; 
         Health = CharacterData.health;
     }
 
