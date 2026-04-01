@@ -42,18 +42,11 @@ public class HitDetection : MonoBehaviour, IDamageable
     {
         if (other.gameObject.CompareTag("HitBox") && otherPlayer.Animations.IsActiveFrame && other.gameObject.activeInHierarchy && !_hit  )
         {
-//            print("Hit");
-            _hit = true;
-            Blocking = CheckBlocking();
-            
-            otherPlayer.hitBox.gameObject.SetActive(false);
-//            print(Blocking);
-            SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
-            if (!_damageDone)
-            {
-              //  print("Damage taken");
-                TakeDamage(otherPlayer.InputReader.CurrentAttackInput.Input, false);
-            }
+          HandleHitDectection(false,other);
+        }
+        if (other.gameObject.CompareTag("Projectile"))
+        {
+            HandleHitDectection(true, other);
         }
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -61,11 +54,23 @@ public class HitDetection : MonoBehaviour, IDamageable
             _bounds = other.bounds;
         }
 
-        if (other.gameObject.CompareTag("Projectile"))
+      
+    }
+
+    private void HandleHitDectection(bool Projectile, Collider other )
+    {
+        _hit = true;
+        Blocking = CheckBlocking(); 
+        
+        if(Projectile)   projectileData = other.GetComponent<PlayerProjectile>()._data;
+
+        otherPlayer.hitBox.gameObject.SetActive(false);
+//            print(Blocking);
+        SwitchState(Blocking ? PlayerStateManager.PlayerStateTypes.Blocking : PlayerStateManager.PlayerStateTypes.HitStun);
+        if (!_damageDone)
         {
-            projectileData = other.GetComponent<PlayerProjectile>()._data;
-            Debug.Log(projectileData.Knockback);
-            TakeDamage(projectileData.Attack, true);
+            //  print("Damage taken");
+            TakeDamage(!Projectile ?  otherPlayer.InputReader.CurrentAttackInput.Input : projectileData.Attack , Projectile);
         }
     }
 
@@ -94,8 +99,8 @@ public class HitDetection : MonoBehaviour, IDamageable
     private bool CheckBlocking()
     {
         
-        if (_player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Walking] ||  _player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Crouching] || _player._playerStateManager.currentState ==  _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Jumping] 
-            && _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft)
+        if (_player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Walking] && _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft 
+            ||  _player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Crouching]  && _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft  || _player._playerStateManager.currentState ==  _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Jumping])
         {
             switch (_player.InputReader.curState)
             {
