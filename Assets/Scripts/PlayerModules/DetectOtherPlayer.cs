@@ -67,17 +67,14 @@ public class DetectOtherPlayer : MonoBehaviour
 
         if (player.PlayersColliding && player.PlayerMove.y == 0 && !intersecting)
         {
-//             Debug.Log("Pushing player via raycast");
-            player.rb.MovePosition(player.transform.position +
-                                   (!player.Reversed ? Vector3.right : Vector3.left * PushForce) * Time.fixedDeltaTime);
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position +
-                                        (!player.Reversed ? Vector3.right : Vector3.left * PushForce) *
-                                        Time.fixedDeltaTime);
+           Debug.Log("Pushing player via raycast");
+            player.rb.MovePosition(player.transform.position + (!player.Reversed ? Vector3.right * PushForce : Vector3.left * PushForce) * Time.fixedDeltaTime);
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position + (!player.Reversed ? Vector3.right * PushForce : Vector3.left * PushForce) * Time.fixedDeltaTime);
         }
 
         else if (intersecting && !player.GravityManager.IsGrounded && !otherPlayer.GravityManager.IsGrounded)
         {
-       //     Debug.Log("both player airborne && intersecting");
+           Debug.Log("both player airborne && intersecting");
             player.rb.MovePosition(player.transform.position + Vector3.zero * Time.fixedDeltaTime);
             ;
             otherPlayer.rb.MovePosition(otherPlayer.transform.position + Vector3.zero * Time.fixedDeltaTime);
@@ -86,7 +83,7 @@ public class DetectOtherPlayer : MonoBehaviour
         else if (intersecting && !otherPlayer.GravityManager.IsGrounded && player.GravityManager.IsGrounded ||
                  intersecting && otherPlayer.GravityManager.IsGrounded && !player.GravityManager.IsGrounded)
         {
-     //       Debug.Log("one player moving && intersecting");
+           Debug.Log("one player moving && intersecting");
             intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.2f, 0, 0);
             player.rb.MovePosition(player.transform.position +
                                    (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
@@ -95,12 +92,10 @@ public class DetectOtherPlayer : MonoBehaviour
         }
         else if (intersecting && !targetPlayerMoving && !curPlayerMoving)
         {
-    //        Debug.Log("no player moving && intersecting");
+            Debug.Log("no player moving && intersecting");
             intersectionBounds.size = new Vector3(intersectionBounds.size.x + 0.1f, 0, 0);
-            player.rb.MovePosition(player.transform.position +
-                                   (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
-            otherPlayer.rb.MovePosition(otherPlayer.transform.position +
-                                        (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size));
+            player.rb.MovePosition(player.transform.position + (!player.Reversed ? -intersectionBounds.size : intersectionBounds.size));
+            otherPlayer.rb.MovePosition(otherPlayer.transform.position + (!otherPlayer.Reversed ? -intersectionBounds.size : intersectionBounds.size));
         }
     }
 
@@ -110,20 +105,23 @@ public class DetectOtherPlayer : MonoBehaviour
         curPlayerMoving = player.PlayerMove.magnitude > 0 && !player.IsCrouching;
         targetPlayerMoving = OtherPlayer.PlayerMove.magnitude > 0 && !player.IsCrouching;
 
+        if (player.AtBorder || OtherPlayer.AtBorder)
+        {
+            PushForce = 0;
+            return;
+        }
         PushForce = curPlayerMoving switch
         {
             true when targetPlayerMoving => 0.5f,
             _ => PushForce
         };
-        if (!curPlayerMoving && targetPlayerMoving || curPlayerMoving && !targetPlayerMoving)
+      
+        if (!curPlayerMoving && targetPlayerMoving || curPlayerMoving && !targetPlayerMoving )
         {
             PushForce = 0.75f;
         }
 
-        if (player.AtBorder || OtherPlayer.AtBorder)
-        {
-            PushForce = 0;
-        }
+     
 
         if (BoxCollider.bounds.Intersects(otherPlayersCollider.bounds))
         {

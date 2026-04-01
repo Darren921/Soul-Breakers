@@ -321,11 +321,11 @@ public class GameManager : MonoBehaviour
 //        Debug.Log(distance);
         foreach (var player in players)
         {
-//            Debug.Log(player.transform.position.x);
- //           Debug.Log(MapBorderLocationX.Item1);
+//           Debug.Log(player.transform.position.x);
+   //       Debug.Log(MapBorderLocationX.Item2);
             if (player.transform.position.x <= MapBorderLocationX.Item1 || player.transform.position.x >= MapBorderLocationX.Item2)
             {
-//                Debug.Log("Check Passed");
+               Debug.Log("Check Passed");
                 player.AtBorder = !player.Reversed ? player.PlayerMove.x <= 0 : player.PlayerMove.x >= 0;
                 return;
             }

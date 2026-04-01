@@ -55,7 +55,7 @@ public class PlayerDashState : PlayerMovingState
         Debug.Log("PlayerDashState Dash");
         DashActive = true;
     //    player.rb.linearVelocity = new Vector3(NewDashVelo.x, _jumpVelocity, 0);
-        Debug.Log(player.rb.linearVelocity);
+    //    Debug.Log(player.rb.linearVelocity);
         yield return new WaitForSeconds(DashTime);
         if (player.rb.linearVelocity.y > 1)
         {
@@ -68,12 +68,18 @@ public class PlayerDashState : PlayerMovingState
 
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
-        if (DashActive && !player._detector.intersecting)
+        if (DashActive)
         {
-            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x, _jumpVelocity, 0 ) * Time.fixedDeltaTime);
+            Debug.Log("PlayerDashState Activated");
+            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x, _jumpVelocity / 2, 0 ) * Time.deltaTime);
+            Debug.Log(player.rb.linearVelocity);
         }
 
-        player.GravityManager.ApplyGravityToPlayer(player);
+        if (!player.GravityManager.IsGrounded && !DashActive)
+        {
+            player.GravityManager.ApplyGravityToPlayer(player);
+        }
+        
     }
 
     protected override void ApplyVelocity(PlayerController player)
@@ -86,7 +92,7 @@ public class PlayerDashState : PlayerMovingState
         //grab the last inputs given 
         if (DashActive  || !player.GravityManager.IsGrounded) return;
 
-    Debug.Log("HEH"); 
+        Debug.Log("HEH"); 
         playerStateManager.CheckForTransition(PlayerStateManager.PlayerStateTypes.Neutral | PlayerStateManager.PlayerStateTypes.Attack | PlayerStateManager.PlayerStateTypes.Walking);
 
     }

@@ -88,12 +88,12 @@ public class PlayerAirDashState : PlayerDashState
 
         if (DashActive)
         {
-            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x ,0,0) * Time.fixedDeltaTime);
+            player.rb.MovePosition(player.transform.position + new Vector3( player.AtBorder ? 0 : NewDashVelo.x ,0,0) * Time.fixedDeltaTime);
 //            Debug.Log( player.rb.linearVelocity);
 
         }
    //    Debug.Log($"{!player.GravityManager.IsGrounded} {!DashActive} {!player._detector.intersecting}");
-        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting && !player.AtBorder)
+        if (!player.GravityManager.IsGrounded && !DashActive && !player._detector.intersecting )
         {
           player.GravityManager.ApplyGravityToPlayer(player);
         }
