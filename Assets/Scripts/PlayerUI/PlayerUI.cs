@@ -73,13 +73,13 @@ public class PlayerUI : MonoBehaviour
                 Layer2Super.fillAmount = (_playerController.superMeter - 100) / 100f ;
                 SetSuperSprites(1);
                 break;
-            case <= 300:
+            case < 300:
                 Layer2Super.fillAmount = 1; 
                 SetActiveBar(true, true);
                 Layer3Super.fillAmount = (_playerController.superMeter - 200) / 100f;
                 SetSuperSprites(2);
                 break;
-            case >= 300:
+            case  300:
                 Layer3Super.fillAmount = 1;
                 SetSuperSprites(3);
                 break;

@@ -142,15 +142,9 @@ public class HitDetection : MonoBehaviour, IDamageable
                 
                 otherPlayer.InputReader.currentAttackCached = new InputReader.BufferedInput<InputReader.Attack>(cachedAttack,Time.frameCount, false);
                 otherPlayer.canCancel = true;
-                
-                otherPlayer.superMeter =   Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
-            
             }
-            else
-            {
-                otherPlayer.superMeter =    Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
 
-            }
+            otherPlayer.superMeter =   Mathf.Clamp(otherPlayer.superMeter += otherPlayerSuperMeterCharge, 0f , 300f );
         }
         else
         {
