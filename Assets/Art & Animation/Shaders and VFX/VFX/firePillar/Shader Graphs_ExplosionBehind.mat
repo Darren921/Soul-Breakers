@@ -51,16 +51,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 0.97
+    - _Dissolve: 0.625
     - _QueueControl: 0
     - _QueueOffset: 0
     - _noisePower: 2.34
     - _scale: 17.52
-    - _twirlAmmount: 8
+    - _twirlAmmount: 14.54
     m_Colors:
     - _Center: {r: 0, g: -0.5, b: 0, a: 0}
-    - _Colour: {r: 383.49805, g: 86.15242, b: 38.149025, a: 0}
-    - _TwirlSpeed: {r: 1, g: 0, b: 0, a: 0}
+    - _Colour: {r: 0, g: 0, b: 0, a: 0}
+    - _TwirlSpeed: {r: 5, g: 0, b: 0, a: 0}
     - _speed: {r: 1.76, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
