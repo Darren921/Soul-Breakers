@@ -59,7 +59,7 @@ Material:
     - _twirlAmmount: 14
     m_Colors:
     - _Center: {r: 0, g: -0.5, b: 0, a: 0}
-    - _Colour: {r: 0, g: 154.72363, b: 1024, a: 0}
+    - _Colour: {r: 0, g: 201.69804, b: 1328.4281, a: 0}
     - _TwirlSpeed: {r: 5, g: 0, b: 0, a: 0}
     - _speed: {r: 1.76, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
