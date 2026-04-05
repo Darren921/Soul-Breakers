@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -12,74 +13,72 @@ public class CharacterAttackDrawer : PropertyDrawer
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
 
-    /*public InputReader.Attack Attack;
-    public Tags Tag;
-    public States State;
-    public float Damage;
-    public Vector3 Knockback;
-    public float HitStun;
-    public float BlockStun;
-    public string AnimationName; 
-    private int _animHash;
-    public bool isSpecial;
-
-    public float SuperAttackCharge;
-    public float SuperChargeNeeded;*/
 
         var root = new VisualElement();
-        root.Add(new PropertyField(property.FindPropertyRelative("Attack"), "Attack"));
-        root.Add(new PropertyField(property.FindPropertyRelative("Damage"), "Damage"));
-        root.Add(new PropertyField(property.FindPropertyRelative("Tag"), "State Tag"));
-        root.Add(new PropertyField(property.FindPropertyRelative("State"), "State"));
-        root.Add(new PropertyField(property.FindPropertyRelative("Knockback"), "Knockback"));
-        root.Add(new PropertyField(property.FindPropertyRelative("HitStun"), "HitStun"));
-        root.Add(new PropertyField(property.FindPropertyRelative("BlockStun"), "BlockStun"));
-        root.Add(new PropertyField(property.FindPropertyRelative("HitStop"), "HitStop"));
-        root.Add(new PropertyField(property.FindPropertyRelative("AnimationName"), "AnimationName"));
-        root.Add(new PropertyField(property.FindPropertyRelative("_animHash"), "_animHash"));
-   //     popup.Add(new PropertyField(property.FindPropertyRelative("isSpecial"), "isSpecial"));
-//   Debug.Log(property.FindPropertyRelative("IsSpecial"));
-        if (property.FindPropertyRelative("IsSpecial").boolValue)
-        {
-            root.Add(new PropertyField(property.FindPropertyRelative("SuperChargeNeeded"), "SuperChargeNeeded"));
-        }
-        else
-        {
-            root.Add(new PropertyField(property.FindPropertyRelative("SuperAttackCharge"), "SuperAttackCharge"));
-        }
+        
+        var StandardAttackVaris = new VisualElement();
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("Attack"), "Attack"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("Damage"), "Damage"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("Tag"), "State Tag"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("State"), "State"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("Knockback"), "Knockback"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("HitStun"), "HitStun"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("BlockStun"), "BlockStun"));
+        StandardAttackVaris.Add(new PropertyField(property.FindPropertyRelative("HitStop"), "HitStop"));
+      
+        root.Add(StandardAttackVaris);
+        
+        
+        var animationVari = new VisualElement();
+        animationVari.Add(new PropertyField(property.FindPropertyRelative("AnimationName"), "AnimationName"));
+        animationVari.Add(new PropertyField(property.FindPropertyRelative("_animHash"), "_animHash"));
+        root.Add(animationVari);
 
-        /*
-        var iterator = property.serializedObject.GetIterator();
-        if (iterator.NextVisible(true))
+      
+        
+        var moveProp = property.FindPropertyRelative("HasMovement");
+        
+        root.Add(new PropertyField(moveProp, "has movement"));
+        var movementSettings = new PopupWindow();
+        movementSettings.Add(new PropertyField(property.FindPropertyRelative("IsBackwards"), "Reversed?"));
+        movementSettings.Add(new PropertyField(property.FindPropertyRelative("MovementForce"), "move force "));
+        movementSettings.Add(new PropertyField(property.FindPropertyRelative("MovementTime"), "move Time"));
+        root.Add(movementSettings);
+        
+        var specialProp = property.FindPropertyRelative("IsSpecial");
+        root.Add(new PropertyField(specialProp, "isSpecial"));
+        
+        var specialSettings = new VisualElement(); 
+        var SpecialChargeNeeded =new PropertyField(property.FindPropertyRelative("SuperChargeNeeded"),"SuperChargeNeeded") ;
+        var SpecialChargeGen = new PropertyField(property.FindPropertyRelative("SuperAttackCharge"), "superAttackCharge"); 
+        specialSettings.Add(SpecialChargeNeeded);
+        specialSettings.Add(SpecialChargeGen);
+        root.Add(specialSettings);
+        
+        
+       
+        
+       
+        
+    
+        root.TrackPropertyValue(moveProp, (moveProperty) => movementSettings.style.display = moveProperty.boolValue ? DisplayStyle.Flex : DisplayStyle.None);
+        root.TrackPropertyValue(specialProp, serializedProperty =>
         {
-            while (iterator.NextVisible(true))
-            {
-                Debug.Log(iterator.propertyPath);
-               
-                    if (iterator.propertyPath == "isSpecial")
-                    {
-                        if (iterator.boolValue)
-                        {
-                            copyField = iterator.propertyPath != "SuperAttackCharge";
-                        }
-                        else
-                        {
-                            copyField = iterator.propertyPath != "SuperChargeNeeded";
-
-                        }
-                    }
-                    
-                if (copyField)
-                {
-                    var field = new PropertyField(iterator.Copy());
-                    root.Add(field);
-                }
-            }
-        }
-        */
-
+            SpecialChargeGen.style.display =  serializedProperty.boolValue ? DisplayStyle.None : DisplayStyle.Flex;
+            SpecialChargeNeeded.style.display =   serializedProperty.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
+            
+        });
+        UpdateSpecialSettings(SpecialChargeGen, specialProp, SpecialChargeNeeded);
+        movementSettings.style.display = moveProp.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
         return root;
 
     }
+
+    private  void UpdateSpecialSettings(PropertyField SpecialChargeGen, SerializedProperty specialProp, PropertyField SpecialChargeNeeded)
+    {
+        SpecialChargeGen.style.display =  specialProp.boolValue ? DisplayStyle.None : DisplayStyle.Flex;
+        SpecialChargeNeeded.style.display =   specialProp.boolValue ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
    
 }
