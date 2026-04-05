@@ -14334,7 +14334,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: {x: -1.387, y: 0.631, z: 0.018}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -21434,7 +21434,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: {x: 0.6154636, y: 0.77146256, z: 1.9819826}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -21461,7 +21461,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -21470,7 +21470,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.7083333
+        time: 0.875
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -114482,7 +114482,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -114491,7 +114491,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.7083333
+        time: 0.875
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -114521,7 +114521,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: -1.387
         inSlope: 0
         outSlope: 0
@@ -114551,7 +114551,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 0.631
         inSlope: 0
         outSlope: 0
@@ -114581,7 +114581,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 0.018
         inSlope: 0
         outSlope: 0
@@ -114611,7 +114611,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 0.6154636
         inSlope: 0
         outSlope: 0
@@ -114641,7 +114641,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 0.77146256
         inSlope: 0
         outSlope: 0
@@ -114671,7 +114671,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5
+        time: 0.5833333
         value: 1.9819826
         inSlope: 0
         outSlope: 0
@@ -140681,14 +140681,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.5833333
     functionName: SetUpActiveFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7083333
+  - time: 0.875
     functionName: SetUpRecoveryFrame
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -140696,14 +140696,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.625
-    functionName: ResetRecoveryFrame
+    functionName: ResetAttackingTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.625
-    functionName: ResetAttackingTrigger
+    functionName: ResetRecoveryFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

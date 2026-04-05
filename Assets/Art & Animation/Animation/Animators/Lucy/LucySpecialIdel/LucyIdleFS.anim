@@ -140767,14 +140767,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.5416667
+  - time: 2.0416667
     functionName: ResetRecoveryFrame
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.5416667
+  - time: 2.0416667
     functionName: ResetAttackingTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
