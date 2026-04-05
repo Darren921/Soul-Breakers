@@ -275,9 +275,9 @@ MonoBehaviour:
       Type: 10
     Tag: 1
     State: 0
-    Damage: 30
+    Damage: 35
     Knockback: {x: 8, y: 8, z: 0}
-    HitStun: 1.2
+    HitStun: 3.5
     BlockStun: 0
     HitStop: 0.06
     AnimationName: MediumSuper
@@ -289,7 +289,7 @@ MonoBehaviour:
       Type: 12
     Tag: 1
     State: 0
-    Damage: 32
+    Damage: 29
     Knockback: {x: 8, y: 8, z: 0}
     HitStun: 1
     BlockStun: 0
