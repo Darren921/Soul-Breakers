@@ -14,7 +14,7 @@ public class UIController : MonoBehaviour
     InputSystemUIInputModule inputModule; 
     EventSystem eventSystem;
     public static UIController instance;
-
+    
     private Vector2 lastInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,7 +27,7 @@ public class UIController : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         else if (instance != this)
-        {
+        {   
             Destroy(gameObject);
             SceneManager.activeSceneChanged -= SceneManagerOnactiveSceneChanged;
 
