@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     private bool SinglePlayer; 
     private void Awake()
     {
-        Application.runInBackground = true;
+     //   Application.runInBackground = true;
         MapBorderLocationX = (MapBorderLocationX1, MapBorderLocationX2);
         Cursor.visible = true;
         AnimationCamera = CameraAnims.GetComponent<CinemachineCamera>();

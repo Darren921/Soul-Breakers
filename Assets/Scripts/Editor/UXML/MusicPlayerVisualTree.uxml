@@ -11,4 +11,5 @@
             </ui:Columns>
         </ui:MultiColumnListView>
     </ui:VisualElement>
+    <uie:PropertyField binding-path="CurrentVolume" enabled="false" focusable="false" name="CurVolume" />
 </ui:UXML>

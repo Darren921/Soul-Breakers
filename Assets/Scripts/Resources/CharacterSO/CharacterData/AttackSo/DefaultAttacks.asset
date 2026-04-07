@@ -74,7 +74,7 @@ MonoBehaviour:
     Tag: 1
     State: 0
     Damage: 13
-    Knockback: {x: 50, y: 0, z: 0}
+    Knockback: {x: 5, y: 0, z: 0}
     HitStun: 1.1
     BlockStun: 0
     HitStop: 0.04

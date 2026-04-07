@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
@@ -19,6 +20,12 @@ public class SoundManager : MonoBehaviour
     private EventReference lastEventRef;
     private List<EventInstance> _eventInstances = new List<EventInstance>();
     private EventInstance currentPlaying;
+    public Action SoundVolumeUpdateAction; 
+    
+    private Bus MasterBus;
+    private Bus InterfaceBus;
+    private Bus SFXBus;
+    private Bus MusicBus;
 
     private void Start()
     {
@@ -34,6 +41,22 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        MasterBus = RuntimeManager.GetBus("bus:/");
+        SFXBus = RuntimeManager.GetBus("bus:/SFX");
+        MusicBus = RuntimeManager.GetBus("bus:/Music");
+        InterfaceBus = RuntimeManager.GetBus("bus:/Interface");
+
+        SoundVolumeUpdateAction += UpdateSoundVolumse;
+        SoundVolumeUpdateAction?.Invoke();
+    }
+    
+
+    public void UpdateSoundVolumse()
+    {
+        RuntimeManager.GetBus("bus:/").setVolume(soundData.CurrentVolume.curMasterVolume);
+    RuntimeManager.GetBus("bus:/Music").setVolume(soundData.CurrentVolume.curMusicVolume);
+    RuntimeManager.GetBus("bus:/Interface").setVolume(soundData.CurrentVolume.curInterfaceVolume);
+    RuntimeManager.GetBus("bus:/SFX").setVolume(soundData.CurrentVolume.curSFXVolume);
 
     }
 
@@ -44,15 +67,25 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneChanged(Scene lastScene , Scene nextScene)
     {
+       
+        UpdateSoundVolumse();
+        var hasSceneSpecific = soundData.Sounds.Where(sound => sound.IsSceneSpecific).ToList();
+       
         //search each song and check if song is scene specific 
-        foreach (var sound in soundData.Sounds)
+        foreach (var sound in hasSceneSpecific)
         {
-            if (!sound.IsSceneSpecific) continue;
-
+            Debug.Log(sound.SceneBound);
+            Debug.Log(soundData.SceneList.IndexOf(nextScene.name));
             if ((sound.SceneBound & 1 << soundData.SceneList.IndexOf(nextScene.name)) == 0) continue;
+            Debug.Log("Played");
             PlayMusic(sound.SoundEvtRef);
             return;
         }
+        Debug.Log("Stopped");
+        StopMusic();
+        lastEventRef = new EventReference();
+
+
     } 
     // How to use Play Music 
     // PlayMusic(soundData.ReturnEventReference(SoundType , Sound Name)
@@ -70,6 +103,11 @@ public class SoundManager : MonoBehaviour
         currentPlaying.start();
         currentPlaying.release();
         lastEventRef = musicEventReference;
+    }
+
+    public void StopMusic()
+    {
+        currentPlaying.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
   
