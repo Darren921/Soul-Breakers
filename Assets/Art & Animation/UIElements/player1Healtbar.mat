@@ -53,13 +53,13 @@ Material:
     - _StencilWriteMask: 255
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
-    - _cell_density: 3
-    - _offsetSpeed: 1
+    - _cell_density: 14.5
+    - _offsetSpeed: 2
     - _rotation: 1.58
     - _sped: 0.1
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _tiling: {r: 1, g: 0.9, b: 0, a: 0}
+    - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 0}
+    - _tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

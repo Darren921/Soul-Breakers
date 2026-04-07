@@ -74,7 +74,7 @@ MonoBehaviour:
     Tag: 1
     State: 0
     Damage: 13
-    Knockback: {x: 5, y: 0, z: 0}
+    Knockback: {x: 50, y: 0, z: 0}
     HitStun: 1.1
     BlockStun: 0
     HitStop: 0.04
@@ -84,8 +84,8 @@ MonoBehaviour:
     SuperChargeNeeded: 0
     HasMovement: 1
     IsBackwards: 0
-    MovementForce: {x: 2, y: 0, z: 0}
-    MovementTime: 0.1
+    MovementForce: {x: 5, y: 0, z: 0}
+    MovementTime: 0.5
   - Attack:
       Move: 0
       Type: 2

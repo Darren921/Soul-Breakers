@@ -58,7 +58,7 @@ Material:
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
     - _angle_offset: -21.26
-    - _cell_density: 17
+    - _cell_density: 18.9
     - _rotation: 0
     - _sine_Multiplyer: 0.1
     - _speed: 1.15
