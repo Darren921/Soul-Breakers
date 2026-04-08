@@ -1482,9 +1482,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 106559969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9b7002bac90fb4593fb9aecfdb4815, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e50bf036a220d428290fc7f332951e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_SoundType>k__BackingField: 3
 --- !u!114 &106559972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2677,9 +2678,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 221826579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9b7002bac90fb4593fb9aecfdb4815, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e50bf036a220d428290fc7f332951e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_SoundType>k__BackingField: 0
 --- !u!114 &221826582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11474,7 +11476,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 221826581}
         m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
-        m_MethodName: onSliderValueChanged
+        m_MethodName: OnSliderValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17159,7 +17161,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1577771541}
         m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
-        m_MethodName: onSliderValueChanged
+        m_MethodName: OnSliderValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19024,7 +19026,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1543251478}
         m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
-        m_MethodName: onSliderValueChanged
+        m_MethodName: OnSliderValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19126,7 +19128,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 106559971}
         m_TargetAssemblyTypeName: VolumeSlider, Assembly-CSharp
-        m_MethodName: onSliderValueChanged
+        m_MethodName: OnSliderValueChanged
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21256,9 +21258,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543251476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9b7002bac90fb4593fb9aecfdb4815, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e50bf036a220d428290fc7f332951e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_SoundType>k__BackingField: 1
 --- !u!114 &1543251479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21948,9 +21951,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1577771539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9b7002bac90fb4593fb9aecfdb4815, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e50bf036a220d428290fc7f332951e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_SoundType>k__BackingField: 2
 --- !u!114 &1577771542
 MonoBehaviour:
   m_ObjectHideFlags: 0

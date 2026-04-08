@@ -75,7 +75,8 @@ public class PlayerKnockBack : MonoBehaviour
  //       Debug.Log("KnockBackCurrentPlayer");
         isOther = false;
         _isBeingKnockedBack = true;
-        var dir = !reversed ? Vector3.right : Vector3.left;
+        var dir = !_player.Reversed ? Vector3.right : Vector3.left;
+        Debug.Log(dir);
         _hitDirectionForce = new Vector3(dir.x * Force.x, dir.y * Force.y, 0);
         yield return new WaitForSeconds(time);
         _isBeingKnockedBack = false;

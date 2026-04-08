@@ -12,6 +12,7 @@ public class VolumeSlider : MonoBehaviour,IVolumeSlider
     {
         _VolumeSlider = GetComponentInChildren<Slider>();
         SoundManager.instance.SoundVolumeUpdateAction += UpdateSliders;
+        UpdateSliders();
     }
 
     private void OnDestroy()
@@ -65,9 +66,7 @@ public class VolumeSlider : MonoBehaviour,IVolumeSlider
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        UpdateSliders();
-        
+        SoundManager.instance.SoundVolumeUpdateAction?.Invoke();
     }
-
     
 }
