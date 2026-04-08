@@ -114,13 +114,13 @@ MonoBehaviour:
     SceneBound: 0
   - SoundEvtRef:
       Guid:
-        Data1: -1802002225
-        Data2: 1136230697
-        Data3: 879343504
-        Data4: -2117683913
-      Path: event:/Music/Main Theme
+        Data1: -948507663
+        Data2: 1164809346
+        Data3: -1947693662
+        Data4: 1575779850
+      Path: event:/Music/Combat Theme
     soundType: 1
-    SoundName: maintheme
+    SoundName: combattheme
     IsSceneSpecific: 1
     SceneBound: 4
   SceneList:
