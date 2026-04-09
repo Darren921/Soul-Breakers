@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf439b2ac4ad1744185dc9fc1e52cbd5, type: 3}
-  m_Name: DefaultAttacks
+  m_Name: FireAttacks
   m_EditorClassIdentifier: 
   DefaultLightAttacks:
   - Attack:
@@ -84,8 +84,8 @@ MonoBehaviour:
     SuperChargeNeeded: 0
     HasMovement: 1
     IsBackwards: 0
-    MovementForce: {x: 5, y: 0, z: 0}
-    MovementTime: 0.5
+    MovementForce: {x: 10, y: 0, z: 0}
+    MovementTime: 0.1
   - Attack:
       Move: 0
       Type: 2
