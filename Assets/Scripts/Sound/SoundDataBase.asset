@@ -139,7 +139,7 @@ MonoBehaviour:
   - MainMenu
   - CombatScene
   CurrentVolume:
-    curMasterVolume: 0.11526386
+    curMasterVolume: 1
     curMusicVolume: 1
     curSFXVolume: 1
     curInterfaceVolume: 1
