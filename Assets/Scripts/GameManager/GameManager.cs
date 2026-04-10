@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
    public static  Action OnRefresh ;
    public static  Action<bool> ToggleUIAction ;
    private bool StandardConnectDone;
-   private bool Intro; 
+   private bool Intro;
+   private bool EndGame; 
    public Dictionary<PlayerController , InputDevice> PlayersInputDevice { get; private set; } = new();
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     private bool SinglePlayer; 
     private void Awake()
     {
+        EndGame = false;
      //   Application.runInBackground = true;
         MapBorderLocationX = (MapBorderLocationX1, MapBorderLocationX2);
         Cursor.visible = true;
@@ -127,13 +129,15 @@ public class GameManager : MonoBehaviour
     #region RoundEnd
     private void OnRoundEnd()
     {
+        
+        
         foreach (var player in players)
         {
-            if(player.Animations.Animator is not null)  player.Animations.Animator.enabled = false;
+           // if(player.Animations.Animator is not null)  player.Animations.Animator.enabled = false;
             player.hitBox.SetActive(false);
             if (player.isDead)
             {
-                player.gameObject.SetActive(false);
+                //player.gameObject.SetActive(false);
             }
         }
         DisplayEndScreen();
@@ -141,14 +145,25 @@ public class GameManager : MonoBehaviour
 
     private void DisplayEndScreen()
     {
-        _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
-//        Debug.Log(_winner);
-        if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
-        WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite; 
+
+
         GameOverScreen.gameObject.SetActive(true);
-       if(UIController.instance) UIController.instance?.SelectObject(restartButton);
-        Time.timeScale = 0;
+        
+        
+        _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
+        //        Debug.Log(_winner);
+
+        if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
+        WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite;
+        UIAnim.Play("Win");
+
+
+
+
+        if (UIController.instance) UIController.instance?.SelectObject(restartButton);
+        //Time.timeScale = 0;
     }
+    
     
 
     #endregion
@@ -412,6 +427,7 @@ public class GameManager : MonoBehaviour
             }
       
         }
+        
         #endregion
   
 }
