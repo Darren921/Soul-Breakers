@@ -32,8 +32,10 @@ public class GameManager : MonoBehaviour
    [SerializeField] private Button restartButton;
    private PlayerController _winner;
    [SerializeField] GameObject Ghost;
-   #endregion
- 
+   [SerializeField] GameObject Lucy;
+   [SerializeField] GameObject Fire;
+    #endregion
+
     #region Round Timer
     [Header("Round Timer")]
     [SerializeField] private TextMeshProUGUI timerText;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     private bool activated;
     [SerializeField] private TMP_ColorGradient  lowTime;
     [SerializeField] private bool RoundTimer;
+    [SerializeField] private bool TimeOut;
     #endregion
     
     #region Animation 
@@ -108,6 +111,7 @@ public class GameManager : MonoBehaviour
 
         }
         OnRoundEnd();
+        
     }
     private void UpdateRoundTimer()
     {
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour
             print("nice");
             LowTimeAction?.Invoke();
         }
+        
     }
     private void SwapTextColor()
     {
@@ -148,8 +153,8 @@ public class GameManager : MonoBehaviour
 
 
         
-        
-        
+
+
         _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
         //        Debug.Log(_winner);
 
@@ -319,6 +324,18 @@ public class GameManager : MonoBehaviour
             StartCoroutine(Starting());
 
         }
+        if (_currentRoundTimer <= 0)
+        {
+            TimeOut = true;
+            
+        }
+        if (TimeOut == true)
+        {
+            TimeOut = false;
+            players[0].GetComponent<PlayerController>().OnPlayerDeath();
+            players[1].GetComponent<PlayerController>().OnPlayerDeath();
+            OnRoundEnd();
+        }
     }
     private void OnDestroy()
     {
@@ -415,7 +432,7 @@ public class GameManager : MonoBehaviour
         {
             if (_winner == players[0])
             {
-                players[1].GetComponentInChildren<Animator>().Play("LucyDie");
+                Lucy.GetComponent<Animator>().SetBool("Dead", true);
                 yield return new WaitForSeconds(2.5f);
                 players[0].GetComponentInChildren<Animator>().Play("WinAnimation");
                 yield return new WaitForSeconds(3.5f);
@@ -424,6 +441,7 @@ public class GameManager : MonoBehaviour
             }
             if (_winner == players[1])
             {
+                Fire.GetComponent<Animator>().SetBool("FireDead",true);
                 yield return new WaitForSeconds(2.5f);
                 Ghost.GetComponent<Animator>().Play("GhostWin");
                 yield return new WaitForSeconds(3.5f);
