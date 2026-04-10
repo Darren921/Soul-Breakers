@@ -21264,7 +21264,7 @@ MonoBehaviour:
   Fire: {fileID: 19120213406530187}
   timerText: {fileID: 1764100132}
   isLowTime: 0
-  _roundTimer: 10
+  _roundTimer: 99
   lowTime: {fileID: 11400000, guid: 8413686c4c2017044899776f2453fdfe, type: 2}
   RoundTimer: 0
   TimeOut: 0
