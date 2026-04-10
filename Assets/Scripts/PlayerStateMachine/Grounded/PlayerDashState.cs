@@ -71,7 +71,7 @@ public class PlayerDashState : PlayerMovingState
         if (DashActive)
         {
             Debug.Log("PlayerDashState Activated");
-            player.rb.MovePosition(player.transform.position + new Vector3(NewDashVelo.x, _jumpVelocity / 2, 0 ) * Time.deltaTime);
+            player.rb.MovePosition(player.transform.position + new Vector3(player.AtBorder ? 0: NewDashVelo.x, _jumpVelocity / 2, 0 ) * Time.deltaTime);
             Debug.Log(player.rb.linearVelocity);
         }
 

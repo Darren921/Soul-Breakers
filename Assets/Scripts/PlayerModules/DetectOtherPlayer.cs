@@ -66,7 +66,7 @@ public class DetectOtherPlayer : MonoBehaviour
         otherPlayersCollider = player.HitDetection.otherPlayer.GetComponentInChildren<DetectOtherPlayer>().BoxCollider;
 
         
-        if (player.PlayersColliding && player.PlayerMove.y == 0 && !intersecting)
+        if (player.PlayersColliding && player.PlayerMove.y == 0 && otherPlayer.PlayerMove.y == 0 && !intersecting)
         {
            Debug.Log("Pushing player via raycast");
             player.rb.MovePosition(player.transform.position + (!player.Reversed ? Vector3.right * PushForce : Vector3.left * PushForce) * Time.fixedDeltaTime);
