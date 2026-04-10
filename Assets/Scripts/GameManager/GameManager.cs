@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
    [SerializeField] private Sprite _p1WinSprite, _p2WinSprite, _drawSprite; 
    [SerializeField] private Image WinSplashScreen;
    [SerializeField] private Button restartButton;
-   private PlayerController _winner; 
-   
+   private PlayerController _winner;
+   [SerializeField] GameObject Ghost;
    #endregion
  
     #region Round Timer
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
 
 
-        GameOverScreen.gameObject.SetActive(true);
+        
         
         
         _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
 
         if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
         WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite;
-        UIAnim.Play("Win");
 
+        StartCoroutine(GameEnd());
 
 
 
@@ -411,7 +411,28 @@ public class GameManager : MonoBehaviour
             UnFreezePlayer();
             StartCoroutine(StartTimer());
         }
+        private IEnumerator GameEnd()
+        {
+            if (_winner == players[0])
+            {
+                players[1].GetComponentInChildren<Animator>().Play("LucyDie");
+                yield return new WaitForSeconds(2.5f);
+                players[0].GetComponentInChildren<Animator>().Play("WinAnimation");
+                yield return new WaitForSeconds(3.5f);
+                GameOverScreen.gameObject.SetActive(true);
+                UIAnim.Play("Win");
+            }
+            if (_winner == players[1])
+            {
+                yield return new WaitForSeconds(2.5f);
+                Ghost.GetComponent<Animator>().Play("GhostWin");
+                yield return new WaitForSeconds(3.5f);
+                GameOverScreen.gameObject.SetActive(true);
+                UIAnim.Play("Win");
+            }
 
+
+        }
         private void FreezePlayer()
         {
             foreach (var player in players )

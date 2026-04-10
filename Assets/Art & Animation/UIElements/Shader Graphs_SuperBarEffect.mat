@@ -61,7 +61,7 @@ Material:
     - _cell_density: 18.9
     - _rotation: 0
     - _sine_Multiplyer: 0.1
-    - _speed: 1.15
+    - _speed: 1.5
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _tiling: {r: 0, g: 0, b: 0, a: 0}

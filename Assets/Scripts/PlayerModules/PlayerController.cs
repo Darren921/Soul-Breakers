@@ -192,7 +192,9 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         if (Health <= 0)
         {
             isDead = true;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            
+            
             Time.timeScale = 1; 
         }
         InputReader.enabled = false;
