@@ -8791,6 +8791,8 @@ MonoBehaviour:
     IsBackwards: 0
     MovementForce: {x: 0, y: 0, z: 0}
     MovementTime: 0
+  movementInputsVisual: []
+  attackInputsVisual: []
   superPerformed: 0
 --- !u!114 &685541189
 MonoBehaviour:
@@ -41032,6 +41034,8 @@ MonoBehaviour:
     IsBackwards: 0
     MovementForce: {x: 0, y: 0, z: 0}
     MovementTime: 0
+  movementInputsVisual: []
+  attackInputsVisual: []
   superPerformed: 0
 --- !u!114 &2239886189421363309
 MonoBehaviour:

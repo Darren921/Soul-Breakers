@@ -76,7 +76,7 @@ public class DetectOtherPlayer : MonoBehaviour
         else if (player._detector.intersecting && !player.GravityManager.IsGrounded && !otherPlayer.GravityManager.IsGrounded)
         {
             Debug.Log("Airborne collision");
-            player.rb.MovePosition(player.transform.position + (!player.Reversed ? new Vector3(1 * PushForce,player.GravityManager.GetVelocity()) : new Vector3(-1 * PushForce,player.GravityManager.GetVelocity())) * Time.fixedDeltaTime);
+            player.rb.MovePosition(player.transform.position + (!player.Reversed ? new Vector3(-1 * PushForce,player.GravityManager.GetVelocity()) : new Vector3(1 * PushForce,player.GravityManager.GetVelocity())) * Time.fixedDeltaTime);
             otherPlayer.rb.MovePosition(otherPlayer.transform.position +
                                         (!player.Reversed
                                             ? new Vector3(1 * PushForce, player.GravityManager.GetVelocity())

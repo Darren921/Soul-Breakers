@@ -110,8 +110,8 @@ public class PlayerJumpingState : PlayerBaseState
         xJumpVal = moveInput switch
         {
             InputReader.MovementInputResult.Up => 0,
-      //      InputReader.MovementInputResult.Forward => !player.Reversed ? player.CharacterData. horziJumpDistance: -player.CharacterData.horziJumpDistance,   
-      //      InputReader.MovementInputResult.Backward => !player.Reversed ? -player.CharacterData. horziJumpDistance : player.CharacterData. horziJumpDistance,
+           InputReader.MovementInputResult.Forward => !player.Reversed ? player.CharacterData. horziJumpDistance: -player.CharacterData.horziJumpDistance,   
+           InputReader.MovementInputResult.Backward => !player.Reversed ? -player.CharacterData. horziJumpDistance : player.CharacterData. horziJumpDistance,
             InputReader.MovementInputResult.UpRight => player.CharacterData.horziJumpDistance,
             InputReader.MovementInputResult.UpLeft => -player.CharacterData.horziJumpDistance,
             _ => xJumpVal
