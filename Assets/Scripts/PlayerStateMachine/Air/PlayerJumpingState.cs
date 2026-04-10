@@ -104,16 +104,16 @@ public class PlayerJumpingState : PlayerBaseState
         // jumping based off on custom  gravity to ensure the player jumps to same height each time 
         velocity = player.GravityManager.SetJumpVelocity(player);
         var moveInput = player.InputReader.GetValidMoveInput();
-    Debug.Log(player.InputReader.GetValidMoveInput());
+ //   Debug.Log(player.InputReader.GetValidMoveInput());
         
         
         xJumpVal = moveInput switch
         {
             InputReader.MovementInputResult.Up => 0,
-            InputReader.MovementInputResult.Forward => !player.Reversed ? 3 : -3,   
-            InputReader.MovementInputResult.Backward => !player.Reversed ? -3 : 3,
-            InputReader.MovementInputResult.UpRight => 3,
-            InputReader.MovementInputResult.UpLeft => -3,
+      //      InputReader.MovementInputResult.Forward => !player.Reversed ? player.CharacterData. horziJumpDistance: -player.CharacterData.horziJumpDistance,   
+      //      InputReader.MovementInputResult.Backward => !player.Reversed ? -player.CharacterData. horziJumpDistance : player.CharacterData. horziJumpDistance,
+            InputReader.MovementInputResult.UpRight => player.CharacterData.horziJumpDistance,
+            InputReader.MovementInputResult.UpLeft => -player.CharacterData.horziJumpDistance,
             _ => xJumpVal
         };
         
@@ -123,7 +123,7 @@ public class PlayerJumpingState : PlayerBaseState
     internal override void FixedUpdateState(PlayerStateManager playerStateManager, PlayerController player)
     {
         //performing jump and applying custom gravity 
-        player.rb.MovePosition(player.transform.position + new Vector3( player.AtBorder ?  0 :  xJumpVal  , player.GravityManager.GetVelocity(), 0) * Time.fixedDeltaTime);
+        player.rb.MovePosition(player.transform.position + new Vector3( player.AtBorder || player._detector.intersecting ?  0 :  xJumpVal  , player.GravityManager.GetVelocity(), 0) * Time.fixedDeltaTime);
        // player.rb.linearVelocity = new Vector3(xJumpVal, player.GravityManager.GetVelocity(), 0);
         if (!player.GravityManager.IsGrounded  )
         {
