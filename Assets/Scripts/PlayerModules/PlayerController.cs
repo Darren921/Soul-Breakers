@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         {
             isDead = true;
             gameObject.SetActive(false);
+            Time.timeScale = 1; 
         }
         InputReader.enabled = false;
         _playerStateManager.ResetStateMachine();
