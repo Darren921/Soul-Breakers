@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Pause : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject VolumeMenu;
     public static bool isPaused;
 
     private Controls _actions;
@@ -43,6 +44,11 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(true);
         isPaused = true;
         PauseManager.Instance?.SetPaused(true);
+    }
+
+    public void ActivateVolumeMenu()
+    {
+        VolumeMenu.SetActive(true);
     }
 
   

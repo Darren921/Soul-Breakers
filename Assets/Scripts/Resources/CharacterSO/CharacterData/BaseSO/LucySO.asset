@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: LucySO
   m_EditorClassIdentifier: 
   characterAttacks: {fileID: 11400000, guid: 2c68147f26449b144a8ee7be57d0794b, type: 2}
-  normGravScale: 3
-  FallingGravScale: 5.05
-  health: 175
+  health: 150
   characterName: Test2
   walkSpeed: 4
   runSpeed: 12
   jumpHeight: 3.75
   airDashCharges: 1
   jumpCharges: 2
+  horziJumpDistance: 3
+  normGravScale: 3
+  FallingGravScale: 5.05
   dashDistance: 2
   dashTime: 0.4
   dashVertHeight: 4.75

@@ -76,7 +76,6 @@ public class PlayerAnimations : MonoBehaviour
     internal PlayerVFX _playerVFX;
     internal int AnimationToPlay = -1;
     internal bool CancelActive;
-
     public bool IsActiveFrame{get; private set;}
     public bool IsRecoveryFrame{get; private set;}
 
@@ -204,5 +203,20 @@ public class PlayerAnimations : MonoBehaviour
         
     }
 
-   
+    public void PauseInputs()
+    {
+        _player.HitDetection.otherPlayer._playerStateManager.enabled = false;
+        _player.HitDetection.otherPlayer.Animations.Animator.speed = 0;
+    }
+
+    public void ResumeInputs()
+    {
+        _player.HitDetection.otherPlayer._playerStateManager.enabled = true;
+        _player.HitDetection.otherPlayer.Animations.Animator.speed = 1;
+    }
+
+    public void MovePlayerOnAttack(  )
+    {
+       StartCoroutine(_player.PlayerKnockBack.KnockBackCurrentPlayer( _player.InputReader.CurAttackData.IsBackwards,_player.InputReader.CurAttackData.MovementForce,  _player.InputReader.CurAttackData.MovementTime)) ;
+    }
 }

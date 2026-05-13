@@ -77,30 +77,16 @@ public class HitDetection : MonoBehaviour, IDamageable
     private void SwitchState(PlayerStateManager.PlayerStateTypes newState)
     {
         Debug.Log(otherPlayer.InputReader.CurrentAttackInput.Input.Type);
-        if (otherPlayer.InputReader.CurrentAttackInput.Input.Type != InputReader.AttackType.Grab)
-        {
+      
             _player._playerStateManager.SwitchState(newState);
-        }
-        else
-        {
-            // This is temp and 
-            print("Grabbed");
-            otherPlayer.Animations.Animator.SetBool(_player.Animations.Grab, true);
-            _player.Animations.Animator.SetBool(_player.Animations.Grabbed,true);
-             _player._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
-             otherPlayer._playerStateManager.SwitchState(PlayerStateManager.PlayerStateTypes.Grab);
-
-            // _player.PlayerHitDetection.TakeDamage(otherPlayer.CharacterData.characterAttacks.ReturnAttackData(otherPlayer.InputReader.LastAttackInput,otherPlayer.InputReader.curState).Damage);
-        }
-     
-   
+        
     }
 
     private bool CheckBlocking()
     {
         
-        if (_player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Walking] && _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft 
-            ||  _player._playerStateManager.currentState == _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Crouching]  && _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft  || _player._playerStateManager.currentState ==  _player._playerStateManager.States[PlayerStateManager.PlayerStateTypes.Jumping])
+        if (  !_player.Reversed ? _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownLeft or InputReader.MovementInputResult.UpLeft : 
+                _player.InputReader.CurrentMoveInput is InputReader.MovementInputResult.Backward or InputReader.MovementInputResult.DownRight or InputReader.MovementInputResult.UpRight  )
         {
             switch (_player.InputReader.curState)
             {
@@ -157,15 +143,16 @@ public class HitDetection : MonoBehaviour, IDamageable
         // deal damage and active death event to trigger end of game 
         _player.Health -=  Blocking ? damage * 0.25f : damage;
         OnPlayerHit?.Invoke();
-        Debug.Log($"{projectileData.Knockback} knock away" );
+//        Debug.Log($"{projectileData.Knockback} knock away" );
         if (isProjectile)
         {
-            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player, true) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer,true));
+            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackHitPlayer(_player, true) : _player.PlayerKnockBack.KnockBackAttackingPlayer(otherPlayer,true));
 
         }
         else
         {
-            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackOtherPlayer(_player, false) : _player.PlayerKnockBack.KnockBackThisPlayer(otherPlayer,false));
+            
+            otherPlayer.StartCoroutine(!_player.AtBorder ? otherPlayer.PlayerKnockBack.KnockBackHitPlayer(_player, false) : _player.PlayerKnockBack.KnockBackAttackingPlayer(otherPlayer,false));
 
         }
             

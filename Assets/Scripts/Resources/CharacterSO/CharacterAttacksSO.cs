@@ -11,11 +11,11 @@ using UnityEngine.Serialization;
     {
         private void OnValidate()
         {
-            foreach (var attackData in SuperAttacks)
-            {
-                var data = attackData;
-                data.IsSpecial = true;
-            }
+            // foreach (var attackData in SuperAttacks)
+            // {
+            //     var data = attackData;
+            //     data.IsSpecial = true;
+            // }
         }
 
         #region DefaultAttacks
@@ -126,7 +126,11 @@ using UnityEngine.Serialization;
         public float SuperAttackCharge;
         public float SuperChargeNeeded;
 
-        
+
+        public bool HasMovement;
+        public bool IsBackwards;
+        public Vector3 MovementForce;
+        public float MovementTime;
         public int AnimHash 
         {
             get 
@@ -141,7 +145,7 @@ using UnityEngine.Serialization;
             }
         }
         public AttackData( InputReader.Attack attack , Tags tag = Tags.Mid, States state = States.Standing, float damage = 0, Vector3 knockback = new(),    float hitStun = 0, float blockStun = 0, string animName = "",
-            float superAttackCharge = 10 , float superChargeNeeded = 0, bool isSpecial = false, float hitStop = 0 ) 
+            float superAttackCharge = 10 , float superChargeNeeded = 0, bool isSpecial = false, float hitStop = 0, bool hasMovement = false, bool isBackwards = false, Vector3 movementForce = new(), float movementTime = 0 ) 
         {
             Attack = attack;
             Tag = tag;
@@ -156,6 +160,10 @@ using UnityEngine.Serialization;
             SuperChargeNeeded = superChargeNeeded;
             IsSpecial = isSpecial;
             HitStop = hitStop;
+            HasMovement = hasMovement;
+            IsBackwards = isBackwards;
+            MovementForce = movementForce;
+            MovementTime = movementTime;
         }
         public bool Equals(AttackData other)
         {

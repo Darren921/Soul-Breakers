@@ -8,8 +8,7 @@ using UnityEngine.Serialization;
 public class CharacterSO : ScriptableObject
 {
     public CharacterAttacksSo characterAttacks;
-    public float normGravScale;
-    public float FallingGravScale;
+   
 
     // All character data is here, add and remove as needed 
     
@@ -21,11 +20,17 @@ public class CharacterSO : ScriptableObject
     public int walkSpeed;
     public int runSpeed;
     
-    
+    [Header ("Jump")]
     public float jumpHeight;
     public int airDashCharges;
     public int jumpCharges;
-
+    public float horziJumpDistance; 
+    
+    [Header ("Gravity")]
+    public float normGravScale;
+    public float FallingGravScale;
+    
+    [Header ("Dash")]
     public float dashDistance;
     public float dashTime; 
     public float dashVertHeight;

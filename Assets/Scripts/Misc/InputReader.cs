@@ -123,8 +123,8 @@ public class InputReader : MonoBehaviour
     private readonly List<BufferedInput<MovementInputResult>> _movementBuffer = new();
     private readonly List<BufferedInput<Attack>> _attackBuffer = new();
     
-    // [SerializeField] internal List<string> movementInputsVisual = new();
-    // [SerializeField] internal List<string> attackInputsVisual = new();
+     [SerializeField] internal List<string> movementInputsVisual = new();
+     [SerializeField] internal List<string> attackInputsVisual = new();
 
     private int _bufferCap;
     private int _bufferTime;
@@ -207,6 +207,7 @@ public class InputReader : MonoBehaviour
         curState = CheckState(player._playerStateManager.currentState);
         CheckMovementInput();
         UpdateInputBuffers();
+        
   
         if (CancelCheck(player) && !player.Animations.IsActiveFrame && !player.Animations.CancelActive )
         {
@@ -319,12 +320,12 @@ public class InputReader : MonoBehaviour
             CurrentAttackFrame = curFrame;
         }        
      
-        // movementInputsVisual.Clear();
-        // foreach (var input in _movementBuffer)
-        // {
-        //     movementInputsVisual.Add($"{input.Input} (F{input.CurFrame})");
-        // }
-        //
+        movementInputsVisual.Clear();
+        foreach (var input in _movementBuffer)
+        {
+            movementInputsVisual.Add($"{input.Input} (F{input.CurFrame})");
+        }
+        
         // attackInputsVisual.Clear();
         // foreach (var input in _attackBuffer)
         // {

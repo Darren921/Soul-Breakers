@@ -112,7 +112,34 @@ MonoBehaviour:
     SoundName: heavyswing
     IsSceneSpecific: 0
     SceneBound: 0
+  - SoundEvtRef:
+      Guid:
+        Data1: -948507663
+        Data2: 1164809346
+        Data3: -1947693662
+        Data4: 1575779850
+      Path: event:/Music/Combat Theme
+    soundType: 1
+    SoundName: combattheme
+    IsSceneSpecific: 1
+    SceneBound: 4
+  - SoundEvtRef:
+      Guid:
+        Data1: 1994331915
+        Data2: 1127685025
+        Data3: 1764416158
+        Data4: -785990464
+      Path: event:/Music/Main Menu Theme
+    soundType: 1
+    SoundName: mainmenutheme
+    IsSceneSpecific: 1
+    SceneBound: 2
   SceneList:
   - None
   - MainMenu
   - CombatScene
+  CurrentVolume:
+    curMasterVolume: 1
+    curMusicVolume: 1
+    curSFXVolume: 1
+    curInterfaceVolume: 1

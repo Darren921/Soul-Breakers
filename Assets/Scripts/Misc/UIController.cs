@@ -1,4 +1,5 @@
 using System;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -14,9 +15,10 @@ public class UIController : MonoBehaviour
     InputSystemUIInputModule inputModule; 
     EventSystem eventSystem;
     public static UIController instance;
-
+    
     private Vector2 lastInput;
 
+ 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -27,7 +29,7 @@ public class UIController : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         else if (instance != this)
-        {
+        {   
             Destroy(gameObject);
             SceneManager.activeSceneChanged -= SceneManagerOnactiveSceneChanged;
 
@@ -69,7 +71,7 @@ public class UIController : MonoBehaviour
             print($"{nextTarget} target found");
 
             nextTarget = CheckForNextTarget();
-            Debug.Log(nextTarget);
+//            Debug.Log(nextTarget);
         }
     }
 

@@ -6,18 +6,17 @@ using FMODUnity;
 using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 [CreateAssetMenu(fileName = "SoundDataBase", menuName = "Scriptable Objects/SoundDataBase")]
 public class SoundDataBase : ScriptableObject
 {
     public List<SoundData> Sounds = new List<SoundData>();
     public List<string> SceneList = new List<string>();
-   
+    public CurrentVolumeData CurrentVolume;
     
-  
 
-
-    
     private void OnValidate()
     {
         GetSceneList();
@@ -95,3 +94,28 @@ public class SoundData
         SceneBound = sceneBound;
     }
 }
+
+public  interface IVolumeSlider
+{
+    [Serializable]
+    public enum SoundType
+    {
+        Master,
+        Sfx,
+        Music,
+        Interface,
+    }
+
+    public SoundType _SoundType { get; set; }
+    public Slider _VolumeSlider{ get; set; }
+}
+
+[Serializable]
+public class CurrentVolumeData
+{
+    public float curMasterVolume;
+    public float curMusicVolume;
+    public float curSFXVolume;
+    public float curInterfaceVolume;
+}
+

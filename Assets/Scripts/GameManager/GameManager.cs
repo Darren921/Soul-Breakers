@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
    public static  Action OnRefresh ;
    public static  Action<bool> ToggleUIAction ;
    private bool StandardConnectDone;
-   private bool Intro; 
+   private bool Intro;
+   private bool EndGame; 
    public Dictionary<PlayerController , InputDevice> PlayersInputDevice { get; private set; } = new();
     #region Win Screen Setting
    [Header ("Win Screen Settings")]
@@ -29,10 +30,12 @@ public class GameManager : MonoBehaviour
    [SerializeField] private Sprite _p1WinSprite, _p2WinSprite, _drawSprite; 
    [SerializeField] private Image WinSplashScreen;
    [SerializeField] private Button restartButton;
-   private PlayerController _winner; 
-   
-   #endregion
- 
+   private PlayerController _winner;
+   [SerializeField] GameObject Ghost;
+   [SerializeField] GameObject Lucy;
+   [SerializeField] GameObject Fire;
+    #endregion
+
     #region Round Timer
     [Header("Round Timer")]
     [SerializeField] private TextMeshProUGUI timerText;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
     private bool activated;
     [SerializeField] private TMP_ColorGradient  lowTime;
     [SerializeField] private bool RoundTimer;
+    [SerializeField] private bool TimeOut;
     #endregion
     
     #region Animation 
@@ -57,7 +61,8 @@ public class GameManager : MonoBehaviour
     private bool SinglePlayer; 
     private void Awake()
     {
-        Application.runInBackground = true;
+        EndGame = false;
+     //   Application.runInBackground = true;
         MapBorderLocationX = (MapBorderLocationX1, MapBorderLocationX2);
         Cursor.visible = true;
         AnimationCamera = CameraAnims.GetComponent<CinemachineCamera>();
@@ -106,6 +111,7 @@ public class GameManager : MonoBehaviour
 
         }
         OnRoundEnd();
+        
     }
     private void UpdateRoundTimer()
     {
@@ -116,6 +122,7 @@ public class GameManager : MonoBehaviour
             print("nice");
             LowTimeAction?.Invoke();
         }
+        
     }
     private void SwapTextColor()
     {
@@ -127,13 +134,15 @@ public class GameManager : MonoBehaviour
     #region RoundEnd
     private void OnRoundEnd()
     {
+        
+        
         foreach (var player in players)
         {
-            if(player.Animations.Animator is not null)  player.Animations.Animator.enabled = false;
+           // if(player.Animations.Animator is not null)  player.Animations.Animator.enabled = false;
             player.hitBox.SetActive(false);
             if (player.isDead)
             {
-                player.gameObject.SetActive(false);
+                //player.gameObject.SetActive(false);
             }
         }
         DisplayEndScreen();
@@ -141,14 +150,25 @@ public class GameManager : MonoBehaviour
 
     private void DisplayEndScreen()
     {
+
+
+        
+
+
         _winner = players.Where(controller => !controller.isDead).OrderByDescending(c => c.Health).FirstOrDefault();
-        Debug.Log(_winner);
+        //        Debug.Log(_winner);
+
         if (Mathf.Approximately(players[0].Health, players[1].Health)) _winner = null;
-        WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite; 
-        GameOverScreen.gameObject.SetActive(true);
-       if(UIController.instance) UIController.instance?.SelectObject(restartButton);
-        Time.timeScale = 0;
+        WinSplashScreen.sprite = _winner is null ? _drawSprite : _winner == players[0] ? _p1WinSprite : _p2WinSprite;
+
+        StartCoroutine(GameEnd());
+
+
+
+        if (UIController.instance) UIController.instance?.SelectObject(restartButton);
+        //Time.timeScale = 0;
     }
+    
     
 
     #endregion
@@ -304,6 +324,18 @@ public class GameManager : MonoBehaviour
             StartCoroutine(Starting());
 
         }
+        if (_currentRoundTimer <= 0)
+        {
+            TimeOut = true;
+            
+        }
+        if (TimeOut == true)
+        {
+            TimeOut = false;
+            players[0].GetComponent<PlayerController>().OnPlayerDeath();
+            players[1].GetComponent<PlayerController>().OnPlayerDeath();
+            OnRoundEnd();
+        }
     }
     private void OnDestroy()
     {
@@ -325,7 +357,7 @@ public class GameManager : MonoBehaviour
    //       Debug.Log(MapBorderLocationX.Item2);
             if (player.transform.position.x <= MapBorderLocationX.Item1 || player.transform.position.x >= MapBorderLocationX.Item2)
             {
-               Debug.Log("Check Passed");
+//               Debug.Log("Check Passed");
                 player.AtBorder = !player.Reversed ? player.PlayerMove.x <= 0 : player.PlayerMove.x >= 0;
                 return;
             }
@@ -396,7 +428,29 @@ public class GameManager : MonoBehaviour
             UnFreezePlayer();
             StartCoroutine(StartTimer());
         }
+        private IEnumerator GameEnd()
+        {
+            if (_winner == players[0])
+            {
+                Lucy.GetComponent<Animator>().SetBool("Dead", true);
+                yield return new WaitForSeconds(2.5f);
+                players[0].GetComponentInChildren<Animator>().Play("WinAnimation");
+                yield return new WaitForSeconds(3.5f);
+                GameOverScreen.gameObject.SetActive(true);
+                UIAnim.Play("Win");
+            }
+            if (_winner == players[1])
+            {
+                Fire.GetComponent<Animator>().SetBool("FireDead",true);
+                yield return new WaitForSeconds(2.5f);
+                Ghost.GetComponent<Animator>().Play("GhostWin");
+                yield return new WaitForSeconds(3.5f);
+                GameOverScreen.gameObject.SetActive(true);
+                UIAnim.Play("Win");
+            }
 
+
+        }
         private void FreezePlayer()
         {
             foreach (var player in players )
@@ -412,6 +466,7 @@ public class GameManager : MonoBehaviour
             }
       
         }
+        
         #endregion
   
 }

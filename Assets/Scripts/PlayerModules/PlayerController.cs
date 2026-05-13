@@ -187,20 +187,32 @@ public class PlayerController : MonoBehaviour, Controls.IPlayerActions,IComparab
         if(PlayerConnected) _playerActions.Disable();
     }
 
-    private void OnPlayerDeath()
+    public void OnPlayerDeath()
     {
-        if (Health <= 0)
-        {
-            isDead = true;
-            gameObject.SetActive(false);
-        }
-        InputReader.enabled = false;
-        _playerStateManager.ResetStateMachine();
-        StopAllCoroutines();
-     if(PlayerConnected)  _playerActions.RemoveCallbacks(this);
+        if (PlayerConnected) _playerActions.RemoveCallbacks(this);
         HitDetection.OnDeath -= OnPlayerDeath;
         OnDisablePlayer();
         PauseManager.Instance?.UnregisterPlayer(this);
+        if (Health <= 0)
+        {
+            isDead = true;
+            //gameObject.SetActive(false);
+            StartCoroutine(die());
+            
+            Time.timeScale = 1; 
+        }
+        InputReader.enabled = false;
+        StartCoroutine(die());
+
+
+    }
+    private IEnumerator die()
+    {
+        yield return new WaitForSeconds(1);
+        
+        gameObject.GetComponent<InputReader>().enabled = false;
+        gameObject.GetComponent<PlayerStateManager>().enabled = false;
+        gameObject.GetComponent<PlayerController>().enabled = false;
     }
 
     private void OnDestroy()

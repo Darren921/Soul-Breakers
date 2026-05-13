@@ -8,6 +8,7 @@ public class MenuUI : MonoBehaviour
     public void enableOptionsTab()
     {
         optionsTab.SetActive(true);
+        
     }
 
     public void disableOptionsTab()

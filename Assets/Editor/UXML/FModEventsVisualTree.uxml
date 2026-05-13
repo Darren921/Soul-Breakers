@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="Pane1" style="flex-grow: 1;">
+        <ui:VisualElement name="vars" style="flex-grow: 1;">
+            <uie:PropertyField binding-path="_refs" />
+            <ui:Foldout text="EventReferences" view-data-key="Foldout1">
+                <uie:PropertyField binding-path="_Music" />
+                <uie:PropertyField binding-path="Gunshots" />
+            </ui:Foldout>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
